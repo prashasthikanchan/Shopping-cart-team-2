@@ -1,9 +1,9 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button routerLink="/menu"><mat-icon>menu</mat-icon></button>
     <div class="toolbar-content">
+        <button mat-icon-button (click)="openSidenav()"><mat-icon>menu</mat-icon></button>
         <form>
             <mat-form-field>
-              <input type="text" matInput [formControl]="searchFormControl"
+                    <input type="text" matInput [formControl]="searchFormControl"
                      placeholder="search">
             </mat-form-field>
         </form>

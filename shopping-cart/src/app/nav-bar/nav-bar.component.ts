@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild} from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,5 +13,7 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
+
+  openSidenav() {
+  }
 }
