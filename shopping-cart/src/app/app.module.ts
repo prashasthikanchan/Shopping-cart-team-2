@@ -8,6 +8,10 @@ import { MenuComponent } from './nav-bar/menu/menu.component';
 import { CartComponent } from './nav-bar/cart/cart.component';
 import { SearchBarComponent } from './nav-bar/search-bar/search-bar.component';
 import { AccountComponent } from './nav-bar/account/account.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MaterialModule } from './material/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,11 @@ import { AccountComponent } from './nav-bar/account/account.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    LayoutModule,
+    MaterialModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

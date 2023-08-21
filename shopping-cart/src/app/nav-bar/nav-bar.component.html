@@ -1,1 +1,13 @@
-<p>nav-bar works!</p>
+<mat-toolbar color="primary">
+    <button mat-icon-button routerLink="/menu"><mat-icon>menu</mat-icon></button>
+    <div class="toolbar-content">
+        <form>
+            <mat-form-field>
+              <input type="text" matInput [formControl]="searchFormControl"
+                     placeholder="search">
+            </mat-form-field>
+        </form>
+        <button mat-icon-button routerLink="/cart"><mat-icon>shopping_cart</mat-icon></button>
+        <button mat-icon-button routerLink="/account"><mat-icon>account_circle</mat-icon></button>    
+    </div>   
+</mat-toolbar>
