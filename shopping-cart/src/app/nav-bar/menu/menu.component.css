@@ -1,9 +1,11 @@
 .side-navigation {
     display: flex;
     flex-direction: column;
+    height: 100%;
   }
  
   .side-navigation.active {
     display: flex;
+    height: 100%;
   }
   

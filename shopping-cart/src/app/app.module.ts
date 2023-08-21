@@ -14,6 +14,7 @@ import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { FilterItemsComponent } from './filter-items/filter-items.component';
+import { IndexPageComponent } from './index-page/index-page.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FilterItemsComponent } from './filter-items/filter-items.component';
     SearchBarComponent,
     AccountComponent,
     ListItemsComponent,
-    FilterItemsComponent
+    FilterItemsComponent,
+    IndexPageComponent
     
   ],
   imports: [
