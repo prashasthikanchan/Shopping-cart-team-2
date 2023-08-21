@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -12,6 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ListItemsComponent } from './list-items/list-items.component';
+import { FilterItemsComponent } from './filter-items/filter-items.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     MenuComponent,
     CartComponent,
     SearchBarComponent,
-    AccountComponent
+    AccountComponent,
+    ListItemsComponent,
+    FilterItemsComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -28,7 +33,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     LayoutModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

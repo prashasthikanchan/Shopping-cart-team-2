@@ -1,0 +1,12 @@
+<mat-grid-list cols="3">
+    <mat-grid-tile *ngFor="let item of clothDataList">
+      <mat-card class="product-card">
+        <img mat-card-image [src]="item.image" alt="{{ item.tag }}">
+        <mat-card-content>
+          <p style="font-weight: bold;">{{ item.tag }}</p>
+          <p>Price: {{ item.price }}</p>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  

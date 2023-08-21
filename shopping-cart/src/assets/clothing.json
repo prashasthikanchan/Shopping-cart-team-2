@@ -1,0 +1,102 @@
+[
+    {
+        "id": 1,
+        "tag": "Men H&M Fit Oxford shirt",
+        "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQIAFLBqNS1qwfUWKHE-1z2oScZq1_7S50VjMLxuzvR2xPHTSBzH-aD9B5zdZvWZ7r8crjROhd4wXKtGfTDzJ5UMRzE3u4A7PEvJWuRYepf9Q-Xs-LtDOXZ",
+        "gender": "Men",
+        "color": "Green",
+        "rating": 4,
+        "price": 1499,
+        "brand": "H&M"
+    },
+    {
+        "id": 2,
+        "tag":"U.S. Polo Assn. Full Sleeve Solid Men Jacket",
+        "image":"https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSnfFQI4cPTZzgEJPasIwGJqaPKh9jXnQFq8Su55wyBemE2O289v2r2lxxhZ4DCRZnZuJGd8W-yAdHOBr2vDwrpaQRMJvMhfP538R6W_Yli&usqp=CAE" ,
+        "gender": "Men",
+        "color":"Grey" ,
+        "rating": 3,
+        "price":3150 ,
+        "brand": "U.S.Polo"
+    },
+    {
+        "id": 3,
+        "tag":"Men's 512 Blue Slim Tapered Fit Jeans for Men",
+        "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRBRR6lIcNGRaFPqgmSdZ4CQHF4fLFZktKuAtoTRGvFXrqaIpzymbWXvTDn8xqT_lg3S1G7GFcYd0ARalJ3ZQLT_snTJs96qVe7P-Nc9l0BAZO4Ncmmg_pF&usqp=CAE",
+        "gender": "Men",
+        "color": "Blue",
+        "rating":4 ,
+        "price": 2899,
+        "brand": "Levi.in"
+    },
+    {
+        "id": 4,
+        "tag":"H&M Men Grey Slim Fit Jeans",
+        "image": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSyPAUfzLUMP1fTRaKaL23heyVi8_aLgWaIi2TNAk4Sx6cfRkorVzmq0gCPGA7Cwv8ULOUkbAJn2gc8sjDnY0Uc8ukBbDMp0882vDBPMzk&usqp=CAE",
+        "gender": "Men",
+        "color":"Grey" ,
+        "rating":5 ,
+        "price":1799 ,
+        "brand": "Pantaloons"
+    },
+    {
+        "id": 5,
+        "tag":"Allen Solly Men Maroon Slim Fit Print Full Sleeves Casual Shirts",
+        "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQZ4KM3O--SJdAY_2-d8u0cLK42ca5JBAWO0Ji0V3FISy3DhRDnf8Yg9I3bmwQzwgLLaU1qQTxkGY4PK9MAIvnzaEdzuig40ScrzuB1QvGRxmP_HVhl-nCjjQ&usqp=CAE",
+        "gender": "Men",
+        "color":"Maroon" ,
+        "rating":3,
+        "price":1138 ,
+        "brand": "Allen Solly"
+    },
+    {
+        "id": 6,
+        "tag":"Ladies H&M Beige Oversized linen top",
+        "image": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRWEeu7Hgnz8zzc-iNIZHchXRE7pCo3z6xsztfNJJZzOAwBOLPy7JOucrW_ktlbOx_gUHWbeAc4Ln2kTb06EKOK76ZBQdySrY3SUxZL4TkBfrbxOoBYUOeOpg",
+        "gender": "Women",
+        "color":"White" ,
+        "rating": 4,
+        "price":2299 ,
+        "brand": "H&M"
+    },
+    {
+        "id": 7,
+        "tag":"H&M Women Vintage Straight High Jeans",
+        "image":"https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQEdQBChBNu6xe9i6ueXvNtVvT0MtCj7W8trC0VR0fjeUBQdyDLzEvf15knHSU6WKXq-51Lb8pgDD8rcFPf5E_Nh5-2qb4jeVkxOvhB6nM&usqp=CAE" ,
+        "gender": "Women",
+        "color":"Blue" ,
+        "rating":4 ,
+        "price": 1999,
+        "brand": "Pantaloons"
+    },
+    {
+        "id": 8,
+        "tag":" Zara Basic Embroidered Stone Embellished Blouse Top",
+        "image":"https://di2ponv0v5otw.cloudfront.net/posts/2023/05/27/6471d831943ddb33f32e6818/m_wp_6471d8fdffb5d0d4867cdbff.webp" ,
+        "gender": "Women",
+        "color":"white" ,
+        "rating":5 ,
+        "price": 844,
+        "brand": "Zudio"
+    },
+    {
+        "id": 9,
+        "tag":"Roadster Women Lavender Solid Tailored Jacket",
+        "image":"https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQjCWQD2gqbaeQmWJddy82iVyBVQQvMhT8lTcODedssy6HaSlFOk32OQQMdO1sD-AJec0MPVGtSVkdoYz8bE-jfyXOwOj6jkCmn8xvj8A0t&usqp=CAE",
+        "gender": "Women",
+        "color":"Lavender" ,
+        "rating":4 ,
+        "price":899 ,
+        "brand": "Trends"
+    },
+    {
+        "id": 10,
+        "tag":"U.S. Polo Assn. Women Blue Stone Wash Denim Weave High Rise Jeans",
+        "image":"https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcS7Gq-MLcq3HwiiG6qy3M7trzQ13GDmeI5W8ReUtMUMwz7xyMEoM0uF0GlUak0dJti_I5zsIMDa33KHu1QTRwy8uQ1itIi4M7EgZcdjjEB8ImK3eHrkM5e0&usqp=CAE" ,
+        "gender": "Women",
+        "color":"Blue" ,
+        "rating": 4,
+        "price":2239 ,
+        "brand": "LifeStyle"
+    }
+]
