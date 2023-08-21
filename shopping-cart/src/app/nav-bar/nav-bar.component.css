@@ -1,11 +1,51 @@
 .toolbar-content {
     display: flex;
-    align-items: center; 
-  }
-  
-  mat-toolbar {
+    align-items: center;
+    width: 100%;
+}
+
+mat-toolbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  
+    width: 100%;
+}
+
+.nav-bar {
+    height: 10%;
+    color: white;
+    background-color: #974EC3;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.search{
+    width: 90%;
+}
+.cart-btn {
+    margin-left: auto; 
+}
+
+.acc-btn {
+    margin-left: 1rem; 
+}
+.mat-sidenav-container {
+    display: flex; 
+    height: 100%; 
+}
+
+.mat-sidenav-content {
+    height: 100%;
+    flex: 1; 
+    display: flex;
+    flex-direction: column; 
+    padding: 1rem;
+}

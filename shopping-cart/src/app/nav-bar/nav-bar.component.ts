@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild} from '@angular/core';
+import { Component,ViewChild} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSidenav } from '@angular/material/sidenav';
 
@@ -7,13 +7,12 @@ import { MatSidenav } from '@angular/material/sidenav';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent{
   searchFormControl : FormControl = new FormControl();
   constructor() { }
-
-  ngOnInit(): void {
-  }
+  @ViewChild(MatSidenav) sidenav!: MatSidenav;
 
   openSidenav() {
+    this.sidenav.open();
   }
 }

@@ -1,0 +1,9 @@
+.side-navigation {
+    display: flex;
+    flex-direction: column;
+  }
+ 
+  .side-navigation.active {
+    display: flex;
+  }
+  
