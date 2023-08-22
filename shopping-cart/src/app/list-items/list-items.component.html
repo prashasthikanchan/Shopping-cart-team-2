@@ -1,5 +1,5 @@
-<mat-grid-list cols="3">
-    <mat-grid-tile *ngFor="let item of clothDataList">
+  <mat-grid-list cols="3">
+    <mat-grid-tile *ngFor="let item of clothDataList" (click) = "showItem(item.id,sidenav)">
       <mat-card class="product-card">
         <img mat-card-image [src]="item.image" alt="{{ item.tag }}">
         <mat-card-content>
@@ -9,4 +9,28 @@
       </mat-card>
     </mat-grid-tile>
 </mat-grid-list>
-  
+<mat-sidenav class="sidebar" #sidenav mode="side">
+      <button class="btn-right" mat-icon-button (click)="sidenav.close()">
+        <mat-icon>close</mat-icon>
+      </button><br>
+      <img [src]="selectedProduct?.image" alt="Product Image" class="sidenav-image">
+      <h2>{{ selectedProduct?.tag }}</h2>
+      <mat-icon *ngFor="let _ of starsArray; let i = index" [ngClass]="{ 'filled': i < (selectedProduct?.rating || 0), 'empty': i >= (selectedProduct?.rating || 0) }">star</mat-icon>
+      <h3><strong>{{"₹" + selectedProduct?.price}}</strong></h3><br>
+      <p>Available sizes</p>
+      <mat-button-toggle-group class="size-toggle-group" [value]="selectedSize" (change)="selectSize($event.value)">
+        <mat-button-toggle *ngFor="let size of sizeOptions" [value]="size">
+          {{ size }}
+        </mat-button-toggle>
+      </mat-button-toggle-group> 
+      <mat-form-field>
+        <mat-label>Qty</mat-label>
+        <mat-select [value]="selectedQuantity" (selectionChange)="selectQuantity($event)">
+          <mat-option *ngFor="let quantity of quantityOptions" [value]="quantity">{{ quantity }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="buttons">
+        <button mat-raised-button id="btn-1">Add to Cart</button><br>
+        <button mat-raised-button id="btn-2">Buy Now</button>
+      </div>
+</mat-sidenav>

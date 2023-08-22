@@ -1,4 +1,5 @@
-<mat-toolbar class="nav-bar">
+<div id="container">
+  <mat-toolbar class="nav-bar">
     <div class="toolbar-content">
       <button mat-icon-button (click)="openSidenav()">
         <mat-icon>menu</mat-icon>
@@ -16,7 +17,7 @@
   </mat-toolbar>
   <div>
     <mat-sidenav-container>
-        <mat-sidenav #sidenav mode="side">
+        <mat-sidenav #sidenav mode="over">
           <app-menu></app-menu>
         </mat-sidenav>
         <mat-sidenav-content>
@@ -24,5 +25,4 @@
         </mat-sidenav-content>
       </mat-sidenav-container>
   </div>
-  
-  
+</div>

@@ -9,7 +9,8 @@
     display: inline-block;
     overflow: hidden; 
     text-align: center;
-    margin: 2%;
+    margin-top: 15%;
+    margin-left: 2%;
   }
   
   .round-card img {

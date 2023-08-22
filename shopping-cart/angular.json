@@ -30,7 +30,8 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css",
               "src/app/nav-bar/nav-bar.component.css",
-              "src/app/app.component.css"
+              "src/app/app.component.css",
+              "src/app/nav-bar/menu/menu.component.css"
             ],
             "scripts": []
           },
