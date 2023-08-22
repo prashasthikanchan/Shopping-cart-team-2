@@ -11,6 +11,7 @@ const routes: Routes = [
   {path : 'cart' , component : CartComponent},
   {path : 'account' , component : AccountComponent},
   {path : 'clothes',component : ListItemsComponent},
+  {path : 'search/:parameters' , component : ListItemsComponent}
 ];
 
 @NgModule({

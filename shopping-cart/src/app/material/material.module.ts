@@ -11,8 +11,10 @@ import {MatListModule} from '@angular/material/list'
 import {MatSliderModule} from '@angular/material/slider'
 import {MatCheckboxModule} from '@angular/material/checkbox'
 import { MatTableModule } from '@angular/material/table';
-
-const MaterialComponents = [MatToolbarModule,MatListModule,MatSliderModule,MatCheckboxModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatSidenavModule, MatInputModule,MatGridListModule,MatCardModule,MatTableModule];
+import {MatMenuModule} from '@angular/material/menu';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSelectModule } from '@angular/material/select';
+const MaterialComponents = [MatMenuModule,MatButtonToggleModule,MatSelectModule,MatToolbarModule,MatListModule,MatSliderModule,MatCheckboxModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatSidenavModule, MatInputModule,MatGridListModule,MatCardModule,MatTableModule];
 
 @NgModule({
   imports: [MaterialComponents],

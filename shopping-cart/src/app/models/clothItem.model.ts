@@ -6,5 +6,6 @@ export interface ClothItem{
     "color" : string,
     "rating" : number,
     "price" : number,
-    "brand" : string
+    "brand" : string,
+    "category" : string
 }
