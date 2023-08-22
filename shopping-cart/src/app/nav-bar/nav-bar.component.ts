@@ -1,7 +1,9 @@
 import { Component,ViewChild} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSidenav } from '@angular/material/sidenav';
-
+import { Router } from '@angular/router';
+import { ClothingDataService } from '../clothing-data.service';
+import { ClothItem } from '../models/clothItem.model';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -9,10 +11,82 @@ import { MatSidenav } from '@angular/material/sidenav';
 })
 export class NavBarComponent{
   searchFormControl : FormControl = new FormControl();
-  constructor() { }
+  clothDataList : ClothItem[] = [];
+  constructor(private clothingDataService: ClothingDataService , private router : Router)  { }
+  ngOnInit(): void {
+    this.clothingDataService.getProducts().subscribe(data => {
+      this.clothDataList = data;
+    });
+  }
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
-
   openSidenav() {
     this.sidenav.open();
+  }
+  onSearch() {
+    const value = this.searchFormControl.value.toLowerCase();
+    const filters : {colors : string[], sex : string[], brands : string[], categories : string[]} = {colors : [], sex:[], brands:[], categories : []};
+    let availableGenderOptions : string[] = [];
+    let availableColorOptions : string[] = [];
+    let availableBrandOptions : string[] = [];
+    let availableCategoryOptions : string[] = [];
+    for(let item of this.clothDataList){
+      if(!availableColorOptions.includes(item.color.toLowerCase())){
+        availableColorOptions.push(item.color.toLowerCase());
+      }
+      if(!availableGenderOptions.includes(item.gender.toLowerCase())){
+        availableGenderOptions.push(item.gender.toLowerCase());
+      }
+      if(!availableBrandOptions.includes(item.brand.toLowerCase())){
+        availableBrandOptions.push(item.brand.toLowerCase());
+      }
+      if(!availableCategoryOptions.includes(item.category.toLowerCase())){
+        availableCategoryOptions.push(item.category.toLowerCase());
+      }
+    }
+    for(let item of availableGenderOptions){
+      const regex = new RegExp(`\\b${item}\\b`, 'i');
+      if(regex.test(value)){
+        filters.sex.push(item);
+      }
+    }
+    for(let item of availableColorOptions){
+      if(value.includes(item)){
+        filters.colors.push(item);
+      }
+    }
+    for(let item of availableBrandOptions){
+      if(value.includes(item)){
+        filters.brands.push(item);
+      }
+    }
+    for(let item of availableCategoryOptions){
+      if(value.includes(item)){
+        filters.categories.push(item);
+      }
+    }
+    let parameters = '';
+    for(let item of filters.sex){
+      parameters+=item;
+      parameters+='+';
+    }
+    for(let item of filters.colors){
+      parameters+= item;
+      parameters+='+';
+    }
+    for(let item of filters.brands){
+      parameters+= item;
+      parameters+='+';
+    }
+    for(let item of filters.categories){
+      parameters+= item;
+      parameters+='+';
+    }
+    parameters = parameters.slice(0,-1);
+    this.router.navigate(['/search',parameters]);
+    this.searchFormControl.setValue(null);
+  }
+  onSearchEnter(event : Event):void{
+    event.preventDefault();
+    this.onSearch();
   }
 }

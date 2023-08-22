@@ -1,43 +1,47 @@
 [
     {
         "id": 1,
-        "tag": "Men H&M Fit Oxford shirt",
+        "tag": "Men Roadster Fit Oxford shirt",
         "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQIAFLBqNS1qwfUWKHE-1z2oScZq1_7S50VjMLxuzvR2xPHTSBzH-aD9B5zdZvWZ7r8crjROhd4wXKtGfTDzJ5UMRzE3u4A7PEvJWuRYepf9Q-Xs-LtDOXZ",
         "gender": "Men",
         "color": "Green",
         "rating": 4,
         "price": 1499,
-        "brand": "H&M"
+        "brand": "Roadster",
+        "category" : "shirt"
     },
     {
         "id": 2,
-        "tag":"U.S. Polo Assn. Full Sleeve Solid Men Jacket",
+        "tag":"Adidas Full Sleeve Solid Men Jacket",
         "image":"https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSnfFQI4cPTZzgEJPasIwGJqaPKh9jXnQFq8Su55wyBemE2O289v2r2lxxhZ4DCRZnZuJGd8W-yAdHOBr2vDwrpaQRMJvMhfP538R6W_Yli&usqp=CAE" ,
         "gender": "Men",
         "color":"Grey" ,
         "rating": 3,
         "price":3150 ,
-        "brand": "U.S.Polo"
+        "brand": "Adidas",
+        "category" : "jacket"
     },
     {
         "id": 3,
-        "tag":"Men's 512 Blue Slim Tapered Fit Jeans for Men",
+        "tag":"Men's 512 Blue Slim Tapered Fit Jeans",
         "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRBRR6lIcNGRaFPqgmSdZ4CQHF4fLFZktKuAtoTRGvFXrqaIpzymbWXvTDn8xqT_lg3S1G7GFcYd0ARalJ3ZQLT_snTJs96qVe7P-Nc9l0BAZO4Ncmmg_pF&usqp=CAE",
         "gender": "Men",
         "color": "Blue",
         "rating":4 ,
         "price": 2899,
-        "brand": "Levi.in"
+        "brand": "Levis",
+        "category" : "jeans"
     },
     {
         "id": 4,
-        "tag":"H&M Men Grey Slim Fit Jeans",
+        "tag":"Roadster Men Grey Slim Fit Jeans",
         "image": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSyPAUfzLUMP1fTRaKaL23heyVi8_aLgWaIi2TNAk4Sx6cfRkorVzmq0gCPGA7Cwv8ULOUkbAJn2gc8sjDnY0Uc8ukBbDMp0882vDBPMzk&usqp=CAE",
         "gender": "Men",
         "color":"Grey" ,
         "rating":5 ,
         "price":1799 ,
-        "brand": "Pantaloons"
+        "brand": "Roadster",
+        "category" : "jeans"
     },
     {
         "id": 5,
@@ -47,27 +51,30 @@
         "color":"Maroon" ,
         "rating":3,
         "price":1138 ,
-        "brand": "Allen Solly"
+        "brand": "Allen Solly",
+        "category" : "shirt"
     },
     {
         "id": 6,
-        "tag":"Ladies H&M Beige Oversized linen top",
+        "tag":"Ladies Pantaloons Beige Oversized linen top",
         "image": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRWEeu7Hgnz8zzc-iNIZHchXRE7pCo3z6xsztfNJJZzOAwBOLPy7JOucrW_ktlbOx_gUHWbeAc4Ln2kTb06EKOK76ZBQdySrY3SUxZL4TkBfrbxOoBYUOeOpg",
         "gender": "Women",
         "color":"White" ,
         "rating": 4,
         "price":2299 ,
-        "brand": "H&M"
+        "brand": "Pantaloons",
+        "category" : "top"
     },
     {
         "id": 7,
-        "tag":"H&M Women Vintage Straight High Jeans",
+        "tag":"Zudio Women Vintage Straight High Jeans",
         "image":"https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQEdQBChBNu6xe9i6ueXvNtVvT0MtCj7W8trC0VR0fjeUBQdyDLzEvf15knHSU6WKXq-51Lb8pgDD8rcFPf5E_Nh5-2qb4jeVkxOvhB6nM&usqp=CAE" ,
         "gender": "Women",
         "color":"Blue" ,
         "rating":4 ,
         "price": 1999,
-        "brand": "Pantaloons"
+        "brand": "Zudio",
+        "category" : "jeans"
     },
     {
         "id": 8,
@@ -77,26 +84,29 @@
         "color":"white" ,
         "rating":5 ,
         "price": 844,
-        "brand": "Zudio"
+        "brand": "Zara",
+        "category" : "top"
     },
     {
         "id": 9,
-        "tag":"Roadster Women Lavender Solid Tailored Jacket",
+        "tag":"Trends Women Lavender Solid Tailored Jacket",
         "image":"https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQjCWQD2gqbaeQmWJddy82iVyBVQQvMhT8lTcODedssy6HaSlFOk32OQQMdO1sD-AJec0MPVGtSVkdoYz8bE-jfyXOwOj6jkCmn8xvj8A0t&usqp=CAE",
         "gender": "Women",
         "color":"Lavender" ,
         "rating":4 ,
         "price":899 ,
-        "brand": "Trends"
+        "brand": "Trends",
+        "category" : "jacket"
     },
     {
         "id": 10,
-        "tag":"U.S. Polo Assn. Women Blue Stone Wash Denim Weave High Rise Jeans",
+        "tag":"LifeStyle Women Blue Stone Wash Denim Weave High Rise Jeans",
         "image":"https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcS7Gq-MLcq3HwiiG6qy3M7trzQ13GDmeI5W8ReUtMUMwz7xyMEoM0uF0GlUak0dJti_I5zsIMDa33KHu1QTRwy8uQ1itIi4M7EgZcdjjEB8ImK3eHrkM5e0&usqp=CAE" ,
         "gender": "Women",
         "color":"Blue" ,
         "rating": 4,
         "price":2239 ,
-        "brand": "LifeStyle"
+        "brand": "LifeStyle",
+        "category" : "jeans"
     }
 ]
