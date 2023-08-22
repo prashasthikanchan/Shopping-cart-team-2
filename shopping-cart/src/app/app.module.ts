@@ -14,6 +14,7 @@ import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { FilterItemsComponent } from './filter-items/filter-items.component';
+import { FormsModule } from '@angular/forms'
 import { IndexPageComponent } from './index-page/index-page.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -40,9 +41,11 @@ import { MatSelectModule } from '@angular/material/select';
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FormsModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatSelectModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

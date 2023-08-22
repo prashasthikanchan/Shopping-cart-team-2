@@ -1,0 +1,55 @@
+.row {
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.mat-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+mat-card-header {
+  padding: 0;
+}
+
+mat-card-header button {
+  width: 100%;
+  text-align: left;
+}
+
+mat-card-content {
+  padding: 0;
+}
+
+mat-card-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+mat-card-content li {
+  margin-bottom: 10px;
+}
+
+mat-card-content a {
+  text-decoration: none;
+  color: #333;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -10px;
+  margin-left: -10px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.mat-checkbox {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+mat-slider {
+  width: 200px;
+}
