@@ -1,1 +1,30 @@
-<p>filter-items works!</p>
+<div class="row">
+  <button mat-button (click)="toggleFilter()">Show filter</button>
+  <mat-card id="aside_filter" [ngClass]="{'collapse': !isFilterVisible, 'd-lg-block': isFilterVisible}" class="mb-5">
+    <ng-container *ngFor="let filterGroup of filterGroups">
+      <mat-card-header>
+        <button mat-button (click)="toggleCollapse(filterGroup)">
+          {{ filterGroup.title }}
+        </button>
+      </mat-card-header>
+      <mat-card-content [ngClass]="{'collapse show': !filterGroup.collapsed}">
+        <ul class="list-menu" *ngIf="filterGroup.items">
+          <li *ngFor="let item of filterGroup.items">
+            <a href="#">{{ item }}</a>
+          </li>
+        </ul>
+        <div *ngIf="filterGroup.checkboxes">
+          <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes" [checked]="checkboxStates.get(checkbox.label)"
+          (change)="toggleCheckbox($event,filterGroup.title,checkbox.label)">{{ checkbox.label }}</mat-checkbox>
+        </div>
+        <div *ngIf="filterGroup.range">
+          <mat-slider thumbLabel [min]="filterGroup.range.min" [max]="filterGroup.range.max" [thumbLabel]="true"
+            step="100">
+            <input [(ngModel)]="filterGroup.range.min" matSliderStartThumb>
+            <input [(ngModel)]="filterGroup.range.max" matSliderEndThumb>
+          </mat-slider>
+        </div>
+      </mat-card-content>
+    </ng-container>
+  </mat-card>
+</div>

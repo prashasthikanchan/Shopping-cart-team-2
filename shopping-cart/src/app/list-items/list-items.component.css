@@ -38,4 +38,10 @@
   .mat-card-content p {
     margin: 0;
   }
+
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    gap: 20px;
+  }
   

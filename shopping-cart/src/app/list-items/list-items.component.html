@@ -1,5 +1,7 @@
+<div class="container">
+  <app-filter-items (checkboxlistUpdated)="addFilter($event)"></app-filter-items>
 <mat-grid-list cols="3">
-    <mat-grid-tile *ngFor="let item of clothDataList">
+    <mat-grid-tile *ngFor="let item of filteredClothDataList">
       <mat-card class="product-card">
         <img mat-card-image [src]="item.image" alt="{{ item.tag }}">
         <mat-card-content>
@@ -8,5 +10,5 @@
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-  </mat-grid-list>
-  
+</mat-grid-list>
+</div>  

@@ -14,6 +14,7 @@ import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { FilterItemsComponent } from './filter-items/filter-items.component';
+import { FormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FilterItemsComponent } from './filter-items/filter-items.component';
     LayoutModule,
     MaterialModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

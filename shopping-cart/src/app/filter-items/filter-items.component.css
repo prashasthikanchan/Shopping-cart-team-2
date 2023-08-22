@@ -1,0 +1,90 @@
+/* Add any global styling or resets here */
+
+.padding-y {
+    padding: 20px 0;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px;
+  }
+  
+  .mat-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .filter-group {
+    margin-bottom: 20px;
+  }
+  
+  mat-card-header {
+    padding: 0;
+  }
+  
+  mat-card-header button {
+    width: 100%;
+    text-align: left;
+  }
+  
+  mat-card-content {
+    padding: 0;
+  }
+  
+  mat-card-content ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  mat-card-content li {
+    margin-bottom: 10px;
+  }
+  
+  mat-card-content a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -10px;
+    margin-left: -10px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px;
+  }
+  
+  .col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  
+  .mb-3 {
+    margin-bottom: 15px;
+  }
+  
+  .w-100 {
+    width: 100%;
+  }
+  
+  .d-lg-none {
+    display: none;
+  }
+  
+  .d-lg-block {
+    display: block;
+  }
+  
+  /* Adjust checkbox styling to be inline */
+  .mat-checkbox {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  mat-slider {
+    width: 200px;
+  }
