@@ -13,16 +13,18 @@ export class SignInComponent implements OnInit {
 
   username: string='';
   password: string='';
+  name: string='';
+  isRegisterMode: boolean = false;
 
   ngOnInit() {
   }
 
   login(): void {
-    if (this.username == 'admin' && this.password == 'admin') {
-      this.router.navigate(["user"]);
-    } else {
-      alert("Invalid credentials");
-    }
+    
+  }
+
+  register():void{
+    
   }
 }
 
