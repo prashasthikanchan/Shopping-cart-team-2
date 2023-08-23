@@ -21,7 +21,7 @@ mat-toolbar {
     align-items: center;
     justify-content: space-between;
     position: fixed;
-    top: 0;
+    top: 10;
     z-index: 1000;
 }
 .search{
@@ -52,20 +52,3 @@ mat-sidenav-content {
     flex: 1;
     margin-right: 10px;
   }
-/*   
-  .search-icon {
-    cursor: pointer;
-  }
-  .search-bar mat-form-field {
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    padding: 1px;
-    width : 100%;
-  }
-  
-  .search-bar mat-form-field input {
-    border: none;
-    outline: none;
-    width: 100%;
-  } */
-  
