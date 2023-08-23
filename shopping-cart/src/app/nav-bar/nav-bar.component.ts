@@ -65,24 +65,40 @@ export class NavBarComponent{
       }
     }
     let parameters = '';
+    if(filters.sex.length > 0){
+        parameters += 'gender='
+    }
     for(let item of filters.sex){
       parameters+=item;
-      parameters+='+';
+      parameters+=',';
+    }
+    parameters = parameters.slice(0,-1);
+    if(filters.colors.length > 0){
+      parameters += '+color='
     }
     for(let item of filters.colors){
       parameters+= item;
-      parameters+='+';
+      parameters+=',';
+    }
+    parameters = parameters.slice(0,-1);
+    if(filters.brands.length > 0){
+      parameters += '+brand='
     }
     for(let item of filters.brands){
       parameters+= item;
-      parameters+='+';
+      parameters+=',';
+    }
+    parameters = parameters.slice(0,-1);
+    if(filters.categories.length > 0){
+      parameters += '+category='
     }
     for(let item of filters.categories){
       parameters+= item;
-      parameters+='+';
+      parameters+=',';
     }
     parameters = parameters.slice(0,-1);
-    this.router.navigate(['/search',parameters]);
+    console.log(parameters)
+    this.router.navigate(['/clothes/search',parameters]);
     this.searchFormControl.setValue(null);
   }
   onSearchEnter(event : Event):void{
