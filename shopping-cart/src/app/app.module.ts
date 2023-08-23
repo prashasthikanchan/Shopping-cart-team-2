@@ -16,6 +16,7 @@ import { ListItemsComponent } from './list-items/list-items.component';
 import { FilterItemsComponent } from './filter-items/filter-items.component';
 import { FormsModule } from '@angular/forms'
 import { IndexPageComponent } from './index-page/index-page.component';
+import { SignInComponent } from './sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { IndexPageComponent } from './index-page/index-page.component';
     AccountComponent,
     ListItemsComponent,
     FilterItemsComponent,
-    IndexPageComponent
+    IndexPageComponent,
+    SignInComponent
     
   ],
   imports: [

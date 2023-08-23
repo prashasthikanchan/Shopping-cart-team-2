@@ -19,7 +19,7 @@
         </div>
         <div *ngIf="filterGroup.range">
           <mat-slider thumbLabel [min]="filterGroup.range.min" [max]="filterGroup.range.max" [thumbLabel]="true"
-            step="100">
+            discrete="true" showTickMarks="true" step="100">
             <input [(ngModel)]="filterGroup.range.min" matSliderStartThumb>
             <input [(ngModel)]="filterGroup.range.max" matSliderEndThumb>
           </mat-slider>
