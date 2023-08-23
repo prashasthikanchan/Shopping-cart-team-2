@@ -14,7 +14,7 @@ mat-toolbar {
 }
 
 .nav-bar {
-    height: 10%;
+    height: 13%;
     color: black;
     background-color: pink;
     width: 100%;
@@ -51,4 +51,13 @@ mat-sidenav-content {
   .search-bar {
     flex: 1;
     margin-right: 10px;
+  }
+
+  .heading {
+    font-size: 40px;
+    margin-left: 74%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif
+  }
+  mat-card-header{
+    font-weight: bold;
   }
