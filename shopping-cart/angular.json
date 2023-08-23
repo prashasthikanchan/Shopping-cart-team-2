@@ -33,7 +33,7 @@
               "src/app/app.component.css",
               "src/app/nav-bar/menu/menu.component.css"
             ],
-            "scripts": []
+            "scripts":[]
           },
           "configurations": {
             "production": {

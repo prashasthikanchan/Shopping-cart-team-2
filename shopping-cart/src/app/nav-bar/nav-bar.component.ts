@@ -72,32 +72,51 @@ export class NavBarComponent{
       parameters+=item;
       parameters+=',';
     }
-    parameters = parameters.slice(0,-1);
+    if(parameters.charAt(parameters.length - 1) == ','){
+      parameters = parameters.slice(0,-1);
+    }
     if(filters.colors.length > 0){
-      parameters += '+color='
+      if(parameters == ''){
+        parameters+='color=';
+      }else{
+        parameters += '+color=';
+      }
     }
     for(let item of filters.colors){
       parameters+= item;
       parameters+=',';
     }
-    parameters = parameters.slice(0,-1);
+    if(parameters.charAt(parameters.length - 1) == ','){
+      parameters = parameters.slice(0,-1);
+    }
     if(filters.brands.length > 0){
-      parameters += '+brand='
+      if(parameters == ''){
+        parameters+='brand=';
+      }else{
+        parameters += '+brand=';
+      }
     }
     for(let item of filters.brands){
       parameters+= item;
       parameters+=',';
     }
-    parameters = parameters.slice(0,-1);
+    if(parameters.charAt(parameters.length - 1) == ','){
+      parameters = parameters.slice(0,-1);
+    }
     if(filters.categories.length > 0){
-      parameters += '+category='
+      if(parameters == ''){
+        parameters+='category=';
+      }else{
+        parameters += '+category=';
+      }    
     }
     for(let item of filters.categories){
       parameters+= item;
       parameters+=',';
     }
-    parameters = parameters.slice(0,-1);
-    console.log(parameters)
+    if(parameters.charAt(parameters.length-1) == ','){
+      parameters = parameters.slice(0,-1);
+    }
     this.router.navigate(['/clothes/search',parameters]);
     this.searchFormControl.setValue(null);
   }
