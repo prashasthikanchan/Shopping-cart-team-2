@@ -5,13 +5,15 @@ import { CartComponent } from './nav-bar/cart/cart.component';
 import { AccountComponent } from './nav-bar/account/account.component';
 import { IndexPageComponent } from './index-page/index-page.component';
 import { ListItemsComponent } from './list-items/list-items.component';
+import { SignInComponent } from './sign-in/sign-in.component';
 const routes: Routes = [
   {path : '' , component : IndexPageComponent},
   {path : 'menu' , component : MenuComponent },
   {path : 'cart' , component : CartComponent},
   {path : 'account' , component : AccountComponent},
   {path : 'clothes',component : ListItemsComponent},
-  {path : 'clothes/search/:parameters' , component : ListItemsComponent}
+  {path : 'clothes/search/:parameters' , component : ListItemsComponent},
+  {path : 'signin', component : SignInComponent}
 ];
 
 @NgModule({

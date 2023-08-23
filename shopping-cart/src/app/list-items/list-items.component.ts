@@ -19,16 +19,19 @@ export class ListItemsComponent implements OnInit {
   selectedQuantity: number = this.quantityOptions[0];
   selectedProduct: ClothItem | null = null;
   filteredClothDataList: any[] = [];
+  filteredList:any[] = [];
   searchParameters: any;
   clothParameters: any[] = [];
+  searchresult: string='';
 
-  constructor(private clothingDataService: ClothingDataService, private router: ActivatedRoute) { }
+  constructor(private clothingDataService: ClothingDataService, private router: ActivatedRoute, private router2 : Router) { }
 
   ngOnInit(): void {
 
     this.clothingDataService.getProducts().subscribe(data => {
       this.clothDataList = data;
       this.filteredClothDataList = data;
+      this.filteredList = data;
 
       this.router.paramMap.subscribe(params => {
         var parameters = params.get('parameters');
@@ -59,6 +62,7 @@ export class ListItemsComponent implements OnInit {
   convertStringToObject(parameter: string): { [key: string]: string[] } {
     const keyValuePairs = parameter.split('+');
     const result: { [key: string]: string[] } = {};
+    
 
     keyValuePairs.forEach(pair => {
       const [key, values] = pair.split('=');
@@ -70,6 +74,7 @@ export class ListItemsComponent implements OnInit {
 
       parsedValues.forEach(value => {
         result[key].push(value);
+        this.searchresult = this.searchresult+' '+value;
       });
     });
 
@@ -87,7 +92,7 @@ export class ListItemsComponent implements OnInit {
     let genderFilter = checkedBoxFilter['gender'];
     let ratingFilterString = checkedBoxFilter['rating'];
     let ratingFilter = ratingFilterString ? ratingFilterString.map(Number) : [];
-    this.filteredClothDataList = this.clothDataList.filter((cloth: any) => {
+    this.filteredClothDataList = this.filteredList.filter((cloth: any) => {
       let colorMatches = colorFilter ? (colorFilter.length > 0 ? colorFilter.includes(cloth.color) : true) : true;
       let brandMatches = brandFilter ? (brandFilter.length > 0 ? brandFilter.includes(cloth.brand) : true) : true;
       let genderMatches = genderFilter ? (genderFilter.length > 0 ? genderFilter.includes(cloth.gender) : true) : true;
@@ -106,16 +111,50 @@ export class ListItemsComponent implements OnInit {
     let colorFilter = checkedBoxFilter['color'];
     let brandFilter = checkedBoxFilter['brand'];
     let genderFilter = checkedBoxFilter['gender'];
-    this.filteredClothDataList = clothDataListInput.filter((cloth: any) => {
+    let categoryFilter = checkedBoxFilter['category'];
+    this.filteredList = clothDataListInput.filter((cloth: any) => {
       let colorMatches = colorFilter ? (colorFilter.length > 0 ? colorFilter.includes(cloth.color.toLowerCase()) : true) : true;
       let brandMatches = brandFilter ? (brandFilter.length > 0 ? brandFilter.includes(cloth.brand.toLowerCase()) : true) : true;
       let genderMatches = genderFilter ? (genderFilter.length > 0 ? genderFilter.includes(cloth.gender.toLowerCase()) : true) : true;
+      let categoryMatches = categoryFilter ? (categoryFilter.length > 0 ? categoryFilter.includes(cloth.category.toLowerCase()) : true) : true;
 
-      if (colorMatches && brandMatches && genderMatches) {
+      if (colorMatches && brandMatches && genderMatches && categoryMatches) {
         return true;
       }
       return false;
     });
+    this.filteredClothDataList = this.filteredList;
+  }
+
+  onSortOptionChange(event: any) {
+    const sortBy = event.target.value;
+    if (sortBy == 'Ascend'){
+      this.sortAscendPrice();
+    }
+    if (sortBy == 'Descend'){
+      this.sortDescendPrice();
+    }
+    if (sortBy == 'Rating'){
+      this.sortRating();
+    }
+
+  }
+
+  sortAscendPrice(){
+    const sortedProducts = this.filteredList.slice().sort((a, b) => a.price - b.price);
+    this.filteredClothDataList = sortedProducts;
+  }
+  sortDescendPrice(){
+    const sortedProducts = this.filteredList.slice().sort((a, b) => b.price - a.price);
+    this.filteredClothDataList = sortedProducts;
+  }
+
+  sortRating(){
+    const sortedProducts = this.filteredList.slice().sort((a, b) => b.rating - a.rating);
+    this.filteredClothDataList = sortedProducts;
+  }
+  signIn(){
+    this.router2.navigate(['/signin']);
   }
 
 }

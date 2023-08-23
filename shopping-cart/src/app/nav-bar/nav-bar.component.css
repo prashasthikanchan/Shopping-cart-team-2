@@ -15,8 +15,8 @@ mat-toolbar {
 
 .nav-bar {
     height: 10%;
-    color: white;
-    background-color: #974EC3;
+    color: black;
+    background-color: pink;
     width: 100%;
     align-items: center;
     justify-content: space-between;
@@ -37,6 +37,7 @@ mat-toolbar {
 mat-sidenav-container {
     display: flex; 
     height: 100%; 
+    
 }
 mat-sidenav-content {
     height: 100%;

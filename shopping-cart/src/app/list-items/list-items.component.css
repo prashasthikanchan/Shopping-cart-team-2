@@ -5,15 +5,15 @@
 }
 
 .productCard {
-  width: calc(80% - 20px);
+  width: calc(90% - 10px);
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  border: 1px solid #e0e0e0;
-  background-color: #ffffff;
+  border: 1px solid #e0e0e0;  
+  
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
-  border-radius: 15px;
+  /* border-radius: 15px; */
   box-sizing: border-box;
 }
 
@@ -43,7 +43,7 @@
   position: fixed;
   top: 1%;
   right: 0;
-  background-color: #f0f0f0;
+  background-color: #FFE5E5;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
   z-index: 1000;
@@ -94,8 +94,8 @@ mat-button-toggle {
 }
 
 .mat-button-toggle.mat-button-toggle-checked {
-  background-color: #974EC3;
-  color: white;
+  background-color:pink;
+  color: color;
 }
 
 mat-form-field {
@@ -133,8 +133,8 @@ mat-select:focus {
 #btn-1,
 #btn-2 {
   width: 40%;
-  background-color: #974EC3;
-  color: white;
+  background-color: pink;
+  color: black;
   margin-top: 4%;
   border-radius: 4px;
   margin-left: 2%;
@@ -149,7 +149,7 @@ mat-select:focus {
 }
 
 mat-grid-list {
-  margin-top: 10%;
+  margin-top: 2%;
 }
 
 .container {
@@ -159,6 +159,7 @@ mat-grid-list {
   z-index: 800;
   overflow: auto;
   max-height: calc(100vh - 20px);
+  background-color: white;
 }
 
 .mat-grid-tile-content {
@@ -175,4 +176,21 @@ mat-grid-list {
   overflow: auto;
   max-height: calc(100vh - 20px);
   border-left: 2px solid rgb(214, 209, 209);
+}
+.sortOption{
+  width: 150px;
+  margin-left: 60%; 
+}
+
+.listHeader{
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+  
+}
+
+h3{
+  margin-top: 5%;
+  font-weight: bold;
+  
 }
