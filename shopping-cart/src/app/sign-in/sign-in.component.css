@@ -1,56 +1,66 @@
 .example-card {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    z-index: 800;
-    margin-top: 10%;
-    border: 1px solid pink  ;
-  }
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  z-index: 800;
+  margin-top: 10%;
+  border: 1px solid pink;
+}
 
-  .example-form {
-    width: 100%;
-  }
+.example-form {
+  width: 100%;
+}
 
-  .example-full-width {
-    width: 100%;
-  }
+.example-full-width {
+  width: 100%;
+}
 
-  mat-card-header {
-    background-color: pink;
-    padding: 10px;
-    text-align: center;
-  }
+mat-card-header {
+  background-color: pink;
+  padding: 10px;
+  text-align: center;
+}
 
-  mat-card-title {
-    font-size: 24px;
-    font-weight: bold;
-  }
+mat-card-title {
+  font-size: 24px;
+  font-weight: bold;
+}
 
-  mat-card-actions {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 
 
-  .mat-card-content {
-    display: flex;
-    justify-content: center;
-  }
-  mat-form-field {
-    margin: 10px 0;
-  }
+.mat-card-content {
+  display: flex;
+  justify-content: center;
+}
 
-  .mat-card-actions {
-    text-align: center;
-  }
+mat-form-field {
+  margin: 10px 0;
+}
 
-  h3{
-    /* margin-top: 2%; */
-    text-align: center;
-    margin-bottom: 2px;
-  }
+.mat-card-actions {
+  text-align: center;
+}
 
-  button{
-    background-color: pink;  
-  }
+h3 {
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+button {
+  background-color: pink;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+}
+
+div {
+  color: red;
+  padding: 0.5%
+}

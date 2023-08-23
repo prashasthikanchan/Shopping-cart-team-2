@@ -1,27 +1,45 @@
-
 <mat-card class="example-card">
   <mat-card-header>
     <mat-card-title>{{ isRegisterMode ? 'Register' : 'Login' }}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form class="example-form">
+    <form class="example-form" [formGroup]="loginForm" (ngSubmit)="isRegisterMode ? register() : login()">
+      <div *ngIf="registerValidation && isRegisterMode">{{registerValidation}}</div>
+      <div *ngIf="loginValidation && !isRegisterMode">{{loginValidation}}</div>
       <mat-form-field class="example-full-width" *ngIf="isRegisterMode">
-        <input matInput placeholder="Name" [(ngModel)]="name" name="name" required>
+        <input (input)="inputCheck()" matInput placeholder="Name" formControlName="name" name="name" required
+          autocomplete="off">
       </mat-form-field>
+      <div *ngIf="isRegisterMode">
+        <div *ngIf="name.invalid && (name.dirty || name.touched)">
+          <div *ngIf="name.errors.required">Name is required.</div>
+          <div *ngIf="name.errors.pattern">Name must contain only letters.</div>
+        </div>
+      </div>
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+        <input (input)="inputCheck()" matInput placeholder="Username" formControlName="username" name="username"
+          required autocomplete="off">
       </mat-form-field>
+      <div *ngIf="username.invalid && (username.dirty || username.touched)">
+        <div *ngIf="username.errors.required">Username is required.</div>
+        <div *ngIf="username.errors.pattern">Username must contain only letters and numbers.</div>
+      </div>
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
+        <input (input)="inputCheck()" matInput placeholder="Password" formControlName="password" type="password"
+          name="password" required autocomplete="off">
       </mat-form-field>
+      <div *ngIf="password.invalid && (password.dirty || password.touched)">
+        <div *ngIf="password.errors.required">Password is required.</div>
+        <div *ngIf="password.errors.minlength">Password must be at least 8 characters long.</div>
+      </div>
+      <button mat-raised-button type="submit">
+        {{ isRegisterMode ? 'Register' : 'Login' }}
+      </button>
     </form>
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button (click)="isRegisterMode = !isRegisterMode">
       {{ isRegisterMode ? 'Login' : 'Register' }}
-    </button>
-    <button mat-raised-button (click)="isRegisterMode ? register() : login()">
-      {{ isRegisterMode ? 'Register' : 'Login' }}
     </button>
   </mat-card-actions>
 </mat-card>

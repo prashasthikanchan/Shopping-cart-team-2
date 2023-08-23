@@ -7,7 +7,6 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { MenuComponent } from './nav-bar/menu/menu.component';
 import { CartComponent } from './nav-bar/cart/cart.component';
 import { SearchBarComponent } from './nav-bar/search-bar/search-bar.component';
-import { AccountComponent } from './nav-bar/account/account.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MaterialModule } from './material/material.module';
@@ -25,12 +24,11 @@ import { SignInComponent } from './sign-in/sign-in.component';
     MenuComponent,
     CartComponent,
     SearchBarComponent,
-    AccountComponent,
     ListItemsComponent,
     FilterItemsComponent,
     IndexPageComponent,
     SignInComponent
-    
+
   ],
   imports: [
     BrowserModule,
