@@ -31,9 +31,7 @@ export class ListItemsComponent implements OnInit {
       this.filteredClothDataList = data;
 
       this.router.paramMap.subscribe(params => {
-        var parameterspp = params.get('parameters') as string;
-        console.log("properparamer",parameterspp)
-        var parameters = "gender=men+color=grey,green+brand=h&m";
+        var parameters = params.get('parameters');
         if (parameters && parameters.length > 0) {
           this.searchParameters = this.convertStringToObject(parameters);
           this.addSearchFilter(this.clothDataList, this.searchParameters);
@@ -113,7 +111,7 @@ export class ListItemsComponent implements OnInit {
       let brandMatches = brandFilter ? (brandFilter.length > 0 ? brandFilter.includes(cloth.brand.toLowerCase()) : true) : true;
       let genderMatches = genderFilter ? (genderFilter.length > 0 ? genderFilter.includes(cloth.gender.toLowerCase()) : true) : true;
 
-      if (colorMatches || brandMatches || genderMatches) {
+      if (colorMatches && brandMatches && genderMatches) {
         return true;
       }
       return false;
