@@ -5,7 +5,7 @@
 }
 
 .productCard {
-  width: calc(90% - 10px);
+  width: calc(80% - 10px);
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
