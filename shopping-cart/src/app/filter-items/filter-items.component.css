@@ -1,58 +1,80 @@
-.row {
-  margin: 0 auto;
-  padding: 15px;
+mat-expansion-panel {
+  background-color: #FFE5E5;
+  margin: 0px;
+  box-shadow: none;
+  border: 5px black;
 }
 
-.mat-card {
-  /* border: 1px solid #ccc; */
-  padding: 10px;
-  margin-left: 12px;
+.mat-expansion-panel {
+  width: 100%;
+  background-color: transparent;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  margin-bottom: 5px;
   background-color: #FFE5E5;
 }
 
-mat-card-header {
-  padding: 0;
+.mat-expansion-panel-header {
+  border-radius: 0;
+  font-weight: 500;
 }
 
-mat-card-header button {
-  width: 100%;
-  text-align: left;
-}
-
-mat-card-content {
-  padding: 0;
-}
-
-mat-card-content ul {
-  list-style: none;
-  padding: 0;
-}
-
-mat-card-content li {
-  margin-bottom: 10px;
-}
-
-mat-card-content a {
-  text-decoration: none;
+.mat-panel-title {
+  font-size: 16px;
   color: #333;
 }
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -10px;
-  margin-left: -10px;
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 15px;
-  /* background-color: #FFE5E5; */
+.mat-card-content {
+  padding: 2px;
+}
+
+.color-box {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  margin-right: 8px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-top: 5px;
+
+}
+
+.brandFilter,
+.genderFilter {
+  margin-top: 2px;
 }
 
 .mat-checkbox {
-  display: inline-block;
   margin-right: 10px;
 }
 
-mat-slider {
-  width: 200px;
+.mat-slider {
+  width: 100%;
+}
+
+.brandFilter {
+  margin-right: 25%;
+  display: inline-block;
+}
+
+.genderFilter {
+  margin-right: 25%;
+  display: inline-block;
+}
+
+mat-list-item {
+  margin-left: 80%;
+}
+
+.row {
+  overflow: auto;
+}
+
+.filled {
+  color: rgb(255, 183, 0);
+}
+
+.empty {
+  color: lightgray;
 }

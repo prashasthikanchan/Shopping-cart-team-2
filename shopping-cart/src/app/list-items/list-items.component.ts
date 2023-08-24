@@ -60,6 +60,7 @@ export class ListItemsComponent implements OnInit {
   }
 
   convertStringToObject(parameter: string): { [key: string]: string[] } {
+    this.searchresult = '';
     const keyValuePairs = parameter.split('+');
     const result: { [key: string]: string[] } = {};
 

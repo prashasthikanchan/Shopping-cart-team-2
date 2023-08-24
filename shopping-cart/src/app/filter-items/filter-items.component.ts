@@ -2,6 +2,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ClothingDataService } from '../clothing-data.service';
 import { MatSliderChange } from '@angular/material/slider';
+import { ClothItem } from '../models/clothItem.model';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-filter-items',
@@ -14,10 +17,16 @@ export class FilterItemsComponent implements OnInit {
   colors: string[] = [];
   brands: string[] = [];
   price: number[] = [];
-
   checkedboxList: checkedBoxList = {};
+  starsArray = Array(5).fill(0);
+  panelOpenState = true;
+  filterGroupOpenStates: { [title: string]: boolean } = {};
 
-  constructor(private clothingDataService: ClothingDataService) { }
+  constructor(private clothingDataService: ClothingDataService) {
+    this.filterGroups.forEach(filterGroup => {
+      this.filterGroupOpenStates[filterGroup.title] = true;
+    });
+  }
   @Output() checkboxlistUpdated = new EventEmitter();
 
   checkboxStates: Map<string, boolean> = new Map<string, boolean>();

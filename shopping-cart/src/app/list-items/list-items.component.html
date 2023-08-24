@@ -2,23 +2,24 @@
   <app-filter-items (checkboxlistUpdated)="addFilter($event)" class="filterSide"></app-filter-items>
   <div class="listContainer">
     <div class="listHeader">
-    <h3>Showing search results for "{{searchresult}} "</h3>
-    <mat-form-field class="sortOption">
-      <mat-label>Sort By</mat-label>
-      <select matNativeControl (change)="onSortOptionChange($event)">
-        <option value="Ascend">Price: Low to High</option>
-        <option value="Descend">Price: High to Low</option>
-        <option value="Rating">Rating</option>
-      </select>
-    </mat-form-field>
-  </div>
+      <h3>Showing search results for "{{searchresult}} "</h3>
+      <mat-form-field class="sortOption">
+        <mat-label>Sort By</mat-label>
+        <select matNativeControl (change)="onSortOptionChange($event)">
+          <option value="Ascend">Price: Low to High</option>
+          <option value="Descend">Price: High to Low</option>
+          <option value="Rating">Rating</option>
+        </select>
+      </mat-form-field>
+    </div>
     <mat-grid-list cols="3">
       <mat-grid-tile *ngFor="let item of filteredClothDataList" (click)="showItem(item.id,sidenav)">
         <mat-card class="productCard">
           <img mat-card-image [src]="item.image" alt="{{ item.tag }}">
           <mat-card-content>
-            <p style="font-weight: bold;">{{ item.tag }}</p>
-            <p>Price: {{ item.price }}</p>
+            <p style="font-weight: bold;">{{item.brand}}</p>
+            <p>{{ item.tag }}</p>
+            <p style="font-weight: bold;">₹{{ item.price }}</p>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
@@ -45,7 +46,7 @@
         </mat-select>
       </mat-form-field>
       <div class="buttons">
-        <button mat-raised-button id="btn-1" (click) = "signIn()">Add to Cart</button><br>
+        <button mat-raised-button id="btn-1" (click)="signIn()">Add to Cart</button><br>
         <button mat-raised-button id="btn-2">Buy Now</button>
       </div>
     </mat-sidenav>
