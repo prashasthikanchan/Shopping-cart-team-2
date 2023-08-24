@@ -16,6 +16,7 @@ import { FilterItemsComponent } from './filter-items/filter-items.component';
 import { FormsModule } from '@angular/forms'
 import { IndexPageComponent } from './index-page/index-page.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { BreakpointObserverOverviewExampleComponent } from './breakpoint-observer-overview-example/breakpoint-observer-overview-example.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
     ListItemsComponent,
     FilterItemsComponent,
     IndexPageComponent,
-    SignInComponent
+    SignInComponent,
+    BreakpointObserverOverviewExampleComponent
 
   ],
   imports: [

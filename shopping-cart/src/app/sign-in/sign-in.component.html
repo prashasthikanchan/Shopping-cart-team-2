@@ -34,13 +34,14 @@
         <div *ngIf="password.errors.required">Password is required.</div>
         <div *ngIf="password.errors.minlength">Password must be at least 8 characters long.</div>
       </div>
-      <button mat-raised-button type="submit">
-        {{ isRegisterMode ? 'Register' : 'Login' }}
+      <button mat-raised-button type="submit" > 
+        {{ isRegisterMode ?'Register' : 'Login' }}
       </button>
     </form>
   </mat-card-content>
-  <mat-card-actions *ngIf="!userPresent">
-    <button mat-raised-button (click)="isRegisterMode = !isRegisterMode">
+  <mat-card-actions>
+    <h3>{{ isRegisterMode ? 'Already a user?' :'New User?' }}</h3>
+    <button mat-stroked-button (click)="isRegisterMode = !isRegisterMode">
       {{ isRegisterMode ? 'Login' : 'Register' }}
     </button>
   </mat-card-actions>

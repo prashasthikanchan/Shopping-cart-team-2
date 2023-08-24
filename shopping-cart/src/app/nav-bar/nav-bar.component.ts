@@ -22,6 +22,10 @@ export class NavBarComponent {
   openSidenav() {
     this.sidenav.open();
   }
+
+  clickHeader(){
+    this.router.navigate(['']);
+  }
   onSearch() {
     const value = this.searchFormControl.value.toLowerCase();
     const filters: { colors: string[], sex: string[], brands: string[], categories: string[] } = { colors: [], sex: [], brands: [], categories: [] };

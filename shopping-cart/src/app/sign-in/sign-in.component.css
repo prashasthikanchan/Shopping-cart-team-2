@@ -18,18 +18,20 @@
 mat-card-header {
   background-color: pink;
   padding: 10px;
+  padding-top: 15px;
   text-align: center;
 }
 
 mat-card-title {
   font-size: 24px;
-  font-weight: bold;
+  font-weight:800;
 }
 
 mat-card-actions {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 0px;
+  padding: 0;
 }
 
 
@@ -48,11 +50,24 @@ mat-form-field {
 
 h3 {
   text-align: center;
-  margin-bottom: 2px;
+  margin-top: 17px;
+  padding: 0;
 }
 
-button {
+.mat-raised-button {
   background-color: pink;
+  box-shadow: none;
+  border: none;
+  font-size: medium;
+}
+
+.mat-stroked-button{
+  color: pink;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+  font-size: large;
 }
 
 .action-buttons {
@@ -63,5 +78,9 @@ button {
 div {
   color: red;
   padding: 0.5%
+}
+
+form button{  
+  margin-left: 40%;
 }
 

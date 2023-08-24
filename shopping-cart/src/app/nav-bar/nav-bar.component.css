@@ -47,17 +47,21 @@ mat-sidenav-content {
     display: flex;
     align-items: center;
   }
-  
-  .search-bar {
-    flex: 1;
-    margin-right: 10px;
+  mat-form-field{
+    width: 300px;
+    color: rgb(113, 113, 113);
   }
+
 
   .heading {
     font-size: 40px;
-    margin-left: 74%;
-    font-family:Verdana, Geneva, Tahoma, sans-serif
+    margin-left: 40%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
   }
+
+.heading:hover{
+    cursor: pointer;
+}
   mat-card-header{
     font-weight: bold;
   }
