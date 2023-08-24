@@ -178,16 +178,16 @@ export class ListItemsComponent implements OnInit {
   addToCart() {
     const currentUser = localStorage.getItem('currentUser');
     const userInfo = JSON.parse(localStorage.getItem(currentUser as string) as string)
-    const alreadyPresentItem = userInfo.cartItems.find((item: cartItem) =>
-      item.id === this.selectedProduct!.id &&
-      item.size === this.selectedSize)
+    const alreadyPresentItem = userInfo.cartItems.find((cartItem: cartItem) =>
+      cartItem.item && cartItem.item.id === this.selectedProduct!.id &&
+      cartItem.size === this.selectedSize)
     if (alreadyPresentItem) {
-      const indexToUpdate = userInfo.cartItems.findIndex((item: cartItem) => item.id === alreadyPresentItem.id);
+      const indexToUpdate = userInfo.cartItems.findIndex((cartItem: cartItem) => cartItem.item.id === alreadyPresentItem.item.id);
       userInfo.cartItems[indexToUpdate].quantity += this.selectedQuantity;
     }
     else {
       const cartItem = {
-        "id": this.selectedProduct!.id,
+        "item": this.selectedProduct,
         "quantity": this.selectedQuantity,
         "size": this.selectedSize
       }
@@ -197,7 +197,7 @@ export class ListItemsComponent implements OnInit {
   }
 }
 interface cartItem {
-  "id": number,
+  "item": ClothItem,
   "quantity": number,
   "size": string
 }
