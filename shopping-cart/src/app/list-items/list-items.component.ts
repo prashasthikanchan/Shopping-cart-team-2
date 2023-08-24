@@ -156,7 +156,16 @@ export class ListItemsComponent implements OnInit {
   }
   signIn() {
     this.router2.navigate(['/signin']);
-    localStorage.setItem('previousState', this.router2.url);
+    this.router.paramMap.subscribe(params => {
+      var parameters = params.get('parameters');
+      if(parameters){
+        localStorage.setItem('previousState', parameters as string);
+      }
+      else{
+        localStorage.setItem('previousState', '');
+      }
+    });
+    
   }
 
 }

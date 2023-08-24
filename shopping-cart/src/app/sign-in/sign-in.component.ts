@@ -39,7 +39,7 @@ export class SignInComponent implements OnInit {
         const item = JSON.parse(localStorage.getItem(this.loginForm.get('username').value) as string);
         if (item.password === this.loginForm.get('password').value) {
           console.log("Login Successfully")
-          this.router.navigate([localStorage.getItem('previousState')])
+          this.router.navigate(['/clothes/search' ,localStorage.getItem('previousState')])
           localStorage.removeItem('previousState')
         }
         else {
@@ -65,7 +65,7 @@ export class SignInComponent implements OnInit {
         };
         localStorage.setItem(username, JSON.stringify(userData));
         console.log('Registration successful:', username, userData);
-        this.router.navigate([localStorage.getItem('previousState')])
+        this.router.navigate(['/clothes/search' ,localStorage.getItem('previousState')])
         localStorage.removeItem('previousState');
       } else {
         this.registerValidation = 'Already an user';
