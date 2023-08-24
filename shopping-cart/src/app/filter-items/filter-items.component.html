@@ -35,6 +35,15 @@
               <input [(ngModel)]="filterGroup.range.min" matSliderStartThumb>
               <input [(ngModel)]="filterGroup.range.max" matSliderEndThumb>
             </mat-slider>
+            <mat-form-field appearance="outline">
+              <mat-label>Minimum Price</mat-label>
+              <input matInput type="number" placeholder="Enter minimum price" [(ngModel)]="filterGroup.range.min">
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Maximum Price</mat-label>
+              <input matInput type="number" placeholder="Enter maximum price" [(ngModel)]="filterGroup.range.max">
+            </mat-form-field>
           </div>
           <div *ngIf="filterGroup.title === 'Rating'">
             <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes" [checked]="checkboxStates.get(checkbox.label)"
