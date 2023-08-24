@@ -1,7 +1,8 @@
 
+@media only screen and (min-width: 599.98px){
 .brands-container {
     display: flex;
-    overflow-x: auto;    
+    overflow-y: auto;    
    
 
   }
@@ -15,7 +16,7 @@
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-    background-color: #FFE5E5
+    background-color: #FFE5E5;
   }
   img {
     width: 100%;
@@ -51,5 +52,6 @@ h1{
 }
 
 
+}
 
 

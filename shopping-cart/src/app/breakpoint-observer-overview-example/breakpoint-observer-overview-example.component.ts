@@ -1,18 +1,18 @@
-import { Component, OnDestroy } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-;
+import { Component, OnInit,OnDestroy } from '@angular/core';
+
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-breakpoint-observer-overview-example',
+  templateUrl: './breakpoint-observer-overview-example.component.html',
+  styleUrls: ['./breakpoint-observer-overview-example.component.css']
 })
-export class AppComponent {
-  title = 'shopping-cart';
+export class BreakpointObserverOverviewExampleComponent implements OnDestroy{
+
   destroyed = new Subject<void>();
-  currentScreenSize: string = '';
+  currentScreenSize: string='';
 
   displayNameMap = new Map([
     [Breakpoints.XSmall, 'XSmall'],
@@ -29,7 +29,6 @@ export class AppComponent {
     [Breakpoints.HandsetLandscape, 'HandsetLandscape'],
     [Breakpoints.TabletLandscape, 'TabletLandscape'],
     [Breakpoints.WebLandscape, 'WebLandscape']
-
   ]);
 
   constructor(breakpointObserver: BreakpointObserver) {
@@ -49,6 +48,5 @@ export class AppComponent {
     this.destroyed.next();
     this.destroyed.complete();
   }
-  
-
 }
+

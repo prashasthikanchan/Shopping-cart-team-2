@@ -11,8 +11,8 @@
           </mat-form-field>
         </div>
         <button mat-icon-button class="search-icon" type="button"
-          (click)="onSearch()"><mat-icon>search</mat-icon></button>
-        <mat-card-header class="heading">Glamzie</mat-card-header>
+          (click)="onSearch()" class="searchBar"><mat-icon>search</mat-icon></button>
+        <mat-card-header class="heading" (click)="clickHeader()">Glamzie</mat-card-header>
       </form>
 
       <button class="cart-btn" mat-icon-button routerLink="/cart"><mat-icon>shopping_cart</mat-icon></button>

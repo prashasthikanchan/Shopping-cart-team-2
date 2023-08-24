@@ -25,12 +25,12 @@
   background-size: cover;
 }
 
-
 .mat-card-content p {
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding: 1px;
 }
 
 .sidebar {
@@ -110,14 +110,11 @@ mat-select {
   border-radius: 4px;
   background-color: #fff;
   transition: border-color 0.3s, box-shadow 0.3s;
+
 }
 
-mat-select:hover {
-  border-color: #999;
-}
-
-mat-select:focus {
-  border-bottom: none;
+.mat-option {
+  border: none;
 }
 
 .mat-option {
@@ -150,6 +147,10 @@ mat-grid-list {
   margin-top: 2%;
 }
 
+.brand {
+  overflow: hidden;
+}
+
 .container {
   display: grid;
   grid-template-columns: 1fr 5fr;
@@ -166,12 +167,14 @@ mat-grid-list {
 
 .filterSide {
   margin-top: 25%;
+  overflow: auto;
+  margin-bottom: 0;
 }
 
 .listContainer {
   gap: 20px;
   z-index: 800;
-  overflow: auto;
+  /* overflow: auto; */
   max-height: calc(100vh - 10px);
 }
 
@@ -184,11 +187,16 @@ mat-grid-list {
   display: flex;
   justify-content: center;
   margin-top: 2%;
-
 }
 
 h3 {
   margin-top: 5%;
   font-weight: 500;
 
+}
+
+ng-container {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
 }
