@@ -13,7 +13,15 @@ export class SignInComponent implements OnInit {
   loginForm: any;
   registerValidation: string | null = null;
   loginValidation: string | null = null;
+  userPresent: boolean = localStorage.getItem('currentUser') ? true : false;
+  reqFromAccIcon: boolean = localStorage.getItem('accountIcon') === 'true' ? true : false;
   ngOnInit() {
+    this.userPresent = localStorage.getItem('currentUser') ? true : false;
+    this.reqFromAccIcon = localStorage.getItem('accountIcon') === 'true' ? true : false;
+    if (!this.reqFromAccIcon && this.userPresent) {
+      this.router.navigate(['/clothes/search', localStorage.getItem('previousState')])
+      localStorage.removeItem('previousState');
+    }
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]*$/)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -39,8 +47,14 @@ export class SignInComponent implements OnInit {
         const item = JSON.parse(localStorage.getItem(this.loginForm.get('username').value) as string);
         if (item.password === this.loginForm.get('password').value) {
           console.log("Login Successfully")
-          this.router.navigate(['/clothes/search' ,localStorage.getItem('previousState')])
-          localStorage.removeItem('previousState')
+          localStorage.setItem('currentUser', this.loginForm.get('username').value);
+          if (localStorage.getItem('previousState')) {
+            this.router.navigate(['/clothes/search', localStorage.getItem('previousState')])
+            localStorage.removeItem('previousState');
+          }
+          else {
+            this.router.navigate(['/'])
+          }
         }
         else {
           this.loginValidation = 'Incorrect password'
@@ -61,12 +75,19 @@ export class SignInComponent implements OnInit {
       if (!this.userAlready(username)) {
         const userData = {
           name: this.loginForm.get('name').value,
-          password: this.loginForm.get('password').value
+          password: this.loginForm.get('password').value,
+          cartItems: []
         };
         localStorage.setItem(username, JSON.stringify(userData));
         console.log('Registration successful:', username, userData);
-        this.router.navigate(['/clothes/search' ,localStorage.getItem('previousState')])
-        localStorage.removeItem('previousState');
+        localStorage.setItem('currentUser', username);
+        if (localStorage.getItem('previousState')) {
+          this.router.navigate(['/clothes/search', localStorage.getItem('previousState')])
+          localStorage.removeItem('previousState');
+        }
+        else {
+          this.router.navigate(['/'])
+        }
       } else {
         this.registerValidation = 'Already an user';
       }
@@ -86,6 +107,11 @@ export class SignInComponent implements OnInit {
   inputCheck() {
     this.registerValidation = null;
     this.loginValidation = null;
+  }
+  signOut() {
+    localStorage.removeItem('currentUser');
+    this.userPresent = localStorage.getItem('currentUser') ? true : false;
+    this.reqFromAccIcon = localStorage.getItem('accountIcon') === 'true' ? true : false;
   }
 }
 

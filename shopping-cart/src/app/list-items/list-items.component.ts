@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ClothItem } from '../models/clothItem.model';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-list-items',
@@ -23,8 +24,15 @@ export class ListItemsComponent implements OnInit {
   searchParameters: any;
   clothParameters: any[] = [];
   searchresult: string = '';
+  sizeForm: FormGroup;
 
-  constructor(private clothingDataService: ClothingDataService, private router: ActivatedRoute, private router2: Router) { }
+  constructor(private clothingDataService: ClothingDataService, private router: ActivatedRoute,
+    private router2: Router, private formBuilder: FormBuilder) {
+    this.selectedSize = '';
+    this.sizeForm = this.formBuilder.group({
+      selectedSize: new FormControl('', Validators.required)
+    });
+  }
 
   ngOnInit(): void {
 
@@ -48,7 +56,6 @@ export class ListItemsComponent implements OnInit {
   showItem(id: number, sidenav: MatSidenav): void {
     this.selectedSize = null;
     this.selectedProduct = this.clothDataList.find(item => item.id === id);
-    console.log(this.selectedProduct)
     sidenav.open();
   }
   selectSize(size: string) {
@@ -56,7 +63,6 @@ export class ListItemsComponent implements OnInit {
   }
   selectQuantity(event: any) {
     this.selectedQuantity = event.value;
-    console.log(this.selectedQuantity)
   }
 
   convertStringToObject(parameter: string): { [key: string]: string[] } {
@@ -155,18 +161,43 @@ export class ListItemsComponent implements OnInit {
     this.filteredClothDataList = sortedProducts;
   }
   signIn() {
-    this.router2.navigate(['/signin']);
+    localStorage.setItem('accountIcon', 'false');
     this.router.paramMap.subscribe(params => {
       var parameters = params.get('parameters');
-      if(parameters){
+      if (parameters) {
         localStorage.setItem('previousState', parameters as string);
       }
-      else{
+      else {
         localStorage.setItem('previousState', '');
       }
     });
-    
+    this.router2.navigate(['/signin']);
+    this.addToCart();
+
   }
-
+  addToCart() {
+    const currentUser = localStorage.getItem('currentUser');
+    const userInfo = JSON.parse(localStorage.getItem(currentUser as string) as string)
+    const alreadyPresentItem = userInfo.cartItems.find((item: cartItem) =>
+      item.id === this.selectedProduct!.id &&
+      item.size === this.selectedSize)
+    if (alreadyPresentItem) {
+      const indexToUpdate = userInfo.cartItems.findIndex((item: cartItem) => item.id === alreadyPresentItem.id);
+      userInfo.cartItems[indexToUpdate].quantity += this.selectedQuantity;
+    }
+    else {
+      const cartItem = {
+        "id": this.selectedProduct!.id,
+        "quantity": this.selectedQuantity,
+        "size": this.selectedSize
+      }
+      userInfo.cartItems.push(cartItem);
+    }
+    localStorage.setItem(currentUser as string, JSON.stringify(userInfo))
+  }
 }
-
+interface cartItem {
+  "id": number,
+  "quantity": number,
+  "size": string
+}

@@ -65,64 +65,68 @@ export class NavBarComponent {
       }
     }
     let parameters = '';
-    if(filters.sex.length > 0){
-        parameters += 'gender='
+    if (filters.sex.length > 0) {
+      parameters += 'gender='
     }
-    for(let item of filters.sex){
-      parameters+=item;
-      parameters+=',';
+    for (let item of filters.sex) {
+      parameters += item;
+      parameters += ',';
     }
-    if(parameters.charAt(parameters.length - 1) == ','){
-      parameters = parameters.slice(0,-1);
+    if (parameters.charAt(parameters.length - 1) == ',') {
+      parameters = parameters.slice(0, -1);
     }
-    if(filters.colors.length > 0){
-      if(parameters == ''){
-        parameters+='color=';
-      }else{
+    if (filters.colors.length > 0) {
+      if (parameters == '') {
+        parameters += 'color=';
+      } else {
         parameters += '+color=';
       }
     }
-    for(let item of filters.colors){
-      parameters+= item;
-      parameters+=',';
+    for (let item of filters.colors) {
+      parameters += item;
+      parameters += ',';
     }
-    if(parameters.charAt(parameters.length - 1) == ','){
-      parameters = parameters.slice(0,-1);
+    if (parameters.charAt(parameters.length - 1) == ',') {
+      parameters = parameters.slice(0, -1);
     }
-    if(filters.brands.length > 0){
-      if(parameters == ''){
-        parameters+='brand=';
-      }else{
+    if (filters.brands.length > 0) {
+      if (parameters == '') {
+        parameters += 'brand=';
+      } else {
         parameters += '+brand=';
       }
     }
-    for(let item of filters.brands){
-      parameters+= item;
-      parameters+=',';
+    for (let item of filters.brands) {
+      parameters += item;
+      parameters += ',';
     }
-    if(parameters.charAt(parameters.length - 1) == ','){
-      parameters = parameters.slice(0,-1);
+    if (parameters.charAt(parameters.length - 1) == ',') {
+      parameters = parameters.slice(0, -1);
     }
-    if(filters.categories.length > 0){
-      if(parameters == ''){
-        parameters+='category=';
-      }else{
+    if (filters.categories.length > 0) {
+      if (parameters == '') {
+        parameters += 'category=';
+      } else {
         parameters += '+category=';
-      }    
+      }
     }
-    for(let item of filters.categories){
-      parameters+= item;
-      parameters+=',';
+    for (let item of filters.categories) {
+      parameters += item;
+      parameters += ',';
     }
-    if(parameters.charAt(parameters.length-1) == ','){
-      parameters = parameters.slice(0,-1);
+    if (parameters.charAt(parameters.length - 1) == ',') {
+      parameters = parameters.slice(0, -1);
     }
-    this.router.navigate(['/clothes/search',parameters]);
+    this.router.navigate(['/clothes/search', parameters]);
 
     this.searchFormControl.setValue(null);
   }
   onSearchEnter(event: Event): void {
     event.preventDefault();
     this.onSearch();
+  }
+  signIn() {
+    localStorage.setItem('accountIcon', 'true');
+    this.router.navigate(['/signin'])
   }
 }
