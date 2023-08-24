@@ -5,55 +5,116 @@
   height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
+  overflow: auto;
 }
 
-mat-card {
+.mat-card {
   width: 70%;
-  height: 70%;
+  height: 90%;
   margin-top: 4%;
   display: flex;
-  background: linear-gradient(to right, white 66.66%, pink 66.66%);
-}
-
-mat-card-header {
-  display: flex;
   flex-direction: column;
-  width: 66.66%;
-  padding: 16px;
+  background: linear-gradient(to right, white 80.66%, pink 66.66%);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: auto;
 }
 
-mat-card-actions {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-  width: 33.33%;
+mat-card-title {
   padding: 16px;
+  padding-bottom: 2px;
+  background-color: transparent;
 }
 
-button {
-  margin-top: 8px;
-  background-color: black;
-  color: white;
+.mat-raised-button {
+  min-width: 8px;
+  line-height: 16px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.mat-input-element {
+  width: 10px;
 }
 
 .demo-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 16px;
+  width: 80%;
+  margin-top: 10px;
+  margin-left: 10px;
   box-shadow: none;
+  overflow: auto;
 }
 
-.demo-table th,
-.demo-table td {
-  padding: 8px;
-  text-align: left;
+.colProduct,
+.colPrice,
+.colQuantity,
+.colTotal,
+.colButton {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.colProduct {
+  flex: 2;
+  max-width: 200px;
+}
+
+.colPrice,
+.colQuantity,
+.colTotal,
+.colButton {
+  flex: 1;
+  max-width: 50px;
 }
 
 .demo-table th {
   font-weight: bold;
+  font-size: medium;
+  background-color: #ffffff;
+  overflow: auto;
+  margin-left: 10px;
 }
 
-.demo-table tr:hover {
-  background-color: #e0e0e0;
+.demo-table td {
+  padding: 0;
+}
+
+.demo-table img {
+  margin-right: 10px;
+}
+
+button {
+  margin-top: 8px;
+  background-color: pink;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #333;
+}
+
+.mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.mat-card-actions button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.mat-card-actions button:hover {
+  background-color: #0056b3;
 }
