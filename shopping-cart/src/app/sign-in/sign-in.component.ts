@@ -19,8 +19,10 @@ export class SignInComponent implements OnInit {
     this.userPresent = localStorage.getItem('currentUser') ? true : false;
     this.reqFromAccIcon = localStorage.getItem('accountIcon') === 'true' ? true : false;
     if (!this.reqFromAccIcon && this.userPresent) {
-      this.router.navigate(['/clothes/search', localStorage.getItem('previousState')])
-      localStorage.removeItem('previousState');
+      if(localStorage.getItem('previousState')){
+        this.router.navigate(['/clothes/search', localStorage.getItem('previousState')])
+        localStorage.removeItem('previousState');
+      }
     }
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]*$/)]],

@@ -1,8 +1,15 @@
-<div class="fullNav">
-<div class="header">
-  <h1>Clothing</h1>
+<div class="main-container">
+  <div class="fullNav">
+    <div class="navBar"><app-nav-bar></app-nav-bar></div>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+  <mat-toolbar class="footer">
+    <div class="footer-content">
+        <span id="footer-links">Contact us</span>
+        <span id="footer-links">About us</span>
+      <span id="footer-links">© 2023 Glamzie. All rights reserved.</span>
+    </div>
+  </mat-toolbar>
 </div>
-<div class="navBar"><app-nav-bar></app-nav-bar></div> 
-</div>
-<router-outlet></router-outlet>
-
