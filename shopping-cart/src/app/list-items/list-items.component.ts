@@ -19,12 +19,12 @@ export class ListItemsComponent implements OnInit {
   selectedQuantity: number = this.quantityOptions[0];
   selectedProduct: ClothItem | null = null;
   filteredClothDataList: any[] = [];
-  filteredList:any[] = [];
+  filteredList: any[] = [];
   searchParameters: any;
   clothParameters: any[] = [];
-  searchresult: string='';
+  searchresult: string = '';
 
-  constructor(private clothingDataService: ClothingDataService, private router: ActivatedRoute, private router2 : Router) { }
+  constructor(private clothingDataService: ClothingDataService, private router: ActivatedRoute, private router2: Router) { }
 
   ngOnInit(): void {
 
@@ -60,9 +60,10 @@ export class ListItemsComponent implements OnInit {
   }
 
   convertStringToObject(parameter: string): { [key: string]: string[] } {
+    this.searchresult = '';
     const keyValuePairs = parameter.split('+');
     const result: { [key: string]: string[] } = {};
-    
+
 
     keyValuePairs.forEach(pair => {
       const [key, values] = pair.split('=');
@@ -74,7 +75,7 @@ export class ListItemsComponent implements OnInit {
 
       parsedValues.forEach(value => {
         result[key].push(value);
-        this.searchresult = this.searchresult+' '+value;
+        this.searchresult = this.searchresult + ' ' + value;
       });
     });
 
@@ -128,32 +129,32 @@ export class ListItemsComponent implements OnInit {
 
   onSortOptionChange(event: any) {
     const sortBy = event.target.value;
-    if (sortBy == 'Ascend'){
+    if (sortBy == 'Ascend') {
       this.sortAscendPrice();
     }
-    if (sortBy == 'Descend'){
+    if (sortBy == 'Descend') {
       this.sortDescendPrice();
     }
-    if (sortBy == 'Rating'){
+    if (sortBy == 'Rating') {
       this.sortRating();
     }
 
   }
 
-  sortAscendPrice(){
+  sortAscendPrice() {
     const sortedProducts = this.filteredList.slice().sort((a, b) => a.price - b.price);
     this.filteredClothDataList = sortedProducts;
   }
-  sortDescendPrice(){
+  sortDescendPrice() {
     const sortedProducts = this.filteredList.slice().sort((a, b) => b.price - a.price);
     this.filteredClothDataList = sortedProducts;
   }
 
-  sortRating(){
+  sortRating() {
     const sortedProducts = this.filteredList.slice().sort((a, b) => b.rating - a.rating);
     this.filteredClothDataList = sortedProducts;
   }
-  signIn(){
+  signIn() {
     this.router2.navigate(['/signin']);
   }
 

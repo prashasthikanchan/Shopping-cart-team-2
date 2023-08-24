@@ -1,30 +1,54 @@
 <div class="row">
-  <button mat-button (click)="toggleFilter()" >Show filter</button>
-  <mat-card>
+  <mat-expansion-panel [expanded]="panelOpenState" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Show filter
+      </mat-panel-title>
+    </mat-expansion-panel-header>
     <ng-container *ngFor="let filterGroup of filterGroups">
-      <mat-card-header>
-        <button mat-button (click)="toggleCollapse(filterGroup)">
-          {{ filterGroup.title }}
-        </button>
-      </mat-card-header>
-      <mat-card-content>
-        <mat-list *ngIf="filterGroup.items">
-          <mat-list-item *ngFor="let item of filterGroup.items">
-            <a href="#">{{ item }}</a>
-          </mat-list-item>
-        </mat-list>
-        <div *ngIf="filterGroup.checkboxes">
-          <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes" [checked]="checkboxStates.get(checkbox.label)"
-            (change)="toggleCheckbox($event,filterGroup.title,checkbox.label)">{{ checkbox.label }}</mat-checkbox>
-        </div>
-        <div *ngIf="filterGroup.range">
-          <mat-slider thumbLabel [min]="filterGroup.range.min" [max]="filterGroup.range.max" [thumbLabel]="true"
-            discrete="true" showTickMarks="true" step="100">
-            <input [(ngModel)]="filterGroup.range.min" matSliderStartThumb>
-            <input [(ngModel)]="filterGroup.range.max" matSliderEndThumb>
-          </mat-slider>
-        </div>
-      </mat-card-content>
+      <mat-expansion-panel [expanded]="filterGroupOpenStates[filterGroup.title]"
+        (opened)="filterGroupOpenStates[filterGroup.title] = true"
+        (closed)="filterGroupOpenStates[filterGroup.title] = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ filterGroup.title }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-card-content>
+          <div *ngIf="filterGroup.title ==='Color'">
+            <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes" [checked]="checkboxStates.get(checkbox.label)"
+              (change)="toggleCheckbox($event,filterGroup.title,checkbox.label)">
+              <div class="color-box" [style.background-color]="checkbox.label"></div>{{ checkbox.label }}
+            </mat-checkbox>
+          </div>
+          <div *ngIf="filterGroup.title ==='Brand'" class="brandFilter">
+            <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes" [checked]="checkboxStates.get(checkbox.label)"
+              (change)="toggleCheckbox($event,filterGroup.title,checkbox.label)">{{ checkbox.label }}</mat-checkbox>
+          </div>
+          <div *ngIf="filterGroup.title ==='Gender'" class="genderFilter">
+            <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes" [checked]="checkboxStates.get(checkbox.label)"
+              (change)="toggleCheckbox($event,filterGroup.title,checkbox.label)">{{ checkbox.label }}</mat-checkbox>
+          </div>
+          <div *ngIf="filterGroup.range">
+            <mat-slider thumbLabel [min]="filterGroup.range.min" [max]="filterGroup.range.max" [thumbLabel]="true"
+              discrete="true" showTickMarks="true" step="100">
+              <input [(ngModel)]="filterGroup.range.min" matSliderStartThumb>
+              <input [(ngModel)]="filterGroup.range.max" matSliderEndThumb>
+            </mat-slider>
+          </div>
+          <div *ngIf="filterGroup.title === 'Rating'">
+            <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes" [checked]="checkboxStates.get(checkbox.label)"
+              (change)="toggleCheckbox($event, filterGroup.title, checkbox.label)">
+              <mat-icon *ngFor="let _ of starsArray; let i = index" [ngClass]="{
+                'filled': i < (+checkbox.label),
+                'empty': i >= (+checkbox.label)
+              }">
+                star
+              </mat-icon>
+            </mat-checkbox>
+          </div>
+        </mat-card-content>
+      </mat-expansion-panel>
     </ng-container>
-  </mat-card>
+  </mat-expansion-panel>
 </div>

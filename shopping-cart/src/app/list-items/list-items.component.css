@@ -9,11 +9,9 @@
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  border: 1px solid #e0e0e0;  
-  
+  border: 1px solid #e0e0e0;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
-  /* border-radius: 15px; */
   box-sizing: border-box;
 }
 
@@ -23,17 +21,16 @@
 }
 
 .productCard img {
-  max-height: 300px;
+  max-height: 280px;
   background-size: cover;
 }
 
-.mat-card-content {
-  text-align: center;
-
-}
 
 .mat-card-content p {
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sidebar {
@@ -78,7 +75,7 @@ h2 {
 }
 
 .filled {
-  color: gold;
+  color: rgb(255, 183, 0);
 }
 
 .empty {
@@ -94,7 +91,7 @@ mat-button-toggle {
 }
 
 .mat-button-toggle.mat-button-toggle-checked {
-  background-color:pink;
+  background-color: pink;
   color: color;
 }
 
@@ -109,6 +106,7 @@ mat-select {
   font-size: 16px;
   padding: 10px;
   border: 1px solid #ccc;
+  border-bottom: none;
   border-radius: 4px;
   background-color: #fff;
   transition: border-color 0.3s, box-shadow 0.3s;
@@ -174,23 +172,23 @@ mat-grid-list {
   gap: 20px;
   z-index: 800;
   overflow: auto;
-  max-height: calc(100vh - 20px);
-  border-left: 2px solid rgb(214, 209, 209);
-}
-.sortOption{
-  width: 150px;
-  margin-left: 60%; 
+  max-height: calc(100vh - 10px);
 }
 
-.listHeader{
+.sortOption {
+  width: 150px;
+  margin-left: 60%;
+}
+
+.listHeader {
   display: flex;
   justify-content: center;
   margin-top: 2%;
-  
+
 }
 
-h3{
+h3 {
   margin-top: 5%;
-  font-weight: bold;
-  
+  font-weight: 500;
+
 }

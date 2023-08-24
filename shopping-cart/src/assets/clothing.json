@@ -52,7 +52,7 @@
         "rating":3,
         "price":1138 ,
         "brand": "Allen Solly",
-        "category" : "shirt"
+        "category" : "shirt"    
     },
     {
         "id": 6,
@@ -81,7 +81,7 @@
         "tag":" Zara Basic Embroidered Stone Embellished Blouse Top",
         "image":"https://di2ponv0v5otw.cloudfront.net/posts/2023/05/27/6471d831943ddb33f32e6818/m_wp_6471d8fdffb5d0d4867cdbff.webp" ,
         "gender": "Women",
-        "color":"white" ,
+        "color":"White" ,
         "rating":5 ,
         "price": 844,
         "brand": "Zara",

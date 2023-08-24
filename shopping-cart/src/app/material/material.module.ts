@@ -14,7 +14,9 @@ import { MatTableModule } from '@angular/material/table';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
-const MaterialComponents = [MatMenuModule,MatButtonToggleModule,MatSelectModule,MatToolbarModule,MatListModule,MatSliderModule,MatCheckboxModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatSidenavModule, MatInputModule,MatGridListModule,MatCardModule,MatTableModule];
+import { MatExpansionModule } from '@angular/material/expansion';
+
+const MaterialComponents = [MatMenuModule,MatButtonToggleModule,MatExpansionModule,MatSelectModule,MatToolbarModule,MatListModule,MatSliderModule,MatCheckboxModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatSidenavModule, MatInputModule,MatGridListModule,MatCardModule,MatTableModule];
 
 @NgModule({
   imports: [MaterialComponents],
