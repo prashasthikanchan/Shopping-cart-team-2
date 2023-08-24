@@ -39,7 +39,7 @@
       </button>
     </form>
   </mat-card-content>
-  <mat-card-actions>
+  <mat-card-actions *ngIf="!userPresent">
     <h3>{{ isRegisterMode ? 'Already a user?' :'New User?' }}</h3>
     <button mat-stroked-button (click)="isRegisterMode = !isRegisterMode">
       {{ isRegisterMode ? 'Login' : 'Register' }}

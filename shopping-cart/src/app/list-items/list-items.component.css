@@ -5,7 +5,7 @@
 }
 
 .productCard {
-  width: calc(80% - 10px);
+  width: 70%;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
@@ -104,7 +104,7 @@ mat-form-field {
 mat-select {
   width: 20%;
   font-size: 16px;
-  padding: 10px;
+  padding: 1px;
   border: 1px solid #ccc;
   border-bottom: none;
   border-radius: 4px;
