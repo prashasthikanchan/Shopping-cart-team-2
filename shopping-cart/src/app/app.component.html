@@ -1,8 +1,8 @@
 <div class="main-container">
   <div class="fullNav">
-    <div class="navBar"><app-nav-bar></app-nav-bar></div>
+    <div class="navBar"><app-nav-bar  (modeToggled)="toggleMode()"></app-nav-bar></div>
   </div>
-  <div class="content">
+  <div [ngClass]="isDarkMode ? 'dark-mode' : 'light-mode'" class="content">
     <router-outlet></router-outlet>
   </div>
   <mat-toolbar class="footer">

@@ -14,6 +14,7 @@
   justify-content: space-between;
   align-items: center;
   max-width: 1200px;
+  
 }
 
 #footer-links {
@@ -26,5 +27,12 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: scroll;
+  -ms-overflow-style: none;  
+  scrollbar-width: none;
 }
-
+.main-container::-webkit-scrollbar{
+  display: none;
+  width: none;
+  scrollbar-width: none;
+}

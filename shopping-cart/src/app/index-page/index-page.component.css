@@ -1,10 +1,19 @@
 
 @media only screen and (min-width: 599.98px){
+
+  .mainMatCard::-webkit-scrollbar{
+    display: none;
+    width: none;
+    scrollbar-width: none;
+  }
 .brands-container {
     display: flex;
     overflow-y: auto;    
-   
-
+  }
+  .brands-container::-webkit-scrollbar{
+    display: none;
+    width: none;
+    scrollbar-width: none;
   }
   
   .brand-card {
@@ -45,6 +54,8 @@ mat-card{
 .category{
   display: flex;
   align-items: center;
+  -ms-overflow-style: none;  
+  scrollbar-width: none;
 }
 
 h1{

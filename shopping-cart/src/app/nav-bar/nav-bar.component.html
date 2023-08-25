@@ -1,9 +1,12 @@
 <div id="container">
   <mat-toolbar class="nav-bar">
     <div class="toolbar-content">
-      <button mat-icon-button (click)="openSidenav()">
-        <mat-icon>menu</mat-icon>
-      </button>
+      <button mat-button [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Brands</button>
+        <button mat-menu-item>Categories</button>
+        <button mat-menu-item>Sign Out</button>
+      </mat-menu>
       <form (submit)="onSearchEnter($event)" class="search-form">
         <div class="search-bar">
           <mat-form-field>
@@ -14,9 +17,8 @@
           class="searchBar"><mat-icon>search</mat-icon></button>
         <mat-card-header class="heading" (click)="clickHeader()">Glamzie</mat-card-header>
       </form>
-
       <button class="cart-btn" mat-icon-button routerLink="/cart"><mat-icon matBadge="5"
-          matBadgeColor="warn">shopping_cart</mat-icon></button>
+          matBadgeColor="warn">shopping_cart</mat-icon></button>          
       <button class="acc-btn" mat-icon-button (click)="signIn()"><mat-icon>account_circle</mat-icon></button>
     </div>
   </mat-toolbar>

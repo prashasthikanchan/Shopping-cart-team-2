@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy,HostBinding } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -13,6 +13,11 @@ export class AppComponent {
   title = 'shopping-cart';
   destroyed = new Subject<void>();
   currentScreenSize: string = '';
+  isDarkMode: boolean = false;
+
+  toggleMode() {
+    this.isDarkMode = !this.isDarkMode;
+  }
 
   displayNameMap = new Map([
     [Breakpoints.XSmall, 'XSmall'],
@@ -49,6 +54,8 @@ export class AppComponent {
     this.destroyed.next();
     this.destroyed.complete();
   }
+
+
     
 
 }
