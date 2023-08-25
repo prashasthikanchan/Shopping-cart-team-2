@@ -11,12 +11,23 @@ import { ClothItem } from '../models/clothItem.model';
 })
 export class NavBarComponent {
   searchFormControl: FormControl = new FormControl();
-  clothDataList: ClothItem[] = [];
+  clothDataList: ClothItem[] = []; 
+  currentUser : string|null = localStorage.getItem('currentUser');
+  notificationCount : number = 0;
   constructor(private clothingDataService: ClothingDataService, private router: Router) { }
   ngOnInit(): void {
+    this.currentUser = localStorage.getItem('currentUser');
+    window.addEventListener('storage', (event: StorageEvent) => {
+      console.log('Storage event triggered:', event.key, event.newValue);
+      if (event.key === 'currentUser' && event.newValue !== event.oldValue) {
+        this.calculateCartItemsCount();
+      }
+    });
     this.clothingDataService.getProducts().subscribe(data => {
       this.clothDataList = data;
     });
+    this.currentUser = localStorage.getItem('currentUser');
+    this.calculateCartItemsCount();
   }
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
   openSidenav() {
@@ -132,5 +143,15 @@ export class NavBarComponent {
   signIn() {
     localStorage.setItem('accountIcon', 'true');
     this.router.navigate(['/signin'])
+  }
+  calculateCartItemsCount(){
+    const currentUser = localStorage.getItem('currentUser');
+    if(currentUser){
+      this.notificationCount = 0;
+      const cartItems = JSON.parse(localStorage.getItem(currentUser)as string).cartItems;
+      for(const item of cartItems){
+        this.notificationCount += item.quantity;
+      }
+    }
   }
 }

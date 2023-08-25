@@ -49,6 +49,7 @@ export class SignInComponent implements OnInit {
         const item = JSON.parse(localStorage.getItem(this.loginForm.get('username').value) as string);
         if (item.password === this.loginForm.get('password').value) {
           console.log("Login Successfully")
+          localStorage.setItem('notificationCount','0');
           localStorage.setItem('currentUser', this.loginForm.get('username').value);
           if (localStorage.getItem('previousState')) {
             this.router.navigate(['/clothes/search', localStorage.getItem('previousState')])
@@ -82,6 +83,7 @@ export class SignInComponent implements OnInit {
         };
         localStorage.setItem(username, JSON.stringify(userData));
         console.log('Registration successful:', username, userData);
+        localStorage.setItem('notificationCount','0');
         localStorage.setItem('currentUser', username);
         if (localStorage.getItem('previousState')) {
           this.router.navigate(['/clothes/search', localStorage.getItem('previousState')])

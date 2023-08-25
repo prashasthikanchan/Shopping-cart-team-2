@@ -15,7 +15,8 @@
         <mat-card-header class="heading" (click)="clickHeader()">Glamzie</mat-card-header>
       </form>
 
-      <button class="cart-btn" mat-icon-button routerLink="/cart"><mat-icon>shopping_cart</mat-icon></button>
+      <button *ngIf="currentUser" [matBadge]="notificationCount" matBadgeColor="accent" matBadgePosition="above after" class="cart-btn" mat-icon-button routerLink="/cart"><mat-icon>shopping_cart</mat-icon></button>
+      <button *ngIf="!currentUser || notificationCount<=0" class="cart-btn" mat-icon-button routerLink="/cart"><mat-icon>shopping_cart</mat-icon></button>
       <button class="acc-btn" mat-icon-button (click)="signIn()"><mat-icon>account_circle</mat-icon></button>
     </div>
   </mat-toolbar>

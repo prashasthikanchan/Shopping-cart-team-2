@@ -15,6 +15,7 @@ export class CartComponent implements OnInit {
   cartItemDetails: any[] = [];
   cartItemIndex: any[] = [];
   ct: any[] = [];
+  total : number = 0;
   displayedColumns: string[] = ['position', 'name', 'quantity', 'total', 'button'];
 
   constructor(private clothingDataService: ClothingDataService, private router: Router) {
@@ -24,37 +25,23 @@ export class CartComponent implements OnInit {
     this.currentUser = localStorage.getItem('currentUser');
     if (this.currentUser) {
       this.cartItems = JSON.parse(localStorage.getItem(this.currentUser) as string).cartItems;
-      console.log("jhkjhdkjhsadkjsah", this.cartItems)
+      this.calculateTotal()
     }
 
-  }
-
-  getcartItemDetails(): any {
-    this.cartItems.forEach((value: any) => {
-      this.cartItemIndex.push(value.id);
-    });
-
-    console.log("cart", this.cartItems);
-    this.cartItemDetails = this.clothDataList.filter((cloth: any) => {
-
-      if (this.cartItemIndex.includes(cloth.id)) {
-        return true;
-      }
-      return false;
-    });
-    console.log('aaaa', this.cartItemDetails)
   }
 
   decrement(item: any) {
     if (item.quantity > 1) {
       item.quantity--;
       this.updateLocalStorage();
+      this.calculateTotal()
     }
   }
 
   increment(item: any) {
     item.quantity++;
     this.updateLocalStorage();
+    this.calculateTotal()
   }
 
   deleteItem(item: any) {
@@ -64,12 +51,12 @@ export class CartComponent implements OnInit {
       if (index !== -1) {
         this.cartItems.splice(index, 1);
         this.updateLocalStorage();
+        this.calculateTotal()
       }
     }
     this.currentUser = localStorage.getItem('currentUser');
     if (this.currentUser) {
       this.cartItems = JSON.parse(localStorage.getItem(this.currentUser) as string).cartItems;
-      console.log("jhkjhdkjhsadkjsah", this.cartItems)
     }
   }
 
@@ -78,6 +65,12 @@ export class CartComponent implements OnInit {
       const userData = JSON.parse(localStorage.getItem(this.currentUser) || '');
       userData.cartItems = this.cartItems;
       localStorage.setItem(this.currentUser, JSON.stringify(userData));
+    }
+  }
+  calculateTotal(){
+    this.total = 0;
+    for(const item of this.cartItems){
+      this.total += item.item.price * item.quantity ;
     }
   }
 
