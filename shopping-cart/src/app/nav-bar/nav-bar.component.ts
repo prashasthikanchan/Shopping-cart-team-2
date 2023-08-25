@@ -12,6 +12,8 @@ import { ClothItem } from '../models/clothItem.model';
 export class NavBarComponent {
   searchFormControl: FormControl = new FormControl();
   clothDataList: ClothItem[] = [];
+  hidden = false;
+
   constructor(private clothingDataService: ClothingDataService, private router: Router) { }
   ngOnInit(): void {
     this.clothingDataService.getProducts().subscribe(data => {
@@ -23,7 +25,11 @@ export class NavBarComponent {
     this.sidenav.open();
   }
 
-  clickHeader(){
+  toggleBadgeVisibility() {
+    this.hidden = !this.hidden;
+  }
+
+  clickHeader() {
     this.router.navigate(['']);
   }
   onSearch() {

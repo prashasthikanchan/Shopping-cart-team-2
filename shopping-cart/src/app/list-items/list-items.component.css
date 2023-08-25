@@ -174,7 +174,6 @@ mat-grid-list {
 .listContainer {
   gap: 20px;
   z-index: 800;
-  overflow: auto;
   max-height: calc(100vh - 10px);
 }
 

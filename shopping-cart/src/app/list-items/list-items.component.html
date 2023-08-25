@@ -23,10 +23,11 @@
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
-
+      <img *ngIf="filteredClothDataList.length === 0" [src]="'https://bagbazaars.com/assets/img/no-product-found.png'"
+        alt="No Results!">
     </mat-grid-list>
     <mat-sidenav class="sidebar" #sidenav mode="push">
-      <button class="btn-right" mat-icon-button (click)="sidenav.close()">
+      <button class="btn-right" mat-icon- button (click)="sidenav.close()">
         <mat-icon>close</mat-icon>
       </button><br>
       <img [src]="selectedProduct?.image" alt="Product Image" class="sidenav-image">
@@ -40,6 +41,7 @@
           {{ size }}
         </mat-button-toggle>
       </mat-button-toggle-group>
+      <mat-error *ngIf="notSelected">Size is required</mat-error>
       <mat-form-field>
         <mat-label>Qty</mat-label>
         <mat-select [value]="selectedQuantity" (selectionChange)="selectQuantity($event)">

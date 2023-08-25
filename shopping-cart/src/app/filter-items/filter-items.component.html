@@ -29,22 +29,14 @@
             <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes" [checked]="checkboxStates.get(checkbox.label)"
               (change)="toggleCheckbox($event,filterGroup.title,checkbox.label)">{{ checkbox.label }}</mat-checkbox>
           </div>
-          <div *ngIf="filterGroup.range">
-            <mat-slider thumbLabel [min]="filterGroup.range.min" [max]="filterGroup.range.max" [thumbLabel]="true"
-              discrete="true" showTickMarks="true" step="100">
-              <input [(ngModel)]="filterGroup.range.min" matSliderStartThumb>
-              <input [(ngModel)]="filterGroup.range.max" matSliderEndThumb>
-            </mat-slider>
-            <mat-form-field appearance="outline">
-              <mat-label>Minimum Price</mat-label>
-              <input matInput type="number" placeholder="Enter minimum price" [(ngModel)]="filterGroup.range.min">
-            </mat-form-field>
-            
-            <mat-form-field appearance="outline">
-              <mat-label>Maximum Price</mat-label>
-              <input matInput type="number" placeholder="Enter maximum price" [(ngModel)]="filterGroup.range.max">
-            </mat-form-field>
+          <div *ngIf="filterGroup.title === 'Price'" class="priceFilter">
+            <mat-checkbox *ngFor="let priceRange of filterGroup.checkboxes" [checked]="checkboxStates.get(priceRange.label)"
+              (change)="toggleCheckbox(priceRange,filterGroup.title,priceRange.label)">
+              {{ priceRange.label }}
+            </mat-checkbox>
           </div>
+
+
           <div *ngIf="filterGroup.title === 'Rating'">
             <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes" [checked]="checkboxStates.get(checkbox.label)"
               (change)="toggleCheckbox($event, filterGroup.title, checkbox.label)">

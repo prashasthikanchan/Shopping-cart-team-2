@@ -25,6 +25,7 @@ export class ListItemsComponent implements OnInit {
   clothParameters: any[] = [];
   searchresult: string = '';
   sizeForm: FormGroup;
+  notSelected: boolean = false;
 
   constructor(private clothingDataService: ClothingDataService, private router: ActivatedRoute,
     private router2: Router, private formBuilder: FormBuilder) {
@@ -32,6 +33,7 @@ export class ListItemsComponent implements OnInit {
     this.sizeForm = this.formBuilder.group({
       selectedSize: new FormControl('', Validators.required)
     });
+
   }
 
   ngOnInit(): void {
@@ -97,21 +99,54 @@ export class ListItemsComponent implements OnInit {
     let colorFilter = checkedBoxFilter['color'];
     let brandFilter = checkedBoxFilter['brand'];
     let genderFilter = checkedBoxFilter['gender'];
+    let priceFilter = checkedBoxFilter['price'];
+    let priceFilterArr = this.minMaxPrice(priceFilter);
     let ratingFilterString = checkedBoxFilter['rating'];
     let ratingFilter = ratingFilterString ? ratingFilterString.map(Number) : [];
+
     this.filteredClothDataList = this.filteredList.filter((cloth: any) => {
       let colorMatches = colorFilter ? (colorFilter.length > 0 ? colorFilter.includes(cloth.color) : true) : true;
       let brandMatches = brandFilter ? (brandFilter.length > 0 ? brandFilter.includes(cloth.brand) : true) : true;
       let genderMatches = genderFilter ? (genderFilter.length > 0 ? genderFilter.includes(cloth.gender) : true) : true;
       let ratingMatches = ratingFilter ? (ratingFilter.length > 0 ? ratingFilter.includes(cloth.rating) : true) : true;
+      let priceMatches = this.checkPriceFilter(cloth.price, priceFilterArr);
 
-      if (colorMatches && brandMatches && genderMatches && ratingMatches) {
+      if (colorMatches && brandMatches && genderMatches && ratingMatches && priceMatches) {
         return true;
       }
       return false;
     });
 
   }
+
+  checkPriceFilter(price: number, priceFilter: any): boolean {
+    if (!priceFilter || Object.keys(priceFilter).length === 0) {
+      return true;
+    }
+
+    for (const [min, max] of priceFilter) {
+      if (price >= min && price <= max) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  minMaxPrice(priceFilter: any): any[] {
+    const result: any[] = [];
+    if (!priceFilter || priceFilter.length == 0) {
+      return result;
+    }
+
+    for (const value of priceFilter) {
+      const [min, max] = value.split('-').map(Number);
+      result.push([min, max]);
+    }
+
+    return result;
+  }
+
 
   addSearchFilter(clothDataListInput: any[] = [], searchParameter: any) {
     let checkedBoxFilter = searchParameter;
@@ -148,19 +183,24 @@ export class ListItemsComponent implements OnInit {
   }
 
   sortAscendPrice() {
-    const sortedProducts = this.filteredList.slice().sort((a, b) => a.price - b.price);
+
+    const sortedProducts = this.filteredClothDataList.slice().sort((a, b) => a.price - b.price);
     this.filteredClothDataList = sortedProducts;
   }
   sortDescendPrice() {
-    const sortedProducts = this.filteredList.slice().sort((a, b) => b.price - a.price);
+    const sortedProducts = this.filteredClothDataList.slice().sort((a, b) => b.price - a.price);
     this.filteredClothDataList = sortedProducts;
   }
 
   sortRating() {
-    const sortedProducts = this.filteredList.slice().sort((a, b) => b.rating - a.rating);
+    const sortedProducts = this.filteredClothDataList.slice().sort((a, b) => b.rating - a.rating);
     this.filteredClothDataList = sortedProducts;
   }
   signIn() {
+    if (this.selectedSize == '' || !this.selectedSize) {
+      this.notSelected = true;
+      return;
+    }
     localStorage.setItem('accountIcon', 'false');
     this.router.paramMap.subscribe(params => {
       var parameters = params.get('parameters');
@@ -194,6 +234,7 @@ export class ListItemsComponent implements OnInit {
       userInfo.cartItems.push(cartItem);
     }
     localStorage.setItem(currentUser as string, JSON.stringify(userInfo))
+
   }
 }
 interface cartItem {

@@ -24,25 +24,7 @@ export class CartComponent implements OnInit {
     this.currentUser = localStorage.getItem('currentUser');
     if (this.currentUser) {
       this.cartItems = JSON.parse(localStorage.getItem(this.currentUser) as string).cartItems;
-      console.log("jhkjhdkjhsadkjsah", this.cartItems)
     }
-
-  }
-
-  getcartItemDetails(): any {
-    this.cartItems.forEach((value: any) => {
-      this.cartItemIndex.push(value.id);
-    });
-
-    console.log("cart", this.cartItems);
-    this.cartItemDetails = this.clothDataList.filter((cloth: any) => {
-
-      if (this.cartItemIndex.includes(cloth.id)) {
-        return true;
-      }
-      return false;
-    });
-    console.log('aaaa', this.cartItemDetails)
   }
 
   decrement(item: any) {
@@ -69,7 +51,6 @@ export class CartComponent implements OnInit {
     this.currentUser = localStorage.getItem('currentUser');
     if (this.currentUser) {
       this.cartItems = JSON.parse(localStorage.getItem(this.currentUser) as string).cartItems;
-      console.log("jhkjhdkjhsadkjsah", this.cartItems)
     }
   }
 

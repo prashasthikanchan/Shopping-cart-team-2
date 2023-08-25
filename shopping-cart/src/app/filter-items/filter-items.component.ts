@@ -79,7 +79,12 @@ export class FilterItemsComponent implements OnInit {
 
     const minPrice = Math.floor(Math.min(...this.price) / 100) * 100;
     const maxPrice = Math.ceil(Math.max(...this.price) / 100) * 100;
-    this.filterGroups[2].range = { min: minPrice, max: maxPrice };
+    const priceSegment = (maxPrice - minPrice) / 5;
+    this.filterGroups[2].checkboxes=[];
+    for (let i = 0; i < 5; i++) {
+      const label = `${minPrice + priceSegment * i}-${minPrice + priceSegment * (i + 1)}`;
+      this.filterGroups[2].checkboxes.push({ label: label });
+    }
   }
 
   filterGroups: FilterGroup[] = [
@@ -93,7 +98,7 @@ export class FilterItemsComponent implements OnInit {
     },
     {
       title: 'Price',
-      range: { min: 0, max: 100 },
+      checkboxes: [],
     },
     {
       title: 'Gender',
@@ -151,3 +156,4 @@ interface FilterGroup {
 interface checkedBoxList {
   [key: string]: string[];
 }
+

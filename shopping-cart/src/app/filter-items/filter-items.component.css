@@ -78,3 +78,11 @@ mat-list-item {
 .empty {
   color: lightgray;
 }
+.mat-form-field{
+  width: 100px;
+  display: block;
+ 
+}
+.priceFilter{
+  margin-bottom: 5px;
+}
