@@ -13,6 +13,7 @@
       </mat-form-field>
     </div>
     <mat-grid-list cols="3">
+      
       <mat-grid-tile *ngFor="let item of filteredClothDataList" (click)="showItem(item.id,sidenav)">
         <mat-card class="productCard">
           <img mat-card-image [src]="item.image" alt="{{ item.tag }}">
@@ -30,7 +31,6 @@
       <button class="btn-right" mat-icon- button (click)="sidenav.close()">
         <mat-icon>close</mat-icon>
       </button><br>
-      <img [src]="selectedProduct?.image" alt="Product Image" class="sidenav-image">
       <h2>{{ selectedProduct?.tag }}</h2>
       <mat-icon *ngFor="let _ of starsArray; let i = index"
         [ngClass]="{ 'filled': i < (selectedProduct?.rating || 0), 'empty': i >= (selectedProduct?.rating || 0) }">star</mat-icon>

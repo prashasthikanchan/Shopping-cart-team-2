@@ -31,6 +31,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 1px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .sidebar {
@@ -149,6 +151,8 @@ mat-grid-list {
 
 .brand {
   overflow: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .container {
@@ -157,8 +161,17 @@ mat-grid-list {
   gap: 20px;
   z-index: 800;
   overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   max-height: calc(100vh - 20px);
   background-color: white;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+  width: none;
+  scrollbar-width: none;
+
 }
 
 .mat-grid-tile-content {
@@ -169,12 +182,25 @@ mat-grid-list {
   margin-top: 25%;
   overflow: auto;
   margin-bottom: 0;
+  height: 100%;
+  position: -webkit-sticky;
+  position: sticky;
+
+}
+
+.filterSide::-webkit-scrollbar {
+  display: none;
+  width: none;
+  scrollbar-width: none;
+  overflow-y: scroll;
 }
 
 .listContainer {
   gap: 20px;
   z-index: 800;
   max-height: calc(100vh - 10px);
+  position: -webkit-sticky;
+  position: sticky;
 }
 
 .sortOption {
@@ -198,4 +224,6 @@ ng-container {
   display: flex;
   flex-direction: row;
   overflow: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

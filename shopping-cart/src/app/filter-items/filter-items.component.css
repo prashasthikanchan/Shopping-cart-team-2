@@ -86,3 +86,8 @@ mat-list-item {
 .priceFilter{
   margin-bottom: 5px;
 }
+.mat-expansion-panel{
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+}

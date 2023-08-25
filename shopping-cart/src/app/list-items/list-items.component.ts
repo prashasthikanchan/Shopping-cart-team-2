@@ -3,6 +3,7 @@ import { ClothingDataService } from '../clothing-data.service';
 import { Router } from '@angular/router';
 import { ClothItem } from '../models/clothItem.model';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarModule, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -26,9 +27,11 @@ export class ListItemsComponent implements OnInit {
   searchresult: string = '';
   sizeForm: FormGroup;
   notSelected: boolean = false;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   constructor(private clothingDataService: ClothingDataService, private router: ActivatedRoute,
-    private router2: Router, private formBuilder: FormBuilder) {
+    private router2: Router, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
     this.selectedSize = '';
     this.sizeForm = this.formBuilder.group({
       selectedSize: new FormControl('', Validators.required)
@@ -234,7 +237,15 @@ export class ListItemsComponent implements OnInit {
       userInfo.cartItems.push(cartItem);
     }
     localStorage.setItem(currentUser as string, JSON.stringify(userInfo))
+    this.openSnackBar();
 
+  }
+
+  openSnackBar() {
+    this.snackBar.open('Item added to cart', 'Close', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition, duration: 1000,
+    });
   }
 }
 interface cartItem {
