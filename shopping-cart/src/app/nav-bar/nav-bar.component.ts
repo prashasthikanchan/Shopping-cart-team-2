@@ -13,12 +13,12 @@ export class NavBarComponent {
   searchFormControl: FormControl = new FormControl();
   clothDataList: ClothItem[] = [];
   hidden = false;
-
   constructor(private clothingDataService: ClothingDataService, private router: Router) { }
   ngOnInit(): void {
     this.clothingDataService.getProducts().subscribe(data => {
       this.clothDataList = data;
     });
+
   }
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
   openSidenav() {

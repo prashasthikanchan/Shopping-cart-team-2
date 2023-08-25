@@ -75,7 +75,7 @@ mat-card-title {
   font-size: medium;
   background-color: #ffffff;
   overflow: auto;
-  margin-left: 10px;
+  margin-left: 15px;
 }
 
 .demo-table td {
@@ -89,7 +89,7 @@ mat-card-title {
 button {
   margin-top: 8px;
   background-color: pink;
-  color: white;
+  color: black;
   border: none;
   padding: 6px 12px;
   border-radius: 4px;
@@ -97,24 +97,30 @@ button {
 }
 
 button:hover {
-  background-color: #333;
+  background-color: grey;
+  color: white;
 }
 
 .mat-card-actions {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
+    margin-top: 1%; 
+   margin-left: 60%;
 }
 
 .mat-card-actions button {
-  background-color: #007bff;
-  color: white;
+  background-color: pink;
+  color: black;
   border: none;
-  padding: 6px 12px;
   border-radius: 4px;
   cursor: pointer;
+
 }
 
 .mat-card-actions button:hover {
-  background-color: #0056b3;
+  background-color: grey;
+  color: white;
+}
+.total-row{
+  margin-top: 3%;
+  margin-left: 60%;
 }
