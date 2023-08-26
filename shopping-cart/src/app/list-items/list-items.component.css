@@ -205,19 +205,20 @@ mat-grid-list {
 
 .sortOption {
   width: 150px;
-  margin-left: 60%;
+  margin-left: 2%;
 }
 
 .listHeader {
   display: flex;
   justify-content: center;
   margin-top: 2%;
+  overflow: auto;
+
 }
 
 h3 {
   margin-top: 5%;
   font-weight: 500;
-
 }
 
 ng-container {
@@ -272,4 +273,14 @@ ng-container {
     width: 100%;
   }
 }
-
+.price-delivery{
+  display: inline;
+}
+.red{
+  color : red;
+  float : right;
+}
+.pincode{
+  margin-left: 50%;
+  width : 100px
+}

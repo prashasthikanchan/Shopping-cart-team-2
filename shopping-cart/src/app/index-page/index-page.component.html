@@ -1,44 +1,35 @@
-<mat-card class="mainMatCard">
-    <mat-card-content>
-        <mat-card class="gender">
-            <mat-card-content>
-                <strong>
-                    <h1>Men & Women</h1>
-                </strong>
-                <div class="brands-container">
-                    <mat-card class="brand-card" *ngFor="let gender of genderOptions"
-                        (click)='onClickGender(gender.name)'>
-                        <img [src]="gender.image" alt="{{ gender.name }}">
-                    </mat-card>
-                </div>
-            </mat-card-content>
-        </mat-card>
-        <mat-card class="brand">
-            <mat-card-content>
-                <strong>
-                    <h1>Brands</h1>
-                </strong>
-                <div class="brands-container">
-                    <mat-card class="brand-card" *ngFor="let brand of brands" (click)='onClickBrand(brand.name)'>
-                        <img [src]="brand.image" alt="{{ brand.name }}">
-                        <p>{{ brand.name }}</p>
-                    </mat-card>
-                </div>
-            </mat-card-content>
-        </mat-card>
-        <mat-card class="category">
-            <mat-card-content>
-                <strong>
-                    <h1>Categories</h1>
-                </strong>
-                <div class="brands-container">
-                    <mat-card class="brand-card" *ngFor="let category of allCategories"
-                        (click)="onClickCategory(category.name)">
-                        <img [src]="category.image" alt="{{ category.name }}">
-                        <p>{{ category.name }}</p>
-                    </mat-card>
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </mat-card-content>
-</mat-card>
+<div class="main-mat-card">
+    <div class="gender">
+        <strong>
+            <h1>Men & Women</h1>
+        </strong>
+        <div class="brands-container">
+            <mat-card class="brand-card" *ngFor="let gender of genderOptions" (click)='onClickGender(gender.name)'>
+                <img [src]="gender.image" alt="{{ gender.name }}">
+            </mat-card>
+        </div>
+    </div>
+    <div class="brand">
+        <strong>
+            <h1>Brands</h1>
+        </strong>
+        <div class="brands-container">
+            <mat-card class="brand-card" *ngFor="let brand of brands" (click)='onClickBrand(brand.name)'>
+                <img [src]="brand.image" alt="{{ brand.name }}">
+                <p>{{ brand.name }}</p>
+            </mat-card>
+        </div>
+    </div>
+    <div class="category">
+        <strong>
+            <h1>Categories</h1>
+        </strong>
+        <div class="brands-container">
+            <mat-card class="brand-card" *ngFor="let category of allCategories"
+                (click)="onClickCategory(category.name)">
+                <img [src]="category.image" alt="{{ category.name }}">
+                <p>{{ category.name }}</p>
+            </mat-card>
+        </div>
+    </div>
+</div>

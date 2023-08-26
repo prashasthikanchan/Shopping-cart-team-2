@@ -8,7 +8,8 @@
         "rating" : 4,
         "price" : 917,
         "brand" : "Zara",
-        "category" : "jeans"
+        "category" : "jeans",
+        "pincode" : 577217
     },{
         "id": 2,
         "tag" : "Light-Wash High-Rise Distressed Mom Jeans",
@@ -19,6 +20,7 @@
         "price" : 750,
         "brand" : "Trends",
         "category" : "jeans"
+        
     },{
         "id" : 3,
         "tag" :"Mid-Wash Slim Fit Jeans",
@@ -28,7 +30,8 @@
         "rating" : 5,
         "price" : 833,
         "brand" : "Zudio",
-        "category" : "jeans"
+        "category" : "jeans",
+        "pincode" : 560078
     },{
         "id" : 4,
         "tag" : "Denim Bomber Jacket",
@@ -69,7 +72,8 @@
         "rating" : 4,
         "price" : 849,
         "brand" : "Fery London",
-        "category" : "top"
+        "category" : "top",
+        "pincode" : 560023
     },{
         "id" : 8,
         "tag" : "Collar Neck crop top",

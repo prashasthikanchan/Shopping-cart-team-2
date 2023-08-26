@@ -3,6 +3,10 @@
   <div class="listContainer">
     <div class="listHeader">
       <h3>Showing search results for "{{searchresult}} "</h3>
+      <mat-form-field class="pincode">
+        <mat-label>Pincode</mat-label>
+        <input matInput type="number" (change) = "takePincode($event)">
+      </mat-form-field>
       <mat-form-field class="sortOption">
         <mat-label>Sort By</mat-label>
         <select matNativeControl (change)="onSortOptionChange($event)">
@@ -20,7 +24,8 @@
           <mat-card-content>
             <p style="font-weight: bold;">{{item.brand}}</p>
             <p>{{ item.tag }}</p>
-            <p style="font-weight: bold;">₹{{ item.price }}</p>
+            <p class="price-delivery" style="font-weight: bold;">₹{{ item.price }}</p>
+            <p class="price-delivery red" *ngIf="pincode ? checkIfAvailable(item) : false">Not deliverable</p>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>

@@ -30,6 +30,7 @@ export class ListItemsComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
+  pincode : number | null = null;
   constructor(private clothingDataService: ClothingDataService, private router: ActivatedRoute,
     private router2: Router, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
     this.selectedSize = '';
@@ -62,6 +63,7 @@ export class ListItemsComponent implements OnInit {
     this.selectedSize = null;
     this.selectedProduct = this.clothDataList.find(item => item.id === id);
     sidenav.open();
+
   }
   selectSize(size: string) {
     this.selectedSize = size;
@@ -247,6 +249,26 @@ export class ListItemsComponent implements OnInit {
       verticalPosition: this.verticalPosition, duration: 1000,
     });
   }
+  takePincode(event : any){
+    this.pincode = event.target.value;
+    event.target.value = null;
+  }
+  checkIfAvailable(item : ClothItem) : boolean{
+    if(item.pincode && this.pincode){
+      if(this.pincode <= item.pincode+10 && this.pincode >= item.pincode-10){
+        return false;
+      }
+      else{
+        console.log(this.pincode);
+        console.log(item)
+        return true;
+      }
+    }
+    else{
+      return false;
+    }
+  }
+
 }
 interface cartItem {
   "item": ClothItem,

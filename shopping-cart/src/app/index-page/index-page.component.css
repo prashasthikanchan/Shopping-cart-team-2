@@ -1,68 +1,57 @@
-
-@media only screen and (min-width: 599.98px){
-
-  .mainMatCard::-webkit-scrollbar{
-    display: none;
-    width: none;
-    scrollbar-width: none;
-  }
-.brands-container {
-    display: flex;
-    overflow-y: auto;    
-  }
-  .brands-container::-webkit-scrollbar{
-    display: none;
-    width: none;
-    scrollbar-width: none;
-  }
-  
-  .brand-card {
-    flex: 0 0 auto;
-    margin-top: 0;
-    width: 200px;
-    margin-right: 10px;
-    text-align: center;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    background-color: #FFE5E5;
-  }
-  img {
-    width: 100%;
-    height: auto;
-  }
-  h1{
-    text-align: center;
-    margin-top: 3%;
-    color: black;
-    font-size:xx-large;
-    font-family: Trattatello, fantasy;
-  }
-mat-card{
-  justify-content: center;
-}
-
-.gender{
+.main-mat-card{
+  display : flex;
+  width : 100%;
+  flex-direction: column; 
+  align-items: center; 
+  margin-top: 2rem;
+ }
+ .gender,.brand,.category {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
+  width: 100%; 
+  margin-bottom: 16px; 
+  padding-top: 5rem;
 }
-.gender h1{
-  padding-bottom: 5%;
-  padding-top: 10%;
+.brands-container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.brand-card {
+  flex: 1;
+  max-width: calc(33.33% - 16px);
+  background-color: #FFE5E5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  text-align: center;
+}
+.brand-card:hover {
+  transform: scale(1.05);
 }
 
-.category{
-  display: flex;
-  align-items: center;
-  -ms-overflow-style: none;  
-  scrollbar-width: none;
+.brand-card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 8px;
+  width: 120px; 
+  height: 150px; 
 }
 
+.brand-card p {
+  margin: 0;
+}
 h1{
-  padding-bottom: 2%;
+  margin-bottom: 2rem;
+  font-size:xx-large;
+  font-family: Trattatello, fantasy;
 }
-
+@media (max-width: 768px) {
+  .brands-container {
+    justify-content: center;
+  }
 
 }
-
-

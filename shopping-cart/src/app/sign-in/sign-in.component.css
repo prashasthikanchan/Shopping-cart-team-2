@@ -1,12 +1,43 @@
 .example-card {
   max-width: 400px;
-  margin: auto;
-  padding: 20px;
-  z-index: 800;
-  margin-top: 10%;
-  border: 1px solid pink;
+
+}
+@media (min-width:481px) and (max-width: 768px) {
+  .example-card {
+    margin-top: 30%; 
+    padding: 20px;
+    z-index: 800;
+    border: 1px solid pink;
+  }
 }
 
+@media (max-width: 480px) {
+  .example-card {
+    margin-top: 50%;
+    margin-left: 30%;
+    padding: 20px;
+    z-index: 800;
+    border: 1px solid pink;
+  }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .example-card {
+    margin-top: 10%;
+    margin-left: 30%;
+    padding: 20px;
+    z-index: 800;
+    border: 1px solid pink;
+  }
+}
+@media (min-width: 1025px) {
+  .example-card {
+    margin-top: 10%;
+    margin-left: 35%;
+    padding: 20px;
+    z-index: 800;
+    border: 1px solid pink;
+  }
+}
 .example-form {
   width: 100%;
 }
@@ -69,18 +100,8 @@ h3 {
   border: none;
   font-size: large;
 }
-
-.action-buttons {
-  display: flex;
-  align-items: center;
-}
-
 div {
   color: red;
   padding: 0.5%
-}
-
-form button{  
-  margin-left: 40%;
 }
 
