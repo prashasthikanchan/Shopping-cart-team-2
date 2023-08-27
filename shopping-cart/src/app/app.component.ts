@@ -14,7 +14,8 @@ export class AppComponent {
   destroyed = new Subject<void>();
   currentScreenSize: string = '';
   isDarkMode: boolean = false;
-
+  showFeedbackForm = false;
+  showContact = false;
   toggleMode() {
     this.isDarkMode = !this.isDarkMode;
   }
@@ -54,8 +55,12 @@ export class AppComponent {
     this.destroyed.next();
     this.destroyed.complete();
   }
-
-
+  showFeedback(){
+    this.showFeedbackForm = !this.showFeedbackForm;
+  }
+  showContactInfo(){
+    this.showContact = !this.showContact;
+  }
     
 
 }

@@ -63,7 +63,6 @@ export class ListItemsComponent implements OnInit {
     this.selectedSize = null;
     this.selectedProduct = this.clothDataList.find(item => item.id === id);
     sidenav.open();
-
   }
   selectSize(size: string) {
     this.selectedSize = size;

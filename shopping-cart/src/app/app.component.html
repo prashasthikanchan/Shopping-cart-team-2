@@ -5,11 +5,27 @@
   <div [ngClass]="isDarkMode ? 'dark-mode' : 'light-mode'" class="content">
     <router-outlet></router-outlet>
   </div>
-  <mat-toolbar class="footer">
-    <div class="footer-content">
-      <span id="footer-links">Contact us</span>
-      <span id="footer-links">About us</span>
-      <span id="footer-links">© 2023 Glamzie. All rights reserved.</span>
+  <div class="feedback-overlay" *ngIf="showFeedbackForm">
+    <div class="feedback-form">
+      <button class="close-button" (click)="showFeedback()"><mat-icon>close</mat-icon></button>
+      <h2>We value your feedback</h2>
+      <form class="feedback">
+        <input type="text"><br>
+        <button class="feedback-submit" (click)="showFeedback()">Submit</button>
+      </form>
     </div>
+  </div>
+  <div class="contact-overlay" *ngIf="showContact">
+    <div class="contact-form">
+      <button class="close-button" (click)="showContactInfo()"><mat-icon>close</mat-icon></button>
+      <h2>Contact us</h2>
+      <p>palguni@gmail.com</p>
+      <p>prashasthi@gmail.com</p>
+    </div>
+  </div>
+  <mat-toolbar class="footer">
+    <span class="footer-item feedback" (click) = "showFeedback()">Feedback</span>
+      <span class="footer-item contact-us" (click)="showContactInfo()">Contact Us</span>
+      <span class="footer-item">© 2023 Glamzie. All rights reserved.</span>
   </mat-toolbar>
 </div>

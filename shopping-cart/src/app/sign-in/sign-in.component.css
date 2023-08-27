@@ -5,6 +5,7 @@
 @media (min-width:481px) and (max-width: 768px) {
   .example-card {
     margin-top: 30%; 
+    margin-left: 10%;
     padding: 20px;
     z-index: 800;
     border: 1px solid pink;
@@ -14,7 +15,6 @@
 @media (max-width: 480px) {
   .example-card {
     margin-top: 50%;
-    margin-left: 30%;
     padding: 20px;
     z-index: 800;
     border: 1px solid pink;
