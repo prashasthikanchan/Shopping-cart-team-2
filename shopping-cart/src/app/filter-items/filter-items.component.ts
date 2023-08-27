@@ -5,6 +5,7 @@ import { MatSliderChange } from '@angular/material/slider';
 import { ClothItem } from '../models/clothItem.model';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-filter-items',
@@ -19,13 +20,17 @@ export class FilterItemsComponent implements OnInit {
   price: number[] = [];
   checkedboxList: checkedBoxList = {};
   starsArray = Array(5).fill(0);
-  panelOpenState = true;
+  // panelOpenState = true;
   filterGroupOpenStates: { [title: string]: boolean } = {};
+  mobileQuery: MediaQueryList|undefined;
+  panelOpenState: boolean=true; 
+  
 
-  constructor(private clothingDataService: ClothingDataService) {
+  constructor(private clothingDataService: ClothingDataService,private media: MediaMatcher) {
     this.filterGroups.forEach(filterGroup => {
       this.filterGroupOpenStates[filterGroup.title] = true;
     });
+
   }
   @Output() checkboxlistUpdated = new EventEmitter();
 
@@ -41,6 +46,9 @@ export class FilterItemsComponent implements OnInit {
 
       this.initializeFilterGroups();
     });
+
+    this.mobileQuery = this.media.matchMedia('(max-width: 576px)');
+    this.panelOpenState = !this.mobileQuery.matches; 
   }
   displayedColumns: string[] = ['name', 'age', 'gender'];
   dataSource = new MatTableDataSource<string>(['Men', 'Women']);

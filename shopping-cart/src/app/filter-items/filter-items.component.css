@@ -1,43 +1,29 @@
-mat-expansion-panel {
-  background-color: #FFE5E5;
-  margin: 0px;
-  box-shadow: none;
-  border: 5px black;
-}
-
 .mat-expansion-panel {
-  width: 100%;
-  background-color: transparent;
-  border-radius: 0;
+  width: 10rem;
   border: none;
   box-shadow: none;
   margin-bottom: 5px;
   background-color: #FFE5E5;
-}
-
-.mat-expansion-panel-header {
-  border-radius: 0;
-  font-weight: 500;
-}
-
-.mat-panel-title {
-  font-size: 16px;
-  color: #333;
+  margin-right: 2px;
+  padding-right: 5px;
+  left: 0;
+  padding-left: 0px;
+  padding: 0;
 }
 
 .mat-card-content {
-  padding: 2px;
+  padding: 1px;
 }
 
 .color-box {
   width: 15px;
   height: 15px;
   display: inline-block;
-  margin-right: 8px;
+  margin-right: 2px;
   border: 1px solid #ccc;
   border-radius: 10px;
   margin-top: 5px;
-
+  padding-left: 0px;
 }
 
 .brandFilter,
@@ -46,25 +32,50 @@ mat-expansion-panel {
 }
 
 .mat-checkbox {
-  margin-right: 10px;
-}
-
-.mat-slider {
-  width: 100%;
+  margin-right: 0.2rem;
 }
 
 .brandFilter {
-  margin-right: 25%;
-  display: inline-block;
+  margin-right: 0.1rem;
 }
 
 .genderFilter {
-  margin-right: 25%;
-  display: inline-block;
+  margin-right: 0.1rem;
 }
 
-mat-list-item {
-  margin-left: 80%;
+.mat-form-field {
+  width: 10px;
+  display: block;
+
+}
+
+.priceFilter {
+  margin-bottom: 2px;
+}
+
+.main {
+  width: 13rem;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  margin-bottom: 2px;
+  background-color: #FFE5E5;
+  padding-left: 0px;
+}
+
+.mat-expansion-panel-header {
+  font-weight: 500;
+  padding: 0rem 0.5rem;
+  height: 2.5rem;
+}
+
+.mat-panel-title {
+  font-size: 16px;
+  color: #333;
+}
+
+.mat-checkbox {
+  margin-right: 1px;
 }
 
 .row {
@@ -78,16 +89,21 @@ mat-list-item {
 .empty {
   color: lightgray;
 }
-.mat-form-field{
-  width: 100px;
-  display: block;
- 
-}
-.priceFilter{
-  margin-bottom: 5px;
-}
-.mat-expansion-panel{
-  overflow: hidden;
-  position: sticky;
-  top: 0;
+
+@media screen and (max-width: 576px) {
+  .main {
+    margin-top: 0rem;
+  }
+
+  .mat-expansion-panel {
+    width: 100%;
+    display: block;
+    overflow: hidden;
+
+  }
+
+  .mat-checkbox {
+    margin-right: 3px;
+  }
+
 }
