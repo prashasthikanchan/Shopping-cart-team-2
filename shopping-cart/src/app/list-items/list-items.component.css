@@ -147,6 +147,7 @@ mat-select {
 
 mat-grid-list {
   margin-top: 2%;
+  display: flex;
 }
 
 .brand {

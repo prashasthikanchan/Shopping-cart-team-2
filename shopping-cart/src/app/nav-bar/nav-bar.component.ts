@@ -13,6 +13,7 @@ export class NavBarComponent {
   searchFormControl: FormControl = new FormControl();
   clothDataList: ClothItem[] = [];
   hidden = false;
+  showSearch = false;
   constructor(private clothingDataService: ClothingDataService, private router: Router) { }
   ngOnInit(): void {
     this.clothingDataService.getProducts().subscribe(data => {
@@ -33,6 +34,7 @@ export class NavBarComponent {
     this.router.navigate(['']);
   }
   onSearch() {
+    this.showSearch = false;
     const value = this.searchFormControl.value.toLowerCase();
     const filters: { colors: string[], sex: string[], brands: string[], categories: string[] } = { colors: [], sex: [], brands: [], categories: [] };
     let availableGenderOptions: string[] = [];
@@ -138,5 +140,8 @@ export class NavBarComponent {
   signIn() {
     localStorage.setItem('accountIcon', 'true');
     this.router.navigate(['/signin'])
+  }
+  showMenuSearch(){
+    this.showSearch = true;
   }
 }

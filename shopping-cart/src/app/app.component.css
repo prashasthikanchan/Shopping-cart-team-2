@@ -85,6 +85,7 @@
   font-size: 15px; 
 }
 .feedback-submit{
+  font-weight: bold;
   border: none;
   background-color: pink;
   color: black;
