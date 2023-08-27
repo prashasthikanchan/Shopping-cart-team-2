@@ -83,7 +83,7 @@
     }
 }
 
-@media(min-width : 481px) {
+@media(min-width : 481px) and (max-width : 768px) {
     #menu-search {
         display: none;
     }
@@ -97,6 +97,10 @@
     .nav-bar {
         justify-content: space-between;
         font-size: large;
+    }
+    .mat-card-header {
+        margin-left: 0.1rem;
+        font-size: x-large;
     }
 }
 

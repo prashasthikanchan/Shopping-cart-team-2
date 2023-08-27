@@ -3,7 +3,7 @@
         <strong>
             <h1>Men & Women</h1>
         </strong>
-        <div class="brands-container">
+        <div class="gender-container">
             <mat-card class="brand-card" *ngFor="let gender of genderOptions" (click)='onClickGender(gender.name)'>
                 <img [src]="gender.image" alt="{{ gender.name }}">
             </mat-card>
@@ -24,7 +24,7 @@
         <strong>
             <h1>Categories</h1>
         </strong>
-        <div class="brands-container">
+        <div class="category-container">
             <mat-card class="brand-card" *ngFor="let category of allCategories"
                 (click)="onClickCategory(category.name)">
                 <img [src]="category.image" alt="{{ category.name }}">
