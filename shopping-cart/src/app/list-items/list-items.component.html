@@ -5,7 +5,7 @@
       <h3>Showing search results for "{{searchresult}} "</h3>
       <mat-form-field class="pincode">
         <mat-label>Pincode</mat-label>
-        <input matInput type="number" (change) = "takePincode($event)">
+        <input matInput type="number" (change)="takePincode($event)">
       </mat-form-field>
       <mat-form-field class="sortOption">
         <mat-label>Sort By</mat-label>
@@ -16,8 +16,7 @@
         </select>
       </mat-form-field>
     </div>
-    <mat-grid-list cols="3">
-      
+    <mat-grid-list [cols]="breakpoint" [rowHeight]="rowHeight" (window:resize)="onResize($event)">
       <mat-grid-tile *ngFor="let item of filteredClothDataList" (click)="showItem(item.id,sidenav)">
         <mat-card class="productCard">
           <img mat-card-image [src]="item.image" alt="{{ item.tag }}">

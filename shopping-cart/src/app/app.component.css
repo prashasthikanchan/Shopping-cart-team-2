@@ -3,10 +3,11 @@
   flex-direction: column;
   min-height: 100vh;
   overflow-x: scroll;
-  -ms-overflow-style: none;  
+  -ms-overflow-style: none;
   scrollbar-width: none;
 }
-.main-container::-webkit-scrollbar{
+
+.main-container::-webkit-scrollbar {
   display: none;
   width: none;
   scrollbar-width: none;

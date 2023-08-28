@@ -1,6 +1,6 @@
 .container {
   background-color: #FFE5E5;
-  margin-top: 4%;
+  margin-top: 2rem;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -10,15 +10,15 @@
 }
 
 .mat-card {
-  width: 70%;
-  height: 90%;
-  margin-top: 4%;
+  width: 50rem;
+  height: 30rem;
+  margin: 2rem;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to right, white 80.66%, pink 66.66%);
+  background: white;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2); 
   border-radius: 8px;
-  overflow: auto;
+  overflow:auto;
 }
 
 mat-card-title {
@@ -39,11 +39,11 @@ mat-card-title {
 }
 
 .demo-table {
-  width: 80%;
-  margin-top: 10px;
-  margin-left: 10px;
+  width: 40rem;
+  height: 30rem;
   box-shadow: none;
   overflow: auto;
+  text-overflow: clip;
 }
 
 .colProduct,
@@ -74,8 +74,7 @@ mat-card-title {
   font-weight: bold;
   font-size: medium;
   background-color: #ffffff;
-  overflow: auto;
-  margin-left: 15px;
+  overflow: hidden;
 }
 
 .demo-table td {
@@ -103,8 +102,8 @@ button:hover {
 
 .mat-card-actions {
   display: flex;
-    margin-top: 1%; 
-   margin-left: 60%;
+  margin-top: 0.5rem; 
+  margin-left: 30rem;
 }
 
 .mat-card-actions button {
@@ -121,15 +120,94 @@ button:hover {
   color: white;
 }
 .total-row{
-  margin-top: 3%;
-  margin-left: 60%;
+  margin-top: 2rem;
+  margin-left: 30rem;
 }
 
 .product{
   display: flex;
+  width: 20rem;
 }
 
 img{
   padding:7px;
 }
+.delete{
+  display: block;
+}
+.deleteSmall{
+  display: none;
+}
 
+@media screen and (max-width: 576px) {
+  .mat-card {
+    width: 18rem;
+    height: 30rem;
+    background: white;
+    overflow: auto;
+  }
+
+  .demo-table {
+    width: 17rem;
+    height: 3rem;
+    box-shadow: none;
+    overflow: hidden;
+  }
+
+  .product{
+    display:block;
+  }
+  img{
+    padding:2px;
+  }
+  .demo-table th {
+    font-weight: bold;
+    font-size: small;
+    background-color: #ffffff;
+    overflow: auto;
+    padding: 5px;
+    align-items: left;
+  }
+
+  .demo-table td {
+    font-size: smaller;
+  }
+
+  .delete{
+    display: none;
+    
+  }
+  .deleteSmall{
+    display: inline-block;  
+  } 
+  .mat-raised-button {
+    width: 4px;
+    line-height: 7px;
+    margin: 0px;
+    align-items: center;
+  }
+
+  button {
+    margin-top: 5px;
+    padding: 5px 5px;
+    padding-right: 11px;
+  }
+  input{
+    padding-left: 3px;
+  }
+  .total-row{
+    margin-top: 2rem;
+    margin-left: 12rem;
+  }
+  .mat-card-actions {
+    margin-top: 0.5rem; 
+    margin-left: 12rem;
+  }
+  .mat-card-actions button {
+    width: 70px;
+  }
+  .product{
+    width:8rem;
+  }
+
+}

@@ -35,7 +35,8 @@ export class NavBarComponent {
   }
   onSearch() {
     this.showSearch = false;
-    const value = this.searchFormControl.value.toLowerCase();
+    if(this.searchFormControl.value){
+      const value = this.searchFormControl.value.toLowerCase();
     const filters: { colors: string[], sex: string[], brands: string[], categories: string[] } = { colors: [], sex: [], brands: [], categories: [] };
     let availableGenderOptions: string[] = [];
     let availableColorOptions: string[] = [];
@@ -131,6 +132,7 @@ export class NavBarComponent {
     }
     this.router.navigate(['/clothes/search', parameters]);
 
+    }
     this.searchFormControl.setValue(null);
   }
   onSearchEnter(event: Event): void {
