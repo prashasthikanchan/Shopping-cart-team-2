@@ -1,11 +1,6 @@
-<mat-toolbar class="nav-bar">
-  <button mat-button [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item id="menu-search" (click)="showMenuSearch()">Search</button>
-    <button mat-menu-item>Brands</button>
-    <button mat-menu-item>Categories</button>
-    <button mat-menu-item>Sign Out</button>
-  </mat-menu>
+<mat-toolbar class="nav-bar" (window:resize)="onResize($event)">
+  <button mat-button *ngIf="!displaySearch" disabled><mat-icon></mat-icon></button>
+  <button mat-button *ngIf="displaySearch" (click)="showMenuSearch()"><mat-icon>search</mat-icon></button>
   <div class="search-overlay" *ngIf="showSearch">
     <div class="menu-search-form">
       <form (submit)="onSearchEnter($event)" class="menu-search-form-form">

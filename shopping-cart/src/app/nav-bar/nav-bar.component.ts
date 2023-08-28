@@ -14,12 +14,18 @@ export class NavBarComponent {
   clothDataList: ClothItem[] = [];
   hidden = false;
   showSearch = false;
+  displaySearch = false;
   constructor(private clothingDataService: ClothingDataService, private router: Router) { }
   ngOnInit(): void {
     this.clothingDataService.getProducts().subscribe(data => {
       this.clothDataList = data;
     });
+    this.displaySearch = (window.innerWidth <= 477) ? true:false;
 
+  }
+  onResize(event: any) {
+    this.displaySearch = (window.innerWidth <= 477) ? true:false;
+    
   }
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
   openSidenav() {
