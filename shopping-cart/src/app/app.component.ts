@@ -13,12 +13,8 @@ export class AppComponent {
   title = 'shopping-cart';
   destroyed = new Subject<void>();
   currentScreenSize: string = '';
-  isDarkMode: boolean = false;
   showFeedbackForm = false;
   showContact = false;
-  toggleMode() {
-    this.isDarkMode = !this.isDarkMode;
-  }
 
   displayNameMap = new Map([
     [Breakpoints.XSmall, 'XSmall'],

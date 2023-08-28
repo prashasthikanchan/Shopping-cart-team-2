@@ -22,11 +22,11 @@ export class FilterItemsComponent implements OnInit {
   starsArray = Array(5).fill(0);
   // panelOpenState = true;
   filterGroupOpenStates: { [title: string]: boolean } = {};
-  mobileQuery: MediaQueryList|undefined;
-  panelOpenState: boolean=true; 
-  
+  mobileQuery: MediaQueryList | undefined;
+  panelOpenState: boolean = true;
 
-  constructor(private clothingDataService: ClothingDataService,private media: MediaMatcher) {
+
+  constructor(private clothingDataService: ClothingDataService, private media: MediaMatcher) {
     this.filterGroups.forEach(filterGroup => {
       this.filterGroupOpenStates[filterGroup.title] = true;
     });
@@ -48,7 +48,7 @@ export class FilterItemsComponent implements OnInit {
     });
 
     this.mobileQuery = this.media.matchMedia('(max-width: 576px)');
-    this.panelOpenState = !this.mobileQuery.matches; 
+    this.panelOpenState = !this.mobileQuery.matches;
   }
   displayedColumns: string[] = ['name', 'age', 'gender'];
   dataSource = new MatTableDataSource<string>(['Men', 'Women']);
@@ -88,7 +88,7 @@ export class FilterItemsComponent implements OnInit {
     const minPrice = Math.floor(Math.min(...this.price) / 100) * 100;
     const maxPrice = Math.ceil(Math.max(...this.price) / 100) * 100;
     const priceSegment = (maxPrice - minPrice) / 5;
-    this.filterGroups[2].checkboxes=[];
+    this.filterGroups[2].checkboxes = [];
     for (let i = 0; i < 5; i++) {
       const label = `${minPrice + priceSegment * i}-${minPrice + priceSegment * (i + 1)}`;
       this.filterGroups[2].checkboxes.push({ label: label });

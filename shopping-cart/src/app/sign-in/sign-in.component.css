@@ -28,6 +28,9 @@
     z-index: 800;
     border: 1px solid pink;
   }
+  mat-card-header{
+    margin-left: 0.5rem;
+  }
 }
 @media (min-width: 1025px) {
   .example-card {
@@ -37,6 +40,10 @@
     z-index: 800;
     border: 1px solid pink;
   }
+  mat-card-header{
+    margin-left: 0.5rem;
+  }
+  
 }
 .example-form {
   width: 100%;
@@ -56,6 +63,7 @@ mat-card-header {
 mat-card-title {
   font-size: 24px;
   font-weight:800;
+  
 }
 
 mat-card-actions {

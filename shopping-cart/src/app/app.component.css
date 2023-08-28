@@ -12,7 +12,8 @@
   width: none;
   scrollbar-width: none;
 }
-@media (min-width : 581px){
+
+@media (min-width : 581px) {
   .footer {
     display: flex;
     justify-content: space-around;
@@ -21,9 +22,10 @@
     bottom: 0;
     width: 100%;
     background-color: pink;
-    color:black;
+    color: black;
     flex-wrap: wrap;
   }
+
   .footer-item {
     display: flex;
     flex-direction: column;
@@ -42,51 +44,59 @@
     width: 100%;
     background-color: pink;
     color: black;
-    height:min-content;
+    height: min-content;
     position: fixed;
     z-index: 1100;
   }
+
   .footer-item {
     font-size: small;
   }
 }
-.feedback,.contact-us{
+
+.feedback,
+.contact-us {
   cursor: pointer;
 }
-.feedback-overlay,.contact-overlay {
+
+.feedback-overlay,
+.contact-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; 
+  z-index: 1000;
 }
 
-.feedback-form,.contact-form {
+.feedback-form,
+.contact-form {
   background-color: white;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  max-width: 80%; 
+  max-width: 80%;
 }
-.close-button{
+
+.close-button {
   float: right;
   cursor: pointer;
   z-index: 1;
   background: none;
-  padding:0;
-  margin:0;
-  border :none
+  padding: 0;
+  margin: 0;
+  border: none
 }
 
 .close-button mat-icon {
-  font-size: 15px; 
+  font-size: 15px;
 }
-.feedback-submit{
+
+.feedback-submit {
   font-weight: bold;
   border: none;
   background-color: pink;
@@ -94,12 +104,14 @@
   padding: 5px;
   border-radius: 4px;
 }
-.feedback{
+
+.feedback {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.feedback input{
+
+.feedback input {
   border: none;
   border-bottom: 1px solid black;
   outline: none;

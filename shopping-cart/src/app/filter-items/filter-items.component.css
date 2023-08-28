@@ -35,10 +35,10 @@
   margin-right: 0.2rem;
   display: flex;
   flex-direction: column;
-  align-items: start; 
-    
-  }
-  
+  align-items: start;
+
+}
+
 
 .brandFilter {
   margin-right: 0.1rem;
@@ -108,16 +108,17 @@
     display: inline-block;
     flex-direction: row;
     align-content: stretch;
-    
+
   }
-  @media (min-width:577px){
+
+  @media (min-width:577px) {
     .mat-checkbox {
       display: flex;
       flex-direction: column;
       align-items: start;
-      
+
     }
-    
+
   }
 
 }

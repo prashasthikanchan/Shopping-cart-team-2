@@ -10,7 +10,7 @@
 }
 
 .mat-card {
-  width: 50rem;
+  width: 40rem;
   height: 30rem;
   margin: 2rem;
   display: flex;
@@ -40,7 +40,7 @@ mat-card-title {
 
 .demo-table {
   width: 40rem;
-  height: 30rem;
+  height: max-content;
   box-shadow: none;
   overflow: auto;
   text-overflow: clip;
@@ -53,7 +53,7 @@ mat-card-title {
 .colButton {
   display: flex;
   align-items: center;
-  padding: 8px 12px;
+  padding: 4px 12px;
   border-bottom: 1px solid #f2f2f2;
 }
 
@@ -90,7 +90,7 @@ button {
   background-color: pink;
   color: black;
   border: none;
-  padding: 6px 12px;
+  padding: 2px 12px;
   border-radius: 4px;
   cursor: pointer;
 }

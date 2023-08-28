@@ -75,6 +75,9 @@ export class CartComponent implements OnInit {
     for (const item of this.cartItems) {
       this.total += item.item.price * item.quantity;
     }
+    if(this.total===0){
+      this.emptyCart=true;
+    }
   }
 }
 
