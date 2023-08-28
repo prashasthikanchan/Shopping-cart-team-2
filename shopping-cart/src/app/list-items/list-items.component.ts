@@ -31,7 +31,7 @@ export class ListItemsComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   breakpoint: number = 4;
   rowHeight: any;
-
+  showAddToCart = true;
   pincode: number | null = null;
   constructor(private clothingDataService: ClothingDataService, private router: ActivatedRoute,
     private router2: Router, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
@@ -72,6 +72,8 @@ export class ListItemsComponent implements OnInit {
   showItem(id: number, sidenav: MatSidenav): void {
     this.selectedSize = null;
     this.selectedProduct = this.clothDataList.find(item => item.id === id);
+    this.showAddToCart = true;
+    this.showAddToCart = !this.checkIfAvailable(this.selectedProduct as ClothItem);
     sidenav.open();
   }
   selectSize(size: string) {

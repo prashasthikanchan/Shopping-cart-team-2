@@ -1,7 +1,7 @@
 .nav-bar {
     display: flex;
     flex-direction: row;
-    height: 13%;
+    height : 6rem;
     color: black;
     background-color: pink;
     width: 100%;
@@ -32,6 +32,7 @@
     .nav-bar {
         justify-content: space-between;
         font-size: large;
+        height: 6rem;
     }
 
     #menu-search {
@@ -97,6 +98,7 @@
     .nav-bar {
         justify-content: space-between;
         font-size: large;
+        height: 6rem;
     }
     .mat-card-header {
         margin-left: 0.1rem;
@@ -105,6 +107,15 @@
 }
 
 @media(min-width : 769px) and (max-width : 1024px) {
+    #menu-search {
+        display: none;
+    }
+
+    .search-form,
+    .search-icon-icon,
+    .search-icon {
+        display: inline;
+    }
     .mat-card-header {
         margin-left: 7rem;
         font-size: xx-large;
@@ -112,6 +123,15 @@
 }
 
 @media(min-width : 1025px) {
+    #menu-search {
+        display: none;
+    }
+
+    .search-form,
+    .search-icon-icon,
+    .search-icon {
+        display: inline;
+    }
     .mat-card-header {
         margin-left: 23rem;
         font-size: xx-large;

@@ -33,7 +33,12 @@
 
 .mat-checkbox {
   margin-right: 0.2rem;
-}
+  display: flex;
+  flex-direction: column;
+  align-items: start; 
+    
+  }
+  
 
 .brandFilter {
   margin-right: 0.1rem;
@@ -74,10 +79,6 @@
   color: #333;
 }
 
-.mat-checkbox {
-  margin-right: 1px;
-}
-
 .row {
   overflow: auto;
 }
@@ -90,7 +91,7 @@
   color: lightgray;
 }
 
-@media screen and (max-width: 576px) {
+@media (max-width: 576px) {
   .main {
     margin-top: 0rem;
   }
@@ -103,7 +104,20 @@
   }
 
   .mat-checkbox {
-    margin-right: 3px;
+    margin-right: 0px;
+    display: inline-block;
+    flex-direction: row;
+    align-content: stretch;
+    
+  }
+  @media (min-width:577px){
+    .mat-checkbox {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      
+    }
+    
   }
 
 }
