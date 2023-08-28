@@ -16,13 +16,13 @@ Features
 
 Commands:
 Clone the repo:
-git clone https://github.com/Palguni-Ravi/Shopping-cart-team-2.git
+`git clone https://github.com/Palguni-Ravi/Shopping-cart-team-2.git`
 
 Install node modules:
-npm install <module-name>
+`npm install <module-name>`
 
 Run the Application:
-ng serve
+`ng serve`
 	
 			
 			
