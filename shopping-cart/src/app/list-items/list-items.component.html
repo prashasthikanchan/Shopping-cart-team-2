@@ -39,7 +39,7 @@
       <h2>{{ selectedProduct?.tag }}</h2>
       <mat-icon *ngFor="let _ of starsArray; let i = index"
         [ngClass]="{ 'filled': i < (selectedProduct?.rating || 0), 'empty': i >= (selectedProduct?.rating || 0) }">star</mat-icon>
-      <h3><strong>{{"₹" + selectedProduct?.price}}</strong></h3><br>
+      <h3 id="selected-product-price"><strong>{{"₹" + selectedProduct?.price}}</strong></h3><br>
       <p>Available sizes</p>
       <mat-button-toggle-group class="size-toggle-group" [value]="selectedSize" (change)="selectSize($event.value)">
         <mat-button-toggle *ngFor="let size of sizeOptions" [value]="size">
@@ -47,15 +47,16 @@
         </mat-button-toggle>
       </mat-button-toggle-group>
       <mat-error *ngIf="notSelected">Size is required</mat-error>
-      <mat-form-field>
+      <mat-form-field id="selected-product-qty">
         <mat-label>Qty</mat-label>
         <mat-select [value]="selectedQuantity" (selectionChange)="selectQuantity($event)">
           <mat-option *ngFor="let quantity of quantityOptions" [value]="quantity">{{ quantity }}</mat-option>
         </mat-select>
       </mat-form-field>
       <div class="buttons">
-        <button mat-raised-button id="btn-1" (click)="signIn()">Add to Cart</button><br>
-        <button mat-raised-button id="btn-2">Buy Now</button>
+        <button mat-raised-button id="btn-1" (click)="signIn()" *ngIf="showAddToCart">Add to Cart</button><br>
+        <button mat-raised-button id="btn-2" *ngIf="showAddToCart">Buy Now</button>
+        <p *ngIf="!showAddToCart" style="color : red;">Sorry..! Product is not deliverable to this Pincode</p>
       </div>
     </mat-sidenav>
   </div>
