@@ -80,7 +80,7 @@
 }
 
 @media(min-width : 481px) and (max-width : 768px) {
-
+    
     .search-form,
     .search-icon-icon,
     .search-icon {
@@ -99,7 +99,7 @@
 }
 
 @media(min-width : 769px) and (max-width : 1024px) {
-
+    
     .search-form,
     .search-icon-icon,
     .search-icon {
@@ -112,14 +112,14 @@
 }
 
 @media(min-width : 1025px) {
-
+    
     .search-form,
     .search-icon-icon,
     .search-icon {
         display: inline;
     }
     .mat-card-header {
-        margin-left: 21rem;
+        margin-left: 23rem;
         font-size: xx-large;
     }
     #reg-search {
