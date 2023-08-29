@@ -106,7 +106,7 @@
         display: inline;
     }
     .mat-card-header {
-        margin-left: 7rem;
+        margin-left: 5rem;
         font-size: xx-large;
     }
 }
@@ -119,7 +119,7 @@
         display: inline;
     }
     .mat-card-header {
-        margin-left: 23rem;
+        margin-left: 21rem;
         font-size: xx-large;
     }
     #reg-search {

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ClothingDataService } from 'src/app/clothing-data.service';
 import { Router } from '@angular/router';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { ClothItem } from 'src/app/models/clothItem.model';
 
 @Component({
   selector: 'app-cart',
@@ -11,11 +12,10 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 export class CartComponent implements OnInit {
   currentUser: string | null = null;
   cartItems: any[] = [];
-  clothDataList: any[] = [];
-  filteredClothDataList: any[] = [];
+  clothDataList: ClothItem[] = [];
+  filteredClothDataList: ClothItem[] = [];
   cartItemDetails: any[] = [];
   cartItemIndex: any[] = [];
-  ct: any[] = [];
   total: number = 0;
   displayedColumns: string[] = ['position', 'name', 'quantity', 'total', 'button'];
   emptyCart:boolean=false;

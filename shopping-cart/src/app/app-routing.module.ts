@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MenuComponent } from './nav-bar/menu/menu.component';
 import { CartComponent } from './nav-bar/cart/cart.component';
 import { IndexPageComponent } from './index-page/index-page.component';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 const routes: Routes = [
   { path: '', component: IndexPageComponent },
-  { path: 'menu', component: MenuComponent },
   { path: 'cart', component: CartComponent },
   { path: 'clothes', component: ListItemsComponent },
   { path: 'clothes/search/:parameters', component: ListItemsComponent },

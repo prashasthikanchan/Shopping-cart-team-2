@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { MenuComponent } from './nav-bar/menu/menu.component';
 import { CartComponent } from './nav-bar/cart/cart.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -24,7 +23,6 @@ import { BreakpointObserverOverviewExampleComponent } from './breakpoint-observe
   declarations: [
     AppComponent,
     NavBarComponent,
-    MenuComponent,
     CartComponent,
     ListItemsComponent,
     FilterItemsComponent,

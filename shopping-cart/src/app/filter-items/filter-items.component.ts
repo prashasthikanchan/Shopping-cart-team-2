@@ -20,7 +20,6 @@ export class FilterItemsComponent implements OnInit {
   price: number[] = [];
   checkedboxList: checkedBoxList = {};
   starsArray = Array(5).fill(0);
-  // panelOpenState = true;
   filterGroupOpenStates: { [title: string]: boolean } = {};
   mobileQuery: MediaQueryList | undefined;
   panelOpenState: boolean = true;

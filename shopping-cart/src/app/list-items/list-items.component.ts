@@ -14,23 +14,22 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 })
 export class ListItemsComponent implements OnInit {
   starsArray: number[] = Array(5).fill(0);
-  clothDataList: any[] = [];
+  clothDataList: ClothItem[] = [];
   sizeOptions: string[] = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   selectedSize: string | null = null;
   quantityOptions: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   selectedQuantity: number = this.quantityOptions[0];
   selectedProduct: ClothItem | null = null;
-  filteredClothDataList: any[] = [];
-  filteredList: any[] = [];
+  filteredClothDataList: ClothItem[] = [];
+  filteredList: ClothItem[] = [];
   searchParameters: any;
-  clothParameters: any[] = [];
   searchresult: string = '';
   sizeForm: FormGroup;
   notSelected: boolean = false;
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   breakpoint: number = 4;
-  rowHeight: any;
+  rowHeight: string = ``;
   showAddToCart = true;
   pincode: number | null = null;
   constructor(private clothingDataService: ClothingDataService, private router: ActivatedRoute,
@@ -71,7 +70,7 @@ export class ListItemsComponent implements OnInit {
 
   showItem(id: number, sidenav: MatSidenav): void {
     this.selectedSize = null;
-    this.selectedProduct = this.clothDataList.find(item => item.id === id);
+    this.selectedProduct = this.clothDataList.find(item => item.id === id) as ClothItem;
     this.showAddToCart = true;
     this.showAddToCart = !this.checkIfAvailable(this.selectedProduct as ClothItem);
     sidenav.open();
@@ -164,7 +163,7 @@ export class ListItemsComponent implements OnInit {
   }
 
 
-  addSearchFilter(clothDataListInput: any[] = [], searchParameter: any) {
+  addSearchFilter(clothDataListInput: ClothItem[], searchParameter: any) {
     let checkedBoxFilter = searchParameter;
     let colorFilter = checkedBoxFilter['color'];
     let brandFilter = checkedBoxFilter['brand'];
