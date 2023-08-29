@@ -227,25 +227,25 @@ export class ListItemsComponent implements OnInit {
         localStorage.setItem('previousState', '');
       }
     });
+    this.addToCart(this.selectedProduct as ClothItem,this.selectedQuantity as number,this.selectedSize as string);
     this.router2.navigate(['/signin']);
-    this.addToCart();
 
   }
-  addToCart() {
+  addToCart(selectedProduct : ClothItem,selectedQuantity : number,selectedSize : string) {
     const currentUser = localStorage.getItem('currentUser');
     const userInfo = JSON.parse(localStorage.getItem(currentUser as string) as string)
     const alreadyPresentItem = userInfo.cartItems.find((cartItem: cartItem) =>
-      cartItem.item && cartItem.item.id === this.selectedProduct!.id &&
-      cartItem.size === this.selectedSize)
+      cartItem.item && cartItem.item.id === selectedProduct!.id &&
+      cartItem.size === selectedSize)
     if (alreadyPresentItem) {
       const indexToUpdate = userInfo.cartItems.findIndex((cartItem: cartItem) => cartItem.item.id === alreadyPresentItem.item.id);
-      userInfo.cartItems[indexToUpdate].quantity += this.selectedQuantity;
+      userInfo.cartItems[indexToUpdate].quantity += selectedQuantity;
     }
     else {
       const cartItem = {
-        "item": this.selectedProduct,
-        "quantity": this.selectedQuantity,
-        "size": this.selectedSize
+        "item": selectedProduct,
+        "quantity": selectedQuantity,
+        "size": selectedSize
       }
       userInfo.cartItems.push(cartItem);
     }
