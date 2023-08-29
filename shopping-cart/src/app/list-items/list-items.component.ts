@@ -28,10 +28,15 @@ export class ListItemsComponent implements OnInit {
   notSelected: boolean = false;
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
+<<<<<<< HEAD
   breakpoint: number = 4;
   rowHeight: string = ``;
   showAddToCart = true;
   pincode: number | null = null;
+=======
+
+  pincode : number | null = null;
+>>>>>>> palguni
   constructor(private clothingDataService: ClothingDataService, private router: ActivatedRoute,
     private router2: Router, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
     this.selectedSize = '';
@@ -42,8 +47,6 @@ export class ListItemsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.breakpoint = (window.innerWidth <= 1254) ? ((window.innerWidth <= 650) ? 2 : 3) : 4;
-    this.rowHeight = (window.innerWidth <= 1254) ? ((window.innerWidth <= 650) ? `${18}rem` : `${19}rem`) : `${21}rem`;
 
     this.clothingDataService.getProducts().subscribe(data => {
       this.clothDataList = data;
@@ -59,20 +62,18 @@ export class ListItemsComponent implements OnInit {
       });
     });
 
+
   }
-
-
-  onResize(event: any) {
-    this.breakpoint = (window.innerWidth <= 1254) ? ((window.innerWidth <= 650) ? 2 : 3) : 4;
-    this.rowHeight = (window.innerWidth <= 1254) ? ((window.innerWidth <= 650) ? `${18}rem` : `${19}rem`) : `${21}rem`;
-  }
-
 
   showItem(id: number, sidenav: MatSidenav): void {
     this.selectedSize = null;
+<<<<<<< HEAD
     this.selectedProduct = this.clothDataList.find(item => item.id === id) as ClothItem;
     this.showAddToCart = true;
     this.showAddToCart = !this.checkIfAvailable(this.selectedProduct as ClothItem);
+=======
+    this.selectedProduct = this.clothDataList.find(item => item.id === id);
+>>>>>>> palguni
     sidenav.open();
   }
   selectSize(size: string) {
@@ -259,22 +260,22 @@ export class ListItemsComponent implements OnInit {
       verticalPosition: this.verticalPosition, duration: 1000,
     });
   }
-  takePincode(event: any) {
+  takePincode(event : any){
     this.pincode = event.target.value;
     event.target.value = null;
   }
-  checkIfAvailable(item: ClothItem): boolean {
-    if (item.pincode && this.pincode) {
-      if (this.pincode <= item.pincode + 10 && this.pincode >= item.pincode - 10) {
+  checkIfAvailable(item : ClothItem) : boolean{
+    if(item.pincode && this.pincode){
+      if(this.pincode <= item.pincode+10 && this.pincode >= item.pincode-10){
         return false;
       }
-      else {
+      else{
         console.log(this.pincode);
         console.log(item)
         return true;
       }
     }
-    else {
+    else{
       return false;
     }
   }
