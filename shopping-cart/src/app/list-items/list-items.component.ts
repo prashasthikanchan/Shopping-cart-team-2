@@ -29,10 +29,8 @@ export class ListItemsComponent implements OnInit {
   notSelected: boolean = false;
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
-  breakpoint: number = 4;
-  rowHeight: any;
-  showAddToCart = true;
-  pincode: number | null = null;
+
+  pincode : number | null = null;
   constructor(private clothingDataService: ClothingDataService, private router: ActivatedRoute,
     private router2: Router, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
     this.selectedSize = '';
@@ -43,8 +41,6 @@ export class ListItemsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.breakpoint = (window.innerWidth <= 1254) ? ((window.innerWidth <= 650) ? 2 : 3) : 4;
-    this.rowHeight = (window.innerWidth <= 1254) ? ((window.innerWidth <= 650) ? `${18}rem` : `${19}rem`) : `${21}rem`;
 
     this.clothingDataService.getProducts().subscribe(data => {
       this.clothDataList = data;
@@ -60,20 +56,12 @@ export class ListItemsComponent implements OnInit {
       });
     });
 
+
   }
-
-
-  onResize(event: any) {
-    this.breakpoint = (window.innerWidth <= 1254) ? ((window.innerWidth <= 650) ? 2 : 3) : 4;
-    this.rowHeight = (window.innerWidth <= 1254) ? ((window.innerWidth <= 650) ? `${18}rem` : `${19}rem`) : `${21}rem`;
-  }
-
 
   showItem(id: number, sidenav: MatSidenav): void {
     this.selectedSize = null;
     this.selectedProduct = this.clothDataList.find(item => item.id === id);
-    this.showAddToCart = true;
-    this.showAddToCart = !this.checkIfAvailable(this.selectedProduct as ClothItem);
     sidenav.open();
   }
   selectSize(size: string) {
@@ -227,25 +215,25 @@ export class ListItemsComponent implements OnInit {
         localStorage.setItem('previousState', '');
       }
     });
-    this.addToCart(this.selectedProduct as ClothItem,this.selectedQuantity as number,this.selectedSize as string);
     this.router2.navigate(['/signin']);
+    this.addToCart();
 
   }
-  addToCart(selectedProduct : ClothItem,selectedQuantity : number,selectedSize : string) {
+  addToCart() {
     const currentUser = localStorage.getItem('currentUser');
     const userInfo = JSON.parse(localStorage.getItem(currentUser as string) as string)
     const alreadyPresentItem = userInfo.cartItems.find((cartItem: cartItem) =>
-      cartItem.item && cartItem.item.id === selectedProduct!.id &&
-      cartItem.size === selectedSize)
+      cartItem.item && cartItem.item.id === this.selectedProduct!.id &&
+      cartItem.size === this.selectedSize)
     if (alreadyPresentItem) {
       const indexToUpdate = userInfo.cartItems.findIndex((cartItem: cartItem) => cartItem.item.id === alreadyPresentItem.item.id);
-      userInfo.cartItems[indexToUpdate].quantity += selectedQuantity;
+      userInfo.cartItems[indexToUpdate].quantity += this.selectedQuantity;
     }
     else {
       const cartItem = {
-        "item": selectedProduct,
-        "quantity": selectedQuantity,
-        "size": selectedSize
+        "item": this.selectedProduct,
+        "quantity": this.selectedQuantity,
+        "size": this.selectedSize
       }
       userInfo.cartItems.push(cartItem);
     }
@@ -260,22 +248,22 @@ export class ListItemsComponent implements OnInit {
       verticalPosition: this.verticalPosition, duration: 1000,
     });
   }
-  takePincode(event: any) {
+  takePincode(event : any){
     this.pincode = event.target.value;
     event.target.value = null;
   }
-  checkIfAvailable(item: ClothItem): boolean {
-    if (item.pincode && this.pincode) {
-      if (this.pincode <= item.pincode + 10 && this.pincode >= item.pincode - 10) {
+  checkIfAvailable(item : ClothItem) : boolean{
+    if(item.pincode && this.pincode){
+      if(this.pincode <= item.pincode+10 && this.pincode >= item.pincode-10){
         return false;
       }
-      else {
+      else{
         console.log(this.pincode);
         console.log(item)
         return true;
       }
     }
-    else {
+    else{
       return false;
     }
   }
