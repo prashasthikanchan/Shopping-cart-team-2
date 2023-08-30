@@ -20,9 +20,12 @@ Clone the repo:
 
 Install node modules:
 `npm install <module-name>`
+`npm install angular-dark-mode`
 
 Run the Application:
 `ng serve`
+
+
 	
 			
 			
