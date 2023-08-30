@@ -19,7 +19,7 @@ export class SignInComponent implements OnInit {
     this.userPresent = localStorage.getItem('currentUser') ? true : false;
     this.reqFromAccIcon = localStorage.getItem('accountIcon') === 'true' ? true : false;
     if (!this.reqFromAccIcon && this.userPresent) {
-      if(localStorage.getItem('previousState')){
+      if (localStorage.getItem('previousState')) {
         this.router.navigate(['/clothes/search', localStorage.getItem('previousState')])
         localStorage.removeItem('previousState');
       }
@@ -48,8 +48,7 @@ export class SignInComponent implements OnInit {
       if (this.userAlready(this.loginForm.get('username').value)) {
         const item = JSON.parse(localStorage.getItem(this.loginForm.get('username').value) as string);
         if (item.password === this.loginForm.get('password').value) {
-          console.log("Login Successfully")
-          localStorage.setItem('notificationCount','0');
+          localStorage.setItem('notificationCount', '0');
           localStorage.setItem('currentUser', this.loginForm.get('username').value);
           if (localStorage.getItem('previousState')) {
             this.router.navigate(['/clothes/search', localStorage.getItem('previousState')])
@@ -65,8 +64,6 @@ export class SignInComponent implements OnInit {
       } else {
         this.loginValidation = "User doesn't exist";
       }
-    } else {
-      console.log("Login form not submitted", this.loginForm);
     }
     this.loginForm.reset();
   }
@@ -82,8 +79,7 @@ export class SignInComponent implements OnInit {
           cartItems: []
         };
         localStorage.setItem(username, JSON.stringify(userData));
-        console.log('Registration successful:', username, userData);
-        localStorage.setItem('notificationCount','0');
+        localStorage.setItem('notificationCount', '0');
         localStorage.setItem('currentUser', username);
         if (localStorage.getItem('previousState')) {
           this.router.navigate(['/clothes/search', localStorage.getItem('previousState')])
@@ -95,8 +91,6 @@ export class SignInComponent implements OnInit {
       } else {
         this.registerValidation = 'Already an user';
       }
-    } else {
-      console.log('Register form not submitted', this.loginForm);
     }
     this.loginForm.reset();
   }

@@ -1,7 +1,7 @@
 .nav-bar {
     display: flex;
     flex-direction: row;
-    height : 6rem;
+    height: 6rem;
     color: black;
     background-color: pink;
     width: 100%;
@@ -80,7 +80,7 @@
 }
 
 @media(min-width : 481px) and (max-width : 768px) {
-    
+
     .search-form,
     .search-icon-icon,
     .search-icon {
@@ -92,6 +92,7 @@
         font-size: large;
         height: 6rem;
     }
+
     .mat-card-header {
         margin-left: 0.1rem;
         font-size: x-large;
@@ -99,12 +100,13 @@
 }
 
 @media(min-width : 769px) and (max-width : 1024px) {
-    
+
     .search-form,
     .search-icon-icon,
     .search-icon {
         display: inline;
     }
+
     .mat-card-header {
         margin-left: 5rem;
         font-size: xx-large;
@@ -112,16 +114,18 @@
 }
 
 @media(min-width : 1025px) {
-    
+
     .search-form,
     .search-icon-icon,
     .search-icon {
         display: inline;
     }
+
     .mat-card-header {
         margin-left: 23rem;
         font-size: xx-large;
     }
+
     #reg-search {
         width: 350px;
     }

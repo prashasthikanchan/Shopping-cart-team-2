@@ -20,7 +20,8 @@
       <div matColumnDef="quantity" class="colQuantity">
         <th mat-header-cell *matHeaderCellDef> Quantity </th>
         <td mat-cell *matCellDef="let element">
-          <button mat-raised-button (click)="decrement(element)">-</button>
+          <button mat-raised-button (click)="decrement(element)"
+            [ngClass]="{'display': element.quantity < 2}">-</button>
           <input matInput value={{element.quantity}}>
           <button mat-raised-button (click)="increment(element)">+</button>
         </td>

@@ -1,4 +1,4 @@
-import { Component, OnDestroy,HostBinding } from '@angular/core';
+import { Component, OnDestroy, HostBinding } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -51,12 +51,12 @@ export class AppComponent {
     this.destroyed.next();
     this.destroyed.complete();
   }
-  showFeedback(){
+  showFeedback() {
     this.showFeedbackForm = !this.showFeedbackForm;
   }
-  showContactInfo(){
+  showContactInfo() {
     this.showContact = !this.showContact;
   }
-    
+
 
 }

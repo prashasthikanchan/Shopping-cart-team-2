@@ -1,18 +1,18 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-breakpoint-observer-overview-example',
   templateUrl: './breakpoint-observer-overview-example.component.html',
   styleUrls: ['./breakpoint-observer-overview-example.component.css']
 })
-export class BreakpointObserverOverviewExampleComponent implements OnDestroy{
+export class BreakpointObserverOverviewExampleComponent implements OnDestroy {
 
   destroyed = new Subject<void>();
-  currentScreenSize: string='';
+  currentScreenSize: string = '';
 
   displayNameMap = new Map([
     [Breakpoints.XSmall, 'XSmall'],

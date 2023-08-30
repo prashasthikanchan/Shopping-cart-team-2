@@ -2,9 +2,10 @@
   max-width: 400px;
 
 }
+
 @media (min-width:481px) and (max-width: 768px) {
   .example-card {
-    margin-top: 30%; 
+    margin-top: 30%;
     margin-left: 10%;
     padding: 20px;
     z-index: 800;
@@ -20,6 +21,7 @@
     border: 1px solid pink;
   }
 }
+
 @media (min-width: 769px) and (max-width: 1024px) {
   .example-card {
     margin-top: 10%;
@@ -28,10 +30,12 @@
     z-index: 800;
     border: 1px solid pink;
   }
-  mat-card-header{
+
+  mat-card-header {
     margin-left: 0.5rem;
   }
 }
+
 @media (min-width: 1025px) {
   .example-card {
     margin-top: 10%;
@@ -40,11 +44,13 @@
     z-index: 800;
     border: 1px solid pink;
   }
-  mat-card-header{
+
+  mat-card-header {
     margin-left: 0.5rem;
   }
-  
+
 }
+
 .example-form {
   width: 100%;
 }
@@ -62,8 +68,8 @@ mat-card-header {
 
 mat-card-title {
   font-size: 24px;
-  font-weight:800;
-  
+  font-weight: 800;
+
 }
 
 mat-card-actions {
@@ -100,7 +106,7 @@ h3 {
   font-size: medium;
 }
 
-.mat-stroked-button{
+.mat-stroked-button {
   color: pink;
   margin: 0;
   padding: 0;
@@ -108,8 +114,8 @@ h3 {
   border: none;
   font-size: large;
 }
+
 div {
   color: red;
   padding: 0.5%
 }
-

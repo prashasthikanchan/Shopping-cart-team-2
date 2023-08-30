@@ -9,6 +9,10 @@
   overflow: auto;
 }
 
+.display {
+  visibility: hidden;
+}
+
 .mat-card {
   width: 40rem;
   height: 30rem;
@@ -16,9 +20,9 @@
   display: flex;
   flex-direction: column;
   background: white;
-  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2); 
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
-  overflow:auto;
+  overflow: auto;
 }
 
 mat-card-title {
@@ -102,7 +106,7 @@ button:hover {
 
 .mat-card-actions {
   display: flex;
-  margin-top: 0.5rem; 
+  margin-top: 0.5rem;
   margin-left: 30rem;
 }
 
@@ -119,23 +123,26 @@ button:hover {
   background-color: grey;
   color: white;
 }
-.total-row{
+
+.total-row {
   margin-top: 2rem;
   margin-left: 30rem;
 }
 
-.product{
+.product {
   display: flex;
   width: 20rem;
 }
 
-img{
-  padding:7px;
+img {
+  padding: 7px;
 }
-.delete{
+
+.delete {
   display: block;
 }
-.deleteSmall{
+
+.deleteSmall {
   display: none;
 }
 
@@ -154,12 +161,14 @@ img{
     overflow: hidden;
   }
 
-  .product{
-    display:block;
+  .product {
+    display: block;
   }
-  img{
-    padding:2px;
+
+  img {
+    padding: 2px;
   }
+
   .demo-table th {
     font-weight: bold;
     font-size: small;
@@ -173,13 +182,15 @@ img{
     font-size: smaller;
   }
 
-  .delete{
+  .delete {
     display: none;
-    
+
   }
-  .deleteSmall{
-    display: inline-block;  
-  } 
+
+  .deleteSmall {
+    display: inline-block;
+  }
+
   .mat-raised-button {
     width: 4px;
     line-height: 7px;
@@ -192,22 +203,27 @@ img{
     padding: 5px 5px;
     padding-right: 11px;
   }
-  input{
+
+  input {
     padding-left: 3px;
   }
-  .total-row{
+
+  .total-row {
     margin-top: 2rem;
     margin-left: 12rem;
   }
+
   .mat-card-actions {
-    margin-top: 0.5rem; 
+    margin-top: 0.5rem;
     margin-left: 12rem;
   }
+
   .mat-card-actions button {
     width: 70px;
   }
-  .product{
-    width:8rem;
+
+  .product {
+    width: 8rem;
   }
 
 }

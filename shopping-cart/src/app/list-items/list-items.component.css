@@ -266,11 +266,37 @@ h3 {
   float: right;
 }
 
+.pink {
+  color: darkcyan;
+  float: right;
+}
+
 #selected-product-price {
   margin-top: 1rem;
 }
 
-#selected-product-qty {
+#selected-qty {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2rem;
+}
+
+#selected-qty button {
+  background-color: pink;
+  color: black;
+  border: none;
+  padding: 2px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 8px;
+  line-height: 16px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#qty-label {
+  font-size: small;
   margin-top: 1rem;
 }
 

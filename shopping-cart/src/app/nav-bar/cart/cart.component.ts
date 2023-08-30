@@ -18,7 +18,7 @@ export class CartComponent implements OnInit {
   cartItemIndex: any[] = [];
   total: number = 0;
   displayedColumns: string[] = ['position', 'name', 'quantity', 'total', 'button'];
-  emptyCart:boolean=false;
+  emptyCart: boolean = false;
 
   constructor(private clothingDataService: ClothingDataService, private router: Router) {
 
@@ -28,8 +28,8 @@ export class CartComponent implements OnInit {
     if (this.currentUser) {
       this.cartItems = JSON.parse(localStorage.getItem(this.currentUser) as string).cartItems;
     }
-    if(this.cartItems.length===0){
-      this.emptyCart=true;
+    if (this.cartItems.length === 0) {
+      this.emptyCart = true;
     }
     this.calculateTotal()
   }
@@ -75,8 +75,8 @@ export class CartComponent implements OnInit {
     for (const item of this.cartItems) {
       this.total += item.item.price * item.quantity;
     }
-    if(this.total===0){
-      this.emptyCart=true;
+    if (this.total === 0) {
+      this.emptyCart = true;
     }
   }
 }

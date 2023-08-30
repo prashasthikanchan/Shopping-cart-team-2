@@ -8,8 +8,8 @@
           <input id="search" type="text" matInput [formControl]="searchFormControl" placeholder="Search">
         </mat-form-field>
         <button mat-icon-button type="button" (click)="onSearch()"
-        class="searchBar"><mat-icon>search</mat-icon></button>
-      </form>   
+          class="searchBar"><mat-icon>search</mat-icon></button>
+      </form>
     </div>
   </div>
   <form (submit)="onSearchEnter($event)" class="search-form">
@@ -20,7 +20,8 @@
   <button mat-icon-button class="search-icon" type="button" (click)="onSearch()">
     <mat-icon class="search-icon-icon">search</mat-icon></button>
   <mat-card-header class="heading" (click)="clickHeader()">Glamzie</mat-card-header>
-  <button class="cart-btn" mat-icon-button routerLink="/cart"><mat-icon
-      matBadgeColor="warn" id="cart-btn-icon">shopping_cart</mat-icon></button>
-  <button class="acc-btn" mat-icon-button (click)="signIn()"><mat-icon id="acc-btn-icon">account_circle</mat-icon></button>
+  <button class="cart-btn" mat-icon-button routerLink="/cart"><mat-icon matBadgeColor="warn"
+      id="cart-btn-icon">shopping_cart</mat-icon></button>
+  <button class="acc-btn" mat-icon-button (click)="signIn()"><mat-icon
+      id="acc-btn-icon">account_circle</mat-icon></button>
 </mat-toolbar>

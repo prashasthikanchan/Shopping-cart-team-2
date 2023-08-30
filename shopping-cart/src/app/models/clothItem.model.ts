@@ -1,12 +1,12 @@
-export interface ClothItem{
-    "id" : number,
-    "tag" : string,
-    "image" : string,
-    "gender" : string,
-    "color" : string,
-    "rating" : number,
-    "price" : number,
-    "brand" : string,
-    "category" : string,
-    "pincode" : number
+export interface ClothItem {
+    "id": number,
+    "tag": string,
+    "image": string,
+    "gender": string,
+    "color": string,
+    "rating": number,
+    "price": number,
+    "brand": string,
+    "category": string,
+    "pincode": number
 }

@@ -8,9 +8,9 @@ describe('BreakpointObserverOverviewExampleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BreakpointObserverOverviewExampleComponent ]
+      declarations: [BreakpointObserverOverviewExampleComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

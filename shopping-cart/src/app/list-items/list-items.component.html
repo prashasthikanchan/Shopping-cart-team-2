@@ -6,6 +6,7 @@
       <mat-form-field class="pincode">
         <mat-label>Pincode</mat-label>
         <input matInput type="number" (change)="takePincode($event)">
+        <mat-error *ngIf="invalidPincode">Invalid Pincode</mat-error>
       </mat-form-field>
       <mat-form-field class="sortOption">
         <mat-label>Sort By</mat-label>
@@ -25,6 +26,7 @@
             <p>{{ item.tag }}</p>
             <p class="price-delivery" style="font-weight: bold;">₹{{ item.price }}</p>
             <p class="price-delivery red" *ngIf="pincode ? checkIfAvailable(item) : false">Not deliverable</p>
+            <p class="price-delivery pink" *ngIf="pincode ? !checkIfAvailable(item) : false">Deliverable</p>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
@@ -40,19 +42,20 @@
       <mat-icon *ngFor="let _ of starsArray; let i = index"
         [ngClass]="{ 'filled': i < (selectedProduct?.rating || 0), 'empty': i >= (selectedProduct?.rating || 0) }">star</mat-icon>
       <h3 id="selected-product-price"><strong>{{"₹" + selectedProduct?.price}}</strong></h3><br>
-      <p>Available sizes</p>
-      <mat-button-toggle-group class="size-toggle-group" [value]="selectedSize" (change)="selectSize($event.value)">
+      <p *ngIf="showAddToCart">Available sizes</p>
+      <mat-button-toggle-group class="size-toggle-group" [value]="selectedSize" (change)="selectSize($event.value)"
+        *ngIf="showAddToCart">
         <mat-button-toggle *ngFor="let size of sizeOptions" [value]="size">
           {{ size }}
         </mat-button-toggle>
       </mat-button-toggle-group>
-      <mat-error *ngIf="notSelected">Size is required</mat-error>
-      <mat-form-field id="selected-product-qty">
-        <mat-label>Qty</mat-label>
-        <mat-select [value]="selectedQuantity" (selectionChange)="selectQuantity($event)">
-          <mat-option *ngFor="let quantity of quantityOptions" [value]="quantity">{{ quantity }}</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <mat-error *ngIf="notSelected && showAddToCart">Size is required</mat-error>
+      <p *ngIf="showAddToCart" id="qty-label">Quantity</p>
+      <div id="selected-qty" *ngIf="showAddToCart">
+        <button mat-raised-button *ngIf="selectedQuantity >= 2" (click)="decrement()">-</button>
+        {{selectedQuantity}}
+        <button mat-raised-button (click)="increment()">+</button>
+      </div>
       <div class="buttons">
         <button mat-raised-button id="btn-1" (click)="signIn()" *ngIf="showAddToCart">Add to Cart</button><br>
         <button mat-raised-button id="btn-2" *ngIf="showAddToCart">Buy Now</button>

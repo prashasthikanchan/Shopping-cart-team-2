@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class ClothingDataService {
 
-  private clothingUrl = 'assets/clothing.json'; 
-  private indexPageItems = 'assets/indexPage.json'; 
+  private clothingUrl = 'assets/clothing.json';
+  private indexPageItems = 'assets/indexPage.json';
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<any> {

@@ -22,7 +22,7 @@
         <input (input)="inputCheck()" matInput placeholder="Username" formControlName="username" name="username"
           required autocomplete="off">
       </mat-form-field>
-      <div *ngIf="username.invalid && (username.dirty || username.touched)">
+      <div *ngIf="isRegisterMode && username.invalid && (username.dirty || username.touched)">
         <div *ngIf="username.errors.required">Username is required.</div>
         <div *ngIf="username.errors.pattern">Username must contain only letters and numbers.</div>
       </div>
@@ -30,11 +30,11 @@
         <input (input)="inputCheck()" matInput placeholder="Password" formControlName="password" type="password"
           name="password" required autocomplete="off">
       </mat-form-field>
-      <div *ngIf="password.invalid && (password.dirty || password.touched)">
+      <div *ngIf="isRegisterMode && password.invalid && (password.dirty || password.touched)">
         <div *ngIf="password.errors.required">Password is required.</div>
         <div *ngIf="password.errors.minlength">Password must be at least 8 characters long.</div>
       </div>
-      <button mat-raised-button type="submit" > 
+      <button mat-raised-button type="submit">
         {{ isRegisterMode ?'Register' : 'Login' }}
       </button>
     </form>

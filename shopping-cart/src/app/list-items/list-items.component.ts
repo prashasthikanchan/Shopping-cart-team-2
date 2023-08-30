@@ -16,8 +16,7 @@ export class ListItemsComponent implements OnInit {
   clothDataList: ClothItem[] = [];
   sizeOptions: string[] = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   selectedSize: string | null = null;
-  quantityOptions: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  selectedQuantity: number = this.quantityOptions[0];
+  selectedQuantity = 1;
   selectedProduct: ClothItem | null = null;
   filteredClothDataList: ClothItem[] = [];
   filteredList: ClothItem[] = [];
@@ -31,6 +30,7 @@ export class ListItemsComponent implements OnInit {
   rowHeight: string = ``;
   showAddToCart = true;
   pincode: number | null = null;
+  invalidPincode = false;
   constructor(private clothingDataService: ClothingDataService, private router: ActivatedRoute,
     private router2: Router, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
     this.selectedSize = '';
@@ -61,6 +61,7 @@ export class ListItemsComponent implements OnInit {
   showItem(id: number, sidenav: MatSidenav): void {
     this.selectedSize = null;
     this.selectedProduct = this.clothDataList.find(item => item.id === id) as ClothItem;
+    this.selectedQuantity = 1;
     this.showAddToCart = true;
     this.showAddToCart = !this.checkIfAvailable(this.selectedProduct as ClothItem);
     sidenav.open();
@@ -224,6 +225,10 @@ export class ListItemsComponent implements OnInit {
   takePincode(event: any) {
     this.pincode = event.target.value;
     event.target.value = null;
+    this.invalidPincode = false;
+    if (this.pincode && this.pincode.toString().length != 6) {
+      this.invalidPincode = true;
+    }
   }
   checkIfAvailable(item: ClothItem): boolean {
     if (item.pincode && this.pincode) {
@@ -231,14 +236,19 @@ export class ListItemsComponent implements OnInit {
         return false;
       }
       else {
-        console.log(this.pincode);
-        console.log(item)
         return true;
       }
     }
     else {
       return false;
     }
+  }
+  decrement() {
+    this.selectedQuantity--;
+  }
+
+  increment() {
+    this.selectedQuantity++;
   }
 }
 interface cartItem {
