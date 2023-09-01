@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ClothingDataService } from '../clothing-data.service';
 import { Router } from '@angular/router';
 import { ClothItem } from '../models/clothItem.model';
@@ -6,6 +6,8 @@ import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarModule, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FilterSearchUpdateService } from '../filter-search-update.service';
+
 
 @Component({
   selector: 'app-list-items',
@@ -32,8 +34,13 @@ export class ListItemsComponent implements OnInit {
   rowHeight: string = ``;
   showAddToCart = true;
   pincode: number | null = null;
+  randomSearch: boolean = false;
+
+
+  @Output() filterUpdateFromSearch = new EventEmitter<any>();
+
   constructor(private clothingDataService: ClothingDataService, private router: ActivatedRoute,
-    private router2: Router, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
+    private router2: Router, private formBuilder: FormBuilder, private snackBar: MatSnackBar, private filterSearchUpdateService: FilterSearchUpdateService) {
     this.selectedSize = '';
     this.sizeForm = this.formBuilder.group({
       selectedSize: new FormControl('', Validators.required)
@@ -55,6 +62,24 @@ export class ListItemsComponent implements OnInit {
         if (parameters && parameters.length > 0) {
           this.searchParameters = this.convertStringToObject(parameters);
           this.addSearchFilter(this.clothDataList, this.searchParameters);
+          this.filterUpdateFromSearch.emit({
+            searchParameters: this.searchParameters,
+            searchResults: this.filteredClothDataList
+          });
+
+          this.filterUpdateFromSearch.emit({
+            searchParameters: this.searchParameters,
+            searchResults: this.filteredClothDataList
+          });
+
+          this.filterSearchUpdateService.updateFilterData({
+            searchParameters: this.searchParameters,
+            searchResults: this.filteredClothDataList
+          });
+        }
+        else {
+          this.searchresult = '';
+          this.filteredClothDataList = this.clothDataList;
         }
       });
     });
@@ -185,15 +210,19 @@ export class ListItemsComponent implements OnInit {
 
   onSortOptionChange(event: any) {
     const sortBy = event.target.value;
-    if (sortBy == 'Ascend') {
+    if (sortBy == 'AscendPrice') {
       this.sortAscendPrice();
     }
-    if (sortBy == 'Descend') {
+    if (sortBy == 'DescendPrice') {
       this.sortDescendPrice();
     }
-    if (sortBy == 'Rating') {
-      this.sortRating();
+    if (sortBy == 'AscendRating') {
+      this.sortAscendRating();
     }
+    if (sortBy == 'DescendRating') {
+      this.sortDescendRating();
+    }
+
 
   }
 
@@ -207,10 +236,17 @@ export class ListItemsComponent implements OnInit {
     this.filteredClothDataList = sortedProducts;
   }
 
-  sortRating() {
+  sortAscendRating() {
+    const sortedProducts = this.filteredClothDataList.slice().sort((a, b) => a.rating - b.rating);
+    this.filteredClothDataList = sortedProducts;
+  }
+  sortDescendRating() {
     const sortedProducts = this.filteredClothDataList.slice().sort((a, b) => b.rating - a.rating);
     this.filteredClothDataList = sortedProducts;
   }
+
+
+
   signIn() {
     if (this.selectedSize == '' || !this.selectedSize) {
       this.notSelected = true;
@@ -269,8 +305,6 @@ export class ListItemsComponent implements OnInit {
         return false;
       }
       else {
-        console.log(this.pincode);
-        console.log(item)
         return true;
       }
     }

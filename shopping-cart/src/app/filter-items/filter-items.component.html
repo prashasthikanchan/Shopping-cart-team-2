@@ -17,17 +17,20 @@
         </mat-expansion-panel-header>
         <mat-card-content>
           <div *ngIf="filterGroup.title ==='Color'">
-            <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes" [checked]="checkboxStates.get(checkbox.label)"
+            <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes"
+              [checked]="shouldCheckboxBeChecked(checkbox.label, filterGroup.title)"
               (change)="toggleCheckbox($event,filterGroup.title,checkbox.label)">
               <div class="color-box" [style.background-color]="checkbox.label"></div>{{ checkbox.label }}
             </mat-checkbox><br>
           </div>
           <div *ngIf="filterGroup.title ==='Brand'" class="brandFilter">
-            <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes" [checked]="checkboxStates.get(checkbox.label)"
+            <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes"
+              [checked]="shouldCheckboxBeChecked(checkbox.label, filterGroup.title)"
               (change)="toggleCheckbox($event,filterGroup.title,checkbox.label)">{{ checkbox.label }}</mat-checkbox>
           </div><br>
           <div *ngIf="filterGroup.title ==='Gender'" class="genderFilter">
-            <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes" [checked]="checkboxStates.get(checkbox.label)"
+            <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes"
+              [checked]="shouldCheckboxBeChecked(checkbox.label, filterGroup.title)"
               (change)="toggleCheckbox($event,filterGroup.title,checkbox.label)">{{ checkbox.label }}</mat-checkbox>
           </div><br>
           <div *ngIf="filterGroup.title === 'Price'" class="priceFilter">

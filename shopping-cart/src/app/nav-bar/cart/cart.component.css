@@ -35,7 +35,10 @@ mat-card-title {
 }
 
 .mat-input-element {
-  width: 10px;
+  width: 30px;
+}
+input{
+  padding-right: 2px;
 }
 
 .demo-table {
