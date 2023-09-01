@@ -1,11 +1,12 @@
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ClothingDataService } from '../clothing-data.service';
 import { MatSliderChange } from '@angular/material/slider';
 import { ClothItem } from '../models/clothItem.model';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { FilterSearchUpdateService } from '../filter-search-update.service';
 
 @Component({
   selector: 'app-filter-items',
@@ -23,38 +24,60 @@ export class FilterItemsComponent implements OnInit {
   filterGroupOpenStates: { [title: string]: boolean } = {};
   mobileQuery: MediaQueryList | undefined;
   panelOpenState: boolean = true;
+  searchParameters: any;
 
 
-  constructor(private clothingDataService: ClothingDataService, private media: MediaMatcher) {
+  constructor(private clothingDataService: ClothingDataService, private media: MediaMatcher, private filterSearchUpdateService: FilterSearchUpdateService) {
     this.filterGroups.forEach(filterGroup => {
       this.filterGroupOpenStates[filterGroup.title] = true;
     });
-
   }
   @Output() checkboxlistUpdated = new EventEmitter();
-
   checkboxStates: Map<string, boolean> = new Map<string, boolean>();
+
+  @Input() searchResults: any[] = [];
 
   ngOnInit(): void {
     this.clothingDataService.getProducts().subscribe(data => {
       this.clothDataList = data;
-
       this.colors = this.getUniqueColors();
       this.brands = this.getUniqueBrands();
       this.price = this.getUniquePrice();
-
       this.initializeFilterGroups();
     });
-
     this.mobileQuery = this.media.matchMedia('(max-width: 576px)');
     this.panelOpenState = !this.mobileQuery.matches;
+
+    this.checkboxlistUpdated.subscribe((updatedCheckboxList: checkedBoxList) => {
+      this.updateCheckboxesBasedOnSearchResults(updatedCheckboxList);
+    });
+
+    this.filterSearchUpdateService.filterData$.subscribe(data => {
+      if (data) {
+        this.searchParameters = data.searchParameters;
+        this.searchResults = data.searchResults;
+      }
+    });
   }
+
   displayedColumns: string[] = ['name', 'age', 'gender'];
   dataSource = new MatTableDataSource<string>(['Men', 'Women']);
-
   applyFilter(filterValue: any) {
     filterValue = filterValue.target.value.trim().toLowerCase();
     this.dataSource.filter = filterValue;
+  }
+
+  updateCheckboxesBasedOnSearchResults(updatedCheckboxList: checkedBoxList) {
+    this.checkboxStates.clear();
+    this.checkedboxList = updatedCheckboxList;
+    for (const filterGroupTitle in updatedCheckboxList) {
+      if (updatedCheckboxList.hasOwnProperty(filterGroupTitle)) {
+        const selectedLabels = updatedCheckboxList[filterGroupTitle];
+        selectedLabels.forEach(label => {
+          this.checkboxStates.set(label, true);
+        });
+      }
+    }
   }
 
   getUniqueColors(): string[] {
@@ -64,7 +87,6 @@ export class FilterItemsComponent implements OnInit {
       .filter((color, index, self) => self.indexOf(color) === index);
     return uniqueColors;
   }
-
   getUniqueBrands(): string[] {
     const uniqueBrands = this.clothDataList
       .filter(cloth => cloth.brand && typeof cloth.brand === 'string')
@@ -79,11 +101,9 @@ export class FilterItemsComponent implements OnInit {
       .filter((price, index, self) => self.indexOf(price) === index);
     return uniquePrice;
   }
-
   initializeFilterGroups() {
     this.filterGroups[0].checkboxes = this.colors.map(color => ({ label: color }));
     this.filterGroups[1].checkboxes = this.brands.map(brand => ({ label: brand }));
-
     const minPrice = Math.floor(Math.min(...this.price) / 100) * 100;
     const maxPrice = Math.ceil(Math.max(...this.price) / 100) * 100;
     const priceSegment = (maxPrice - minPrice) / 5;
@@ -93,7 +113,6 @@ export class FilterItemsComponent implements OnInit {
       this.filterGroups[2].checkboxes.push({ label: label });
     }
   }
-
   filterGroups: FilterGroup[] = [
     {
       title: 'Color',
@@ -120,17 +139,13 @@ export class FilterItemsComponent implements OnInit {
       { label: '2' },
       { label: '1' }]
     }
-
   ];
-
   toggleFilter() {
     this.isFilterVisible = !this.isFilterVisible;
   }
-
   toggleCollapse(filterGroup: FilterGroup) {
     filterGroup.collapsed = !filterGroup.collapsed;
   }
-
   toggleCheckbox($event: any, filterGroupTitle: string, checkboxLabel: string) {
     const currentCheckedState = this.checkboxStates.get(checkboxLabel);
     this.checkboxStates.set(checkboxLabel, !currentCheckedState);
@@ -150,8 +165,23 @@ export class FilterItemsComponent implements OnInit {
     }
     this.checkboxlistUpdated.emit(this.checkedboxList);
   }
-}
 
+  shouldCheckboxBeChecked(checkboxLabel: string, filterGroupTitle: string): boolean {
+    if (!this.searchParameters) {
+      return false;
+    }
+    if (filterGroupTitle === 'Gender' && this.searchParameters.hasOwnProperty('gender')) {
+      return this.searchParameters.gender.includes(checkboxLabel.toLowerCase());
+    }
+    if (filterGroupTitle === 'Brand' && this.searchParameters.hasOwnProperty('brand')) {
+      return this.searchParameters.brand.includes(checkboxLabel.toLowerCase());
+    }
+    if (filterGroupTitle === 'Color' && this.searchParameters.hasOwnProperty('color')) {
+      return this.searchParameters.color.includes(checkboxLabel.toLowerCase());
+    }
+    return false;
+  }
+}
 interface FilterGroup {
   title: string;
   items?: string[];
@@ -159,8 +189,6 @@ interface FilterGroup {
   range?: { min: number; max: number };
   collapsed?: boolean;
 }
-
 interface checkedBoxList {
   [key: string]: string[];
 }
-
