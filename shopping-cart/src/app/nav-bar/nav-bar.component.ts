@@ -4,6 +4,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { ClothingDataService } from '../clothing-data.service';
 import { ClothItem } from '../models/clothItem.model';
+import { LocalstorageService } from '../localstorage.service';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -15,7 +16,7 @@ export class NavBarComponent {
   hidden = false;
   showSearch = false;
   displaySearch = false;
-  constructor(private clothingDataService: ClothingDataService, private router: Router) { }
+  constructor(private clothingDataService: ClothingDataService, private router: Router,private localStorageService : LocalstorageService) { }
   ngOnInit(): void {
     this.clothingDataService.getProducts().subscribe(data => {
       this.clothDataList = data;
@@ -146,7 +147,7 @@ export class NavBarComponent {
     this.onSearch();
   }
   signIn() {
-    localStorage.setItem('accountIcon', 'true');
+    this.localStorageService.setLocalStorageItem('accountIcon', 'true');
     this.router.navigate(['/signin'])
   }
   showMenuSearch() {

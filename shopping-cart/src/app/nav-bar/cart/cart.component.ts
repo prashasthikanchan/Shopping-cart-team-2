@@ -3,7 +3,7 @@ import { ClothingDataService } from 'src/app/clothing-data.service';
 import { Router } from '@angular/router';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { ClothItem } from 'src/app/models/clothItem.model';
-
+import { LocalstorageService } from 'src/app/localstorage.service';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -20,13 +20,13 @@ export class CartComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'quantity', 'total', 'button'];
   emptyCart: boolean = false;
 
-  constructor(private clothingDataService: ClothingDataService, private router: Router) {
+  constructor(private clothingDataService: ClothingDataService, private router: Router, private localStorageService : LocalstorageService) {
 
   }
   ngOnInit(): void {
-    this.currentUser = localStorage.getItem('currentUser');
+    this.currentUser = this.localStorageService.getLocalStorageItem('currentUser');
     if (this.currentUser) {
-      this.cartItems = JSON.parse(localStorage.getItem(this.currentUser) as string).cartItems;
+      this.cartItems = JSON.parse(this.localStorageService.getLocalStorageItem(this.currentUser) as string).cartItems;
     }
     if (this.cartItems.length === 0) {
       this.emptyCart = true;
@@ -57,17 +57,17 @@ export class CartComponent implements OnInit {
         this.calculateTotal()
       }
     }
-    this.currentUser = localStorage.getItem('currentUser');
+    this.currentUser = this.localStorageService.getLocalStorageItem('currentUser');
     if (this.currentUser) {
-      this.cartItems = JSON.parse(localStorage.getItem(this.currentUser) as string).cartItems;
+      this.cartItems = JSON.parse(this.localStorageService.getLocalStorageItem(this.currentUser) as string).cartItems;
     }
   }
 
   updateLocalStorage() {
     if (this.currentUser) {
-      const userData = JSON.parse(localStorage.getItem(this.currentUser) || '');
+      const userData = JSON.parse(this.localStorageService.getLocalStorageItem(this.currentUser) || '');
       userData.cartItems = this.cartItems;
-      localStorage.setItem(this.currentUser, JSON.stringify(userData));
+      this.localStorageService.setLocalStorageItem(this.currentUser, JSON.stringify(userData));
     }
   }
   calculateTotal() {

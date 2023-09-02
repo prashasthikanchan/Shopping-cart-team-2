@@ -7,7 +7,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarModule, MatSnack
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { FilterSearchUpdateService } from '../filter-search-update.service';
-
+import { LocalstorageService } from '../localstorage.service';
 
 @Component({
   selector: 'app-list-items',
@@ -40,7 +40,7 @@ export class ListItemsComponent implements OnInit {
   @Output() filterUpdateFromSearch = new EventEmitter<any>();
 
   constructor(private clothingDataService: ClothingDataService, private router: ActivatedRoute,
-    private router2: Router, private formBuilder: FormBuilder, private snackBar: MatSnackBar, private filterSearchUpdateService: FilterSearchUpdateService) {
+    private router2: Router, private formBuilder: FormBuilder, private snackBar: MatSnackBar, private filterSearchUpdateService: FilterSearchUpdateService,private localStorageService : LocalstorageService) {
     this.selectedSize = '';
     this.sizeForm = this.formBuilder.group({
       selectedSize: new FormControl('', Validators.required)
@@ -220,22 +220,22 @@ export class ListItemsComponent implements OnInit {
       this.notSelected = true;
       return;
     }
-    localStorage.setItem('accountIcon', 'false');
+    this.localStorageService.setLocalStorageItem('accountIcon', 'false');
     this.router.paramMap.subscribe(params => {
       var parameters = params.get('parameters');
       if (parameters) {
-        localStorage.setItem('previousState', parameters as string);
+        this.localStorageService.setLocalStorageItem('previousState', parameters as string);
       }
       else {
-        localStorage.setItem('previousState', '');
+        this.localStorageService.setLocalStorageItem('previousState', '');
       }
     });
     this.router2.navigate(['/signin']);
     this.addToCart();
   }
   addToCart() {
-    const currentUser = localStorage.getItem('currentUser');
-    const userInfo = JSON.parse(localStorage.getItem(currentUser as string) as string)
+    const currentUser = this.localStorageService.getLocalStorageItem('currentUser');
+    const userInfo = JSON.parse(this.localStorageService.getLocalStorageItem(currentUser as string) as string)
     const alreadyPresentItem = userInfo.cartItems.find((cartItem: cartItem) =>
       cartItem.item && cartItem.item.id === this.selectedProduct!.id &&
       cartItem.size === this.selectedSize)
@@ -251,7 +251,7 @@ export class ListItemsComponent implements OnInit {
       }
       userInfo.cartItems.push(cartItem);
     }
-    localStorage.setItem(currentUser as string, JSON.stringify(userInfo))
+    this.localStorageService.setLocalStorageItem(currentUser as string, JSON.stringify(userInfo))
     this.openSnackBar();
   }
   openSnackBar() {

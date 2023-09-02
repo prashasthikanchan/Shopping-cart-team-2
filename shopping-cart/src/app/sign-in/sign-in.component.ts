@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { LocalstorageService } from '../localstorage.service';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
-  constructor(private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private router: Router, private formBuilder: FormBuilder,private localStorageService : LocalstorageService) { }
   isRegisterMode: boolean = false;
   loginForm: any;
   registerValidation: string | null = null;
   loginValidation: string | null = null;
-  userPresent: boolean = localStorage.getItem('currentUser') ? true : false;
-  reqFromAccIcon: boolean = localStorage.getItem('accountIcon') === 'true' ? true : false;
+  userPresent: boolean = this.localStorageService.getLocalStorageItem('currentUser') ? true : false;
+  reqFromAccIcon: boolean = this.localStorageService.getLocalStorageItem('accountIcon') === 'true' ? true : false;
   ngOnInit() {
-    this.userPresent = localStorage.getItem('currentUser') ? true : false;
-    this.reqFromAccIcon = localStorage.getItem('accountIcon') === 'true' ? true : false;
+    this.userPresent = this.localStorageService.getLocalStorageItem('currentUser') ? true : false;
+    this.reqFromAccIcon = this.localStorageService.getLocalStorageItem('accountIcon') === 'true' ? true : false;
     if (!this.reqFromAccIcon && this.userPresent) {
-      if (localStorage.getItem('previousState')) {
-        this.router.navigate(['/clothes/search', localStorage.getItem('previousState')])
-        localStorage.removeItem('previousState');
+      if (this.localStorageService.getLocalStorageItem('previousState')) {
+        this.router.navigate(['/clothes/search', this.localStorageService.getLocalStorageItem('previousState')])
+        this.localStorageService.removeLocalStorageItem('previousState');
       }
     }
     this.loginForm = this.formBuilder.group({
@@ -46,13 +46,13 @@ export class SignInComponent implements OnInit {
     if (this.loginForm.get('username').valid && this.loginForm.get('password').valid) {
       this.loginValidation = null;
       if (this.userAlready(this.loginForm.get('username').value)) {
-        const item = JSON.parse(localStorage.getItem(this.loginForm.get('username').value) as string);
+        const item = JSON.parse(this.localStorageService.getLocalStorageItem(this.loginForm.get('username').value) as string);
         if (item.password === this.loginForm.get('password').value) {
-          localStorage.setItem('notificationCount', '0');
-          localStorage.setItem('currentUser', this.loginForm.get('username').value);
-          if (localStorage.getItem('previousState')) {
-            this.router.navigate(['/clothes/search', localStorage.getItem('previousState')])
-            localStorage.removeItem('previousState');
+          this.localStorageService.setLocalStorageItem('notificationCount', '0');
+          this.localStorageService.setLocalStorageItem('currentUser', this.loginForm.get('username').value);
+          if (this.localStorageService.getLocalStorageItem('previousState')) {
+            this.router.navigate(['/clothes/search', this.localStorageService.getLocalStorageItem('previousState')])
+            this.localStorageService.removeLocalStorageItem('previousState');
           }
           else {
             this.router.navigate(['/'])
@@ -78,12 +78,12 @@ export class SignInComponent implements OnInit {
           password: this.loginForm.get('password').value,
           cartItems: []
         };
-        localStorage.setItem(username, JSON.stringify(userData));
-        localStorage.setItem('notificationCount', '0');
-        localStorage.setItem('currentUser', username);
-        if (localStorage.getItem('previousState')) {
-          this.router.navigate(['/clothes/search', localStorage.getItem('previousState')])
-          localStorage.removeItem('previousState');
+        this.localStorageService.setLocalStorageItem(username, JSON.stringify(userData));
+        this.localStorageService.setLocalStorageItem('notificationCount', '0');
+        this.localStorageService.setLocalStorageItem('currentUser', username);
+        if (this.localStorageService.getLocalStorageItem('previousState')) {
+          this.router.navigate(['/clothes/search', this.localStorageService.getLocalStorageItem('previousState')])
+          this.localStorageService.removeLocalStorageItem('previousState');
         }
         else {
           this.router.navigate(['/'])
@@ -96,7 +96,7 @@ export class SignInComponent implements OnInit {
   }
 
   userAlready(username: string): boolean {
-    if (localStorage.getItem(username)) {
+    if (this.localStorageService.getLocalStorageItem(username)) {
       return true;
     } else {
       return false;
@@ -107,9 +107,9 @@ export class SignInComponent implements OnInit {
     this.loginValidation = null;
   }
   signOut() {
-    localStorage.removeItem('currentUser');
-    this.userPresent = localStorage.getItem('currentUser') ? true : false;
-    this.reqFromAccIcon = localStorage.getItem('accountIcon') === 'true' ? true : false;
+    this.localStorageService.removeLocalStorageItem('currentUser');
+    this.userPresent = this.localStorageService.getLocalStorageItem('currentUser') ? true : false;
+    this.reqFromAccIcon = this.localStorageService.getLocalStorageItem('accountIcon') === 'true' ? true : false;
   }
 }
 
