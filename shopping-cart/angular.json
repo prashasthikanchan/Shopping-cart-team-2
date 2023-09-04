@@ -32,7 +32,7 @@
               "src/app/nav-bar/nav-bar.component.css",
               "src/app/app.component.css"
             ],
-            "scripts":["./node_modules/angular-dark-mode/angular-dark-mode.js"]
+            "scripts":[]
           },
           "configurations": {
             "production": {
