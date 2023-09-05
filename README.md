@@ -18,6 +18,9 @@ This is a Ecommerce clothing website created using Angular,Typescript and Materi
 Clone the repo:
 `git clone https://github.com/Palguni-Ravi/Shopping-cart-team-2.git`
 
+In visual studio code 
+File -> Open Folder -> Open folder named **shopping-cart-team-2** from the location where the repo got cloned
+
 Change directory:
 `cd shopping-cart`
 
