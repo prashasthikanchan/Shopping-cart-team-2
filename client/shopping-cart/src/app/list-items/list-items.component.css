@@ -1,4 +1,4 @@
-.container {
+/* .container {
   display: grid;
   grid-template-columns: 1fr 5fr;
   z-index: 800;
@@ -7,14 +7,12 @@
   scrollbar-width: none;
   max-height: calc(100vh - 20px);
   background-color: white;
-
 }
 
 .container::-webkit-scrollbar {
   display: none;
   width: none;
   scrollbar-width: none;
-
 }
 
 .productCard {
@@ -407,4 +405,4 @@ h3 {
     width: 14rem;
     height: 17rem;
   }
-}
+} */

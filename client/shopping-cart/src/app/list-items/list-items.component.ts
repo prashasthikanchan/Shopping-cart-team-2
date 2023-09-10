@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { ClothingDataService } from '../clothing-data.service';
+import { ClothingDataService } from '../service/clothing-data.service';
 import { Router } from '@angular/router';
 import { ClothItem } from '../models/clothItem.model';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { FilterSearchUpdateService } from '../filter-search-update.service';
 import { LocalstorageService } from '../localstorage.service';
-
+import { CartItem } from '../models/cartItem.model';
 @Component({
   selector: 'app-list-items',
   templateUrl: './list-items.component.html',
@@ -213,14 +213,12 @@ export class ListItemsComponent implements OnInit {
     this.filteredClothDataList = sortedProducts;
   }
 
-
-
   signIn() {
     if (this.selectedSize == '' || !this.selectedSize) {
       this.notSelected = true;
       return;
     }
-    this.localStorageService.setLocalStorageItem('accountIcon', 'false');
+    // this.localStorageService.setLocalStorageItem('accountIcon', 'false');
     this.router.paramMap.subscribe(params => {
       var parameters = params.get('parameters');
       if (parameters) {
@@ -236,11 +234,11 @@ export class ListItemsComponent implements OnInit {
   addToCart() {
     const currentUser = this.localStorageService.getLocalStorageItem('currentUser');
     const userInfo = JSON.parse(this.localStorageService.getLocalStorageItem(currentUser as string) as string)
-    const alreadyPresentItem = userInfo.cartItems.find((cartItem: cartItem) =>
+    const alreadyPresentItem = userInfo.cartItems.find((cartItem: CartItem) =>
       cartItem.item && cartItem.item.id === this.selectedProduct!.id &&
       cartItem.size === this.selectedSize)
     if (alreadyPresentItem) {
-      const indexToUpdate = userInfo.cartItems.findIndex((cartItem: cartItem) => cartItem.item.id === alreadyPresentItem.item.id);
+      const indexToUpdate = userInfo.cartItems.findIndex((cartItem: CartItem) => cartItem.item.id === alreadyPresentItem.item.id);
       userInfo.cartItems[indexToUpdate].quantity += this.selectedQuantity;
     }
     else {
@@ -289,11 +287,7 @@ export class ListItemsComponent implements OnInit {
     this.selectedQuantity++;
   }
 }
-interface cartItem {
-  "item": ClothItem,
-  "quantity": number,
-  "size": string
-}
+
 
 
 

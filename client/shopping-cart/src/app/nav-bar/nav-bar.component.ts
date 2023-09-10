@@ -2,7 +2,7 @@ import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
-import { ClothingDataService } from '../clothing-data.service';
+import { ClothingDataService } from '../service/clothing-data.service';
 import { ClothItem } from '../models/clothItem.model';
 import { LocalstorageService } from '../localstorage.service';
 @Component({
@@ -147,7 +147,7 @@ export class NavBarComponent {
     this.onSearch();
   }
   signIn() {
-    this.localStorageService.setLocalStorageItem('accountIcon', 'true');
+    // this.localStorageService.setLocalStorageItem('accountIcon', 'true');
     this.router.navigate(['/signin'])
   }
   showMenuSearch() {

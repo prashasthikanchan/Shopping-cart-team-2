@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { ClothingDataService } from '../clothing-data.service';
+import { ClothingDataService } from '../service/clothing-data.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-index-page',
@@ -19,9 +19,8 @@ export class IndexPageComponent implements OnInit {
   constructor(private clothingDataService: ClothingDataService, private router: Router) { }
   ngOnInit(): void {
     this.clothingDataService.getIndexPageItems().subscribe(data => {
-      this.indexPageItems = data;
+      this.indexPageItems = data[0];
       this.brands = this.indexPageItems.brands;
-      console.log(this.indexPageItems)
       this.allCategories = this.indexPageItems.categories;
       this.genderOptions = this.indexPageItems.gender;
     });

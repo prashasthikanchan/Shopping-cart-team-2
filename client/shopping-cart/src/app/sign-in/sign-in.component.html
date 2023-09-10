@@ -1,6 +1,6 @@
 <mat-card class="example-card">
   <p *ngIf="userPresent">You are already signed in..!</p>
-  <button mat-raised-button type="submit" (click)="signOut()" *ngIf="userPresent && reqFromAccIcon">Sign out</button>
+  <button mat-raised-button type="submit" (click)="signOut()" *ngIf="userPresent">Sign out</button>
   <mat-card-header *ngIf="!userPresent">
     <mat-card-title>{{ isRegisterMode ? 'Register' : 'Login' }}</mat-card-title>
   </mat-card-header>

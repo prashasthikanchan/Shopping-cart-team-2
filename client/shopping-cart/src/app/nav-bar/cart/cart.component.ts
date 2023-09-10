@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ClothingDataService } from 'src/app/clothing-data.service';
+import { ClothingDataService } from 'src/app/service/clothing-data.service';
 import { Router } from '@angular/router';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { ClothItem } from 'src/app/models/clothItem.model';

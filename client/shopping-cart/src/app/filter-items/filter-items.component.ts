@@ -1,6 +1,6 @@
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { ClothingDataService } from '../clothing-data.service';
+import { ClothingDataService } from '../service/clothing-data.service';
 import { MatSliderChange } from '@angular/material/slider';
 import { ClothItem } from '../models/clothItem.model';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
