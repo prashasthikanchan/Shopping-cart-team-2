@@ -1,9 +1,6 @@
-package com.example.Project.Repository;
+package com.example.shoppingcart.Repository;
 
+import com.example.shoppingcart.Model.Cloth;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.example.Project.Model.Cloth;
-
-public interface ClothRepository extends MongoRepository<Cloth, String>{
-
-}
+public interface ClothRepository extends MongoRepository<Cloth, Integer> {}

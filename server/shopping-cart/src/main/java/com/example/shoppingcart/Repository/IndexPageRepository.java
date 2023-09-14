@@ -1,9 +1,7 @@
-package com.example.Project.Repository;
+package com.example.shoppingcart.Repository;
 
+import com.example.shoppingcart.Model.IndexPageItem;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.example.Project.Model.IndexPageItem;
-
-public interface IndexPageRepository extends MongoRepository<IndexPageItem, String>{
-
-}
+public interface IndexPageRepository
+  extends MongoRepository<IndexPageItem, String> {}
