@@ -6,29 +6,17 @@ import { User } from '../models/user.model';
 @Injectable({
   providedIn: 'root',
 })
-
 export class AuthService {
   constructor(private http: HttpClient) {}
-
-  getCurrentUserFlag(): Observable<boolean> {
-    // Assuming that the API endpoint '/currentUser' returns a boolean value.
-    return this.http.get<boolean>('/currentUser').pipe(
-      map((response: boolean) => {
-        // Transform the response to a boolean value.
-        return response;
-      })
-    );
+  getUserdetails(email: string): Observable<boolean> {
+    return this.http.get<boolean>(`/auth/${email}`);
   }
 
-  updateCurrentUserFlag(currentUser: string, flag: boolean): Observable<string> {
-    return this.http.put<string>(`/editCurrentUser`, currentUser);
+  createUserdetails(user: User): Observable<string> {
+    return this.http.post<string>('/auth/createUser', user);
   }
 
-  getUserdetails(username: string): Observable<User[]> {
-    return this.http.get<User[]>('/user');
-  }
-
-  createUserdetails(user: User): Observable<User> {
-    return this.http.post<User>('/createUser', user);
+  validatePassword(email: string, password: string): Observable<string> {
+    return this.http.get<string>(`/auth/${email}/${password}`);
   }
 }
