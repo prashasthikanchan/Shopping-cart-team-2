@@ -8,15 +8,21 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
   constructor(private http: HttpClient) {}
+  private clothingUrl = 'http://localhost:8080';
   getUserdetails(email: string): Observable<boolean> {
-    return this.http.get<boolean>(`/auth/${email}`);
+    return this.http.get<boolean>(`${this.clothingUrl}` + `/auth/${email}`);
   }
 
-  createUserdetails(user: User): Observable<string> {
-    return this.http.post<string>('/auth/createUser', user);
+  createUserdetails(user: User): Observable<User> {
+    return this.http.post<User>(
+      `${this.clothingUrl}` + '/auth/createUser',
+      user
+    );
   }
 
   validatePassword(email: string, password: string): Observable<string> {
-    return this.http.get<string>(`/auth/${email}/${password}`);
+    return this.http.get<string>(
+      `${this.clothingUrl}` + `/auth/${email}/${password}`
+    );
   }
 }

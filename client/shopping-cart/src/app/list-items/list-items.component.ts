@@ -2,11 +2,10 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ClothingDataService } from '../service/clothing-data.service';
 import { Router } from '@angular/router';
 import { ClothItem } from '../models/clothItem.model';
-import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { MatSidenav } from '@angular/material/sidenav';
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
-  MatSnackBarModule,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -17,9 +16,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { FilterSearchUpdateService } from '../filter-search-update.service';
-import { LocalstorageService } from '../localstorage.service';
 import { CartItem } from '../models/cartItem.model';
 import { CookieService } from 'ngx-cookie-service';
+import { CartService } from '../service/cart.service';
 @Component({
   selector: 'app-list-items',
   templateUrl: './list-items.component.html',
@@ -56,8 +55,8 @@ export class ListItemsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
     private filterSearchUpdateService: FilterSearchUpdateService,
-    private localStorageService: LocalstorageService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private cartService: CartService
   ) {
     this.selectedSize = '';
     this.sizeForm = this.formBuilder.group({
@@ -73,6 +72,9 @@ export class ListItemsComponent implements OnInit {
           ? `${18}rem`
           : `${19}rem`
         : `${21}rem`;
+        this.router.paramMap.subscribe((params)=>{
+          var parameters = params.get('parameters');      
+        })
     this.clothingDataService.getProducts().subscribe((data) => {
       this.clothDataList = data;
       this.filteredClothDataList = data;
@@ -304,52 +306,63 @@ export class ListItemsComponent implements OnInit {
         this.cookieService.set('previousState', '');
       }
     });
-    this.router2.navigate(['/signin']);
-    this.addToCart();
+    if (this.cookieService.get('currentUser')) {
+      this.addToCart();
+    } else {
+      this.router2.navigate(['/signin']);
+    }
   }
 
-  navigateToCart() {
-    this.router.paramMap.subscribe((params) => {
+  async navigateToCart(): Promise<void> {
+    if (this.selectedSize == '' || !this.selectedSize) {
+      this.notSelected = true;
+      return;
+    }
+    this.router.paramMap.subscribe(async (params) => {
       var parameters = params.get('parameters');
       if (parameters) {
         this.cookieService.set('previousState', parameters as string);
       } else {
         this.cookieService.set('previousState', '');
       }
-    });
-    this.addToCart();
-    this.router2.navigate(['/cart']);
-  }
-  addToCart() {
-    const currentUser = this.cookieService.get('currentUser');
-    const userInfo = JSON.parse(
-      this.localStorageService.getLocalStorageItem(
-        currentUser as string
-      ) as string
-    );
-    const alreadyPresentItem = userInfo.cartItems.find(
-      (cartItem: CartItem) =>
-        cartItem.item &&
-        cartItem.item.id === this.selectedProduct!.id &&
-        cartItem.size === this.selectedSize
-    );
-    if (alreadyPresentItem) {
-      const indexToUpdate = userInfo.cartItems.findIndex(
-        (cartItem: CartItem) => cartItem.item.id === alreadyPresentItem.item.id
-      );
-      userInfo.cartItems[indexToUpdate].quantity += this.selectedQuantity;
-    } else {
+      const currentUser = this.cookieService.get('currentUser');
       const cartItem = {
         item: this.selectedProduct,
         quantity: this.selectedQuantity,
         size: this.selectedSize,
       };
-      userInfo.cartItems.push(cartItem);
+      try {
+        const response = this.cartService
+          .addToCart(cartItem as CartItem, currentUser)
+          .subscribe();
+      } catch (error) {
+        console.error('Error:', error);
+      }
+
+      if (currentUser) {
+        this.addToCart();
+        this.router2.navigate(['/cart']);
+      } else {
+        this.router2.navigate(['/signin']);
+      }
+    });
+  }
+
+  async addToCart() {
+    const currentUser = this.cookieService.get('currentUser');
+    const cartItem = {
+      item: this.selectedProduct,
+      quantity: this.selectedQuantity,
+      size: this.selectedSize,
+    };
+    try {
+      const response = this.cartService
+        .addToCart(cartItem as CartItem, currentUser)
+        .subscribe();
+    } catch (error) {
+      console.error('Error:', error);
     }
-    this.localStorageService.setLocalStorageItem(
-      currentUser as string,
-      JSON.stringify(userInfo)
-    );
+
     this.openSnackBar();
   }
   openSnackBar() {
