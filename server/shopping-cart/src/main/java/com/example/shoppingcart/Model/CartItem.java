@@ -1,19 +1,31 @@
 package com.example.shoppingcart.Model;
 
-import java.util.List;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CartItem {
 
-  private List<Cloth> items;
+  private Cloth item;
   private int quantity;
   private String size;
 
-  public List<Cloth> getItems() {
-    return items;
+  public CartItem(Cloth item, int quantity, String size) {
+    super();
+    this.item = item;
+    this.quantity = quantity;
+    this.size = size;
   }
 
-  public void setItems(List<Cloth> items) {
-    this.items = items;
+  public CartItem() {
+    super();
+  }
+
+  public Cloth getItem() {
+    return item;
+  }
+
+  public void setItem(Cloth item) {
+    this.item = item;
   }
 
   public int getQuantity() {

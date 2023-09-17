@@ -1,6 +1,8 @@
 package com.example.shoppingcart.Model;
 
 import java.util.Collection;
+import java.util.List;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,9 +13,13 @@ import org.springframework.stereotype.Component;
 public class UserModel implements UserDetails {
 
   private String name;
+
+  @Id
   private String email;
+
   private String password;
-  private CartItem cartItem;
+
+  private List<CartItem> cartItem;
 
   public String getName() {
     return name;
@@ -39,19 +45,32 @@ public class UserModel implements UserDetails {
     this.password = password;
   }
 
-  public CartItem getCartIem() {
+  public List<CartItem> getCartItem() {
     return cartItem;
   }
 
-  public void setCartIem(CartItem cartItem) {
+  public void setCartItem(List<CartItem> cartItem) {
     this.cartItem = cartItem;
   }
 
-  public UserModel(String name, String email, String password) {
-    super();
+  public void addToCart(CartItem cartItem) {
+    this.cartItem.add(cartItem);
+  }
+
+  public void removeFromCart(CartItem cartItem) {
+    this.cartItem.remove(cartItem);
+  }
+
+  public UserModel(
+    String name,
+    String email,
+    String password,
+    List<CartItem> cartItem
+  ) {
     this.name = name;
     this.email = email;
     this.password = password;
+    this.cartItem = cartItem;
   }
 
   public UserModel() {}

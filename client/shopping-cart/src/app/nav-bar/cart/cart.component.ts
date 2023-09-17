@@ -1,76 +1,99 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ClothingDataService } from 'src/app/service/clothing-data.service';
-import { Router } from '@angular/router';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { Component, OnInit } from '@angular/core';
 import { ClothItem } from 'src/app/models/clothItem.model';
-import { LocalstorageService } from 'src/app/localstorage.service';
+import { CookieService } from 'ngx-cookie-service';
+import { CartService } from 'src/app/service/cart.service';
+import { CartItem } from 'src/app/models/cartItem.model';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css']
+  styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit {
   currentUser: string | null = null;
-  cartItems: any[] = [];
+  cartItems: CartItem[] = [];
   clothDataList: ClothItem[] = [];
   filteredClothDataList: ClothItem[] = [];
-  cartItemDetails: any[] = [];
-  cartItemIndex: any[] = [];
   total: number = 0;
-  displayedColumns: string[] = ['position', 'name', 'quantity', 'total', 'button'];
+  displayedColumns: string[] = [
+    'position',
+    'name',
+    'quantity',
+    'total',
+    'button',
+  ];
   emptyCart: boolean = false;
 
-  constructor(private clothingDataService: ClothingDataService, private router: Router, private localStorageService : LocalstorageService) {
-
-  }
-  ngOnInit(): void {
-    this.currentUser = this.localStorageService.getLocalStorageItem('currentUser');
+  constructor(
+    private cookieService: CookieService,
+    private cartService: CartService
+  ) {}
+  async ngOnInit(): Promise<void> {
+    this.currentUser = this.cookieService.get('currentUser');
     if (this.currentUser) {
-      this.cartItems = JSON.parse(this.localStorageService.getLocalStorageItem(this.currentUser) as string).cartItems;
+      try {
+        const response = await this.cartService
+          .getCartItems(this.currentUser)
+          .subscribe(
+            (data: CartItem[]) => {
+              this.cartItems = data;
+              if (this.cartItems.length > 0) {
+                this.emptyCart = false;
+              }
+              this.calculateTotal();
+            },
+            (error) => {
+              console.error('Error fetching cart items:', error);
+            }
+          );
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
+    else
     if (this.cartItems.length === 0) {
       this.emptyCart = true;
     }
-    this.calculateTotal()
-  }
-  decrement(item: any) {
-    if (item.quantity > 1) {
-      item.quantity--;
-      this.updateLocalStorage();
-      this.calculateTotal()
-    }
   }
 
-  increment(item: any) {
-    item.quantity++;
-    this.updateLocalStorage();
-    this.calculateTotal()
-  }
-
-  deleteItem(item: any) {
-    const confirmDelete = confirm("Do you want to delete this item?");
-    if (confirmDelete) {
-      const index = this.cartItems.findIndex((cartItem) => cartItem.id === item.id);
-      if (index !== -1) {
-        this.cartItems.splice(index, 1);
-        this.updateLocalStorage();
-        this.calculateTotal()
+  changeQuantity(item: CartItem, action: string) {
+    const currentUser = this.cookieService.get('currentUser');
+    this.cartService.changeQuantity(item, action, currentUser).subscribe();
+    const index = this.cartItems.findIndex(
+      (cartItem) => cartItem.item.id === item.item.id
+    );
+    if (index !== -1) {
+      if (action == 'increase') {
+        this.cartItems[index].quantity++;
+      } else if (action == 'decrease') {
+        if (this.cartItems[index].quantity > 0) {
+          this.cartItems[index].quantity--;
+        }
       }
     }
-    this.currentUser = this.localStorageService.getLocalStorageItem('currentUser');
-    if (this.currentUser) {
-      this.cartItems = JSON.parse(this.localStorageService.getLocalStorageItem(this.currentUser) as string).cartItems;
-    }
+
+    this.calculateTotal();
   }
 
-  updateLocalStorage() {
-    if (this.currentUser) {
-      const userData = JSON.parse(this.localStorageService.getLocalStorageItem(this.currentUser) || '');
-      userData.cartItems = this.cartItems;
-      this.localStorageService.setLocalStorageItem(this.currentUser, JSON.stringify(userData));
+  deleteItem(item: CartItem) {
+    const confirmDelete = confirm('Do you want to delete this item?');
+    this.currentUser = this.cookieService.get('currentUser');
+    if (confirmDelete) {
+      this.cartService
+        .deleteCartItem(this.currentUser, item.item.id)
+        .subscribe();
+      const index = this.cartItems.findIndex(
+        
+        (cartItem) => cartItem.item.id === item.item.id
+      );
+      if (index !== -1) {
+        this.cartItems.splice(index, 1);
+        this.cartItems = this.cartItems
+        this.emptyCart = this.cartItems.length>0?false:true;
+        this.calculateTotal();
+      }
     }
   }
-  calculateTotal() {
+  async calculateTotal() {
     this.total = 0;
     for (const item of this.cartItems) {
       this.total += item.item.price * item.quantity;
@@ -80,6 +103,3 @@ export class CartComponent implements OnInit {
     }
   }
 }
-
-
-
