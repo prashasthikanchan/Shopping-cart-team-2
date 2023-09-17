@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class Cloth {
 
   @Id
-  private int id;
+  private int _id;
 
   private String tag;
   private String image;
@@ -22,11 +22,11 @@ public class Cloth {
   private int pincode;
 
   public int getId() {
-    return id;
+    return _id;
   }
 
   public void setId(int id) {
-    this.id = id;
+    this._id = id;
   }
 
   public String getTag() {

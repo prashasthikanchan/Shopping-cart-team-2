@@ -1,13 +1,11 @@
 package com.example.shoppingcart.Controller;
 
-import com.example.shoppingcart.Config.UserConfig;
-import com.example.shoppingcart.Model.JwtRequest;
 import com.example.shoppingcart.Model.JwtResponse;
 import com.example.shoppingcart.Model.UserModel;
 import com.example.shoppingcart.Repository.UserRepository;
 import com.example.shoppingcart.Service.UserService;
 import com.example.shoppingcart.sercurity.JwtHelper;
-import java.util.List;
+import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -43,12 +39,8 @@ public class AuthController {
   @Autowired
   private UserService userService;
 
-  @Autowired
-  private UserConfig userConfig;
-
   @GetMapping("/{email}")
   public boolean getUserDetail(@PathVariable String email) {
-    System.out.print("hello");
     UserModel user = userRepository.findByEmail(email).orElseThrow();
     if (user != null) {
       return true;
@@ -82,11 +74,15 @@ public class AuthController {
 
   @PostMapping("/createUser")
   public ResponseEntity<JwtResponse> createUser(@RequestBody UserModel user) {
-    System.out.print(user);
+    if (user.getCartItem() == null) {
+      user.setCartItem(new ArrayList<>());
+    }
+
     UserModel userModel = userService.createUser(user);
     UserDetails userDetails = userDetailsService.loadUserByUsername(
       userModel.getEmail()
     );
+
     String token = this.helper.generateToken(userDetails);
     JwtResponse response = JwtResponse
       .builder()

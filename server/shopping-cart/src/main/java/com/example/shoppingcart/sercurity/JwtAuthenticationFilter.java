@@ -1,6 +1,5 @@
 package com.example.shoppingcart.sercurity;
 
-import com.example.shoppingcart.Service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.FilterChain;
