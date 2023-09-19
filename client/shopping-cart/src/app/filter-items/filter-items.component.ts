@@ -1,12 +1,10 @@
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ClothingDataService } from '../service/clothing-data.service';
-import { MatSliderChange } from '@angular/material/slider';
-import { ClothItem } from '../models/clothItem.model';
-import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { FilterSearchUpdateService } from '../filter-search-update.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-filter-items',
@@ -25,9 +23,10 @@ export class FilterItemsComponent implements OnInit {
   mobileQuery: MediaQueryList | undefined;
   panelOpenState: boolean = true;
   searchParameters: any;
+  aggregations: any;
+  selectedFilters: Map<string, string[]> = new Map();
 
-
-  constructor(private clothingDataService: ClothingDataService, private media: MediaMatcher, private filterSearchUpdateService: FilterSearchUpdateService) {
+  constructor(private router: Router, private clothingDataService: ClothingDataService, private media: MediaMatcher, private filterSearchUpdateService: FilterSearchUpdateService) {
     this.filterGroups.forEach(filterGroup => {
       this.filterGroupOpenStates[filterGroup.title] = true;
     });
@@ -40,17 +39,9 @@ export class FilterItemsComponent implements OnInit {
   ngOnInit(): void {
     this.clothingDataService.getProducts().subscribe(data => {
       this.clothDataList = data;
-      this.colors = this.getUniqueColors();
-      this.brands = this.getUniqueBrands();
-      this.price = this.getUniquePrice();
-      this.initializeFilterGroups();
     });
     this.mobileQuery = this.media.matchMedia('(max-width: 576px)');
     this.panelOpenState = !this.mobileQuery.matches;
-
-    this.checkboxlistUpdated.subscribe((updatedCheckboxList: checkedBoxList) => {
-      this.updateCheckboxesBasedOnSearchResults(updatedCheckboxList);
-    });
 
     this.filterSearchUpdateService.filterData$.subscribe(data => {
       if (data) {
@@ -58,6 +49,115 @@ export class FilterItemsComponent implements OnInit {
         this.searchResults = data.searchResults;
       }
     });
+    this.clothingDataService.aggregations$.subscribe(data => {
+      if (!this.isEqual(this.aggregations, data)) {
+        this.selectedFilters = new Map();
+      }
+      this.aggregations = data;
+      this.initializeFilterGroups(data);
+    });
+
+  }
+
+  filterGroups: FilterGroup[] = [];
+  isEqual(objA: any, objB: any): boolean {
+
+    return JSON.stringify(objA) === JSON.stringify(objB);
+  }
+  initializeFilterGroups(data: any) {
+    this.filterGroups = [];
+    if (data) {
+      this.filterGroups.push({
+        title: 'Color',
+        checkboxes: data.colors.map((color: string) => {
+          const parts = color.split(', ');
+          const label = parts[0].split(': ')[1];
+          const count = parseInt(parts[1].split(': ')[1], 10);
+          return { label, count };
+        })
+      });
+      this.filterGroups.push({
+        title: 'Brand',
+        checkboxes: data.brands.map((brand: string) => {
+          const parts = brand.split(', ');
+          const label = parts[0].split(': ')[1];
+          const count = parseInt(parts[1].split(': ')[1], 10);
+          return { label, count };
+        })
+      });
+      this.filterGroups.push({
+        title: 'Category',
+        checkboxes: data.categories.map((category: string) => {
+          const parts = category.split(', ');
+          const label = parts[0].split(': ')[1];
+          const count = parseInt(parts[1].split(': ')[1], 10);
+          return { label, count };
+        })
+      });
+      this.filterGroups.push({
+        title: 'Gender',
+        checkboxes: data.genders.map((gender: string) => {
+          const parts = gender.split(', ');
+          const label = parts[0].split(': ')[1];
+          const count = parseInt(parts[1].split(': ')[1], 10);
+          return { label, count };
+        })
+      });
+      this.filterGroups.push({
+        title: 'Price',
+        checkboxes: data.prices.map((price: string) => {
+          const parts = price.split(', ');
+          const label = parts[0].split(': ')[1];
+          const count = parseInt(parts[1].split(': ')[1], 10);
+          return { label, count };
+        })
+      });
+      this.filterGroups.push({
+        title: 'Rating',
+        checkboxes: data.ratings.map((rating: string) => {
+          const parts = rating.split(', ');
+          const label = parts[0].split(': ')[1];
+          const count = parseInt(parts[1].split(': ')[1], 10);
+          return { label, count };
+        })
+      });
+    }
+  }
+
+
+  filterOptions: Map<string, string[]> = new Map();
+
+  capitalizeFirstLetter(inputString: string): string {
+    if (inputString.length === 0) {
+      return inputString;
+    }
+
+    return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+  }
+
+  toggleCheckbox(fieldName: string, label: string): void {
+    const values = this.selectedFilters.get(fieldName) ?? [];
+    if (values.includes(label)) {
+      const updatedValues = values.filter(value => value !== label);
+      if (updatedValues.length === 0) {
+        this.selectedFilters.delete(fieldName);
+      } else {
+        this.selectedFilters.set(fieldName, updatedValues);
+      }
+    } else {
+      values.push(label);
+      this.selectedFilters.set(fieldName, values);
+    }
+    let params = '';
+    this.selectedFilters.forEach((values, fieldName) => {
+      values.forEach((label) => {
+        if (params !== '') {
+          params += '&';
+        }
+        params += `${fieldName}=${encodeURIComponent(label)}`;
+      });
+    });
+    this.router.navigate(['/clothes/search'], { queryParams: { f: params }, queryParamsHandling: 'merge' });
   }
 
   displayedColumns: string[] = ['name', 'age', 'gender'];
@@ -67,125 +167,24 @@ export class FilterItemsComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  updateCheckboxesBasedOnSearchResults(updatedCheckboxList: checkedBoxList) {
-    this.checkboxStates.clear();
-    this.checkedboxList = updatedCheckboxList;
-    for (const filterGroupTitle in updatedCheckboxList) {
-      if (updatedCheckboxList.hasOwnProperty(filterGroupTitle)) {
-        const selectedLabels = updatedCheckboxList[filterGroupTitle];
-        selectedLabels.forEach(label => {
-          this.checkboxStates.set(label, true);
-        });
-      }
-    }
-  }
-
-  getUniqueColors(): string[] {
-    const uniqueColors = this.clothDataList
-      .filter(cloth => cloth.color && typeof cloth.color === 'string')
-      .map(cloth => cloth.color)
-      .filter((color, index, self) => self.indexOf(color) === index);
-    return uniqueColors;
-  }
-  getUniqueBrands(): string[] {
-    const uniqueBrands = this.clothDataList
-      .filter(cloth => cloth.brand && typeof cloth.brand === 'string')
-      .map(cloth => cloth.brand)
-      .filter((brand, index, self) => self.indexOf(brand) === index);
-    return uniqueBrands;
-  }
-  getUniquePrice(): number[] {
-    const uniquePrice = this.clothDataList
-      .filter(cloth => cloth.price && typeof cloth.price === 'number')
-      .map(cloth => cloth.price)
-      .filter((price, index, self) => self.indexOf(price) === index);
-    return uniquePrice;
-  }
-  initializeFilterGroups() {
-    this.filterGroups[0].checkboxes = this.colors.map(color => ({ label: color }));
-    this.filterGroups[1].checkboxes = this.brands.map(brand => ({ label: brand }));
-    const minPrice = Math.floor(Math.min(...this.price) / 100) * 100;
-    const maxPrice = Math.ceil(Math.max(...this.price) / 100) * 100;
-    const priceSegment = (maxPrice - minPrice) / 5;
-    this.filterGroups[2].checkboxes = [];
-    for (let i = 0; i < 5; i++) {
-      const label = `${minPrice + priceSegment * i}-${minPrice + priceSegment * (i + 1)}`;
-      this.filterGroups[2].checkboxes.push({ label: label });
-    }
-  }
-  filterGroups: FilterGroup[] = [
-    {
-      title: 'Color',
-      checkboxes: [],
-    },
-    {
-      title: 'Brand',
-      checkboxes: [],
-    },
-    {
-      title: 'Price',
-      checkboxes: [],
-    },
-    {
-      title: 'Gender',
-      checkboxes: [{ label: 'Men' },
-      { label: 'Women' }]
-    },
-    {
-      title: 'Rating',
-      checkboxes: [{ label: '5' },
-      { label: '4' },
-      { label: '3' },
-      { label: '2' },
-      { label: '1' }]
-    }
-  ];
   toggleFilter() {
     this.isFilterVisible = !this.isFilterVisible;
   }
   toggleCollapse(filterGroup: FilterGroup) {
     filterGroup.collapsed = !filterGroup.collapsed;
   }
-  toggleCheckbox($event: any, filterGroupTitle: string, checkboxLabel: string) {
-    const currentCheckedState = this.checkboxStates.get(checkboxLabel);
-    this.checkboxStates.set(checkboxLabel, !currentCheckedState);
-    filterGroupTitle = filterGroupTitle.toLowerCase();
-    if (this.checkboxStates.get(checkboxLabel)) {
-      if (!this.checkedboxList[filterGroupTitle]) {
-        this.checkedboxList[filterGroupTitle] = [];
-      }
-      this.checkedboxList[filterGroupTitle].push(checkboxLabel);
-    } else {
-      if (this.checkedboxList[filterGroupTitle]) {
-        const index = this.checkedboxList[filterGroupTitle].indexOf(checkboxLabel);
-        if (index !== -1) {
-          this.checkedboxList[filterGroupTitle].splice(index, 1);
-        }
-      }
-    }
-    this.checkboxlistUpdated.emit(this.checkedboxList);
-  }
 
   shouldCheckboxBeChecked(checkboxLabel: string, filterGroupTitle: string): boolean {
-    if (!this.searchParameters) {
-      return false;
-    }
-    if (filterGroupTitle === 'Gender' && this.searchParameters.hasOwnProperty('gender')) {
-      return this.searchParameters.gender.includes(checkboxLabel.toLowerCase());
-    }
-    if (filterGroupTitle === 'Brand' && this.searchParameters.hasOwnProperty('brand')) {
-      return this.searchParameters.brand.includes(checkboxLabel.toLowerCase());
-    }
-    if (filterGroupTitle === 'Color' && this.searchParameters.hasOwnProperty('color')) {
-      return this.searchParameters.color.includes(checkboxLabel.toLowerCase());
-    }
-    return false;
+    const selectedLabels = this.selectedFilters.get(filterGroupTitle);
+    return selectedLabels?.includes(checkboxLabel) ?? false;
   }
+
+
 }
 interface FilterGroup {
   title: string;
   items?: string[];
-  checkboxes?: { label: string }[];
+  checkboxes?: { label: string, count: number }[];
   range?: { min: number; max: number };
   collapsed?: boolean;
 }

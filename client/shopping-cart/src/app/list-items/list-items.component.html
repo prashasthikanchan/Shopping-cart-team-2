@@ -1,5 +1,5 @@
 <div class="container">
-  <app-filter-items (checkboxlistUpdated)="addFilter($event)" class="filterSide"></app-filter-items>
+  <app-filter-items class="filterSide"></app-filter-items>
   <div class="listContainer">
     <div class="listHeader">
       <h3>Showing search results for "{{searchresult}} "</h3>
@@ -27,8 +27,8 @@
             <p style="font-weight: bold;">{{item.brand}}</p>
             <p>{{ item.tag }}</p>
             <p class="price-delivery" style="font-weight: bold;">₹{{ item.price }}</p>
-            <p class="price-delivery red" *ngIf="pincode ? checkIfAvailable(item) : false">Not deliverable</p>
-            <p class="price-delivery pink" *ngIf="pincode ? !checkIfAvailable(item) : false">Deliverable</p>
+            <!-- <p class="price-delivery red" *ngIf="pincode ? checkIfAvailable(item) : false">Not deliverable</p>
+            <p class="price-delivery pink" *ngIf="pincode ? !checkIfAvailable(item) : false">Deliverable</p> -->
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>

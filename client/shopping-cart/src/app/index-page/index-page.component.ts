@@ -26,13 +26,13 @@ export class IndexPageComponent implements OnInit {
     });
   }
   onClickBrand(name: string) {
-    this.router.navigate(['/clothes/search', `brand=${name.toLowerCase()}`])
+    this.router.navigate(['/clothes/search'], { queryParams: { q: name.toLowerCase() } });
   }
   onClickCategory(name: string) {
-    this.router.navigate(['/clothes/search', `category=${name.toLowerCase()}`])
+    this.router.navigate(['/clothes/search'], { queryParams: { q: name.toLowerCase() } });
   }
   onClickGender(name: string) {
-    this.router.navigate(['/clothes/search', `gender=${name.toLowerCase()}`])
+    this.router.navigate(['/clothes/search'], { queryParams: { q: name.toLowerCase() } });
   }
 
   @ViewChild('brandList') brandList: ElementRef | undefined;
