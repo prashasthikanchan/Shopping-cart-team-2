@@ -19,33 +19,41 @@
           <div *ngIf="filterGroup.title ==='Color'">
             <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes"
               [checked]="shouldCheckboxBeChecked(checkbox.label, filterGroup.title)"
-              (change)="toggleCheckbox($event,filterGroup.title,checkbox.label)">
-              <div class="color-box" [style.background-color]="checkbox.label"></div>{{ checkbox.label }}
-            </mat-checkbox><br>
-          </div>
-          <div *ngIf="filterGroup.title ==='Brand'" class="brandFilter">
-            <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes"
-              [checked]="shouldCheckboxBeChecked(checkbox.label, filterGroup.title)"
-              (change)="toggleCheckbox($event,filterGroup.title,checkbox.label)">{{ checkbox.label }}</mat-checkbox>
-          </div><br>
-          <div *ngIf="filterGroup.title ==='Gender'" class="genderFilter">
-            <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes"
-              [checked]="shouldCheckboxBeChecked(checkbox.label, filterGroup.title)"
-              (change)="toggleCheckbox($event,filterGroup.title,checkbox.label)">{{ checkbox.label }}</mat-checkbox>
-          </div><br>
-          <div *ngIf="filterGroup.title === 'Price'" class="priceFilter">
-            <mat-checkbox *ngFor="let priceRange of filterGroup.checkboxes"
-              [checked]="checkboxStates.get(priceRange.label)"
-              (change)="toggleCheckbox(priceRange,filterGroup.title,priceRange.label)">
-              {{ priceRange.label }}
+              (change)="toggleCheckbox(filterGroup.title, checkbox.label)">
+              <div class="color-box" [style.background-color]="checkbox.label"></div>{{ capitalizeFirstLetter(checkbox.label)
+              }}&nbsp;({{checkbox.count}})
             </mat-checkbox>
+          </div>
+          <div *ngIf="filterGroup.title ==='Brand'">
+            <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes"
+              [checked]="shouldCheckboxBeChecked(checkbox.label, filterGroup.title)"
+              (change)="toggleCheckbox(filterGroup.title, checkbox.label)">{{ capitalizeFirstLetter(checkbox.label)
+              }}&nbsp;({{checkbox.count}})</mat-checkbox>
+          </div>
+          <div *ngIf="filterGroup.title ==='Category'">
+            <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes"
+              [checked]="shouldCheckboxBeChecked(checkbox.label, filterGroup.title)"
+              (change)="toggleCheckbox(filterGroup.title, checkbox.label)">{{ capitalizeFirstLetter(checkbox.label)
+              }}&nbsp;({{checkbox.count}})</mat-checkbox>
+          </div>
+          <div *ngIf="filterGroup.title ==='Gender'">
+            <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes"
+              [checked]="shouldCheckboxBeChecked(checkbox.label, filterGroup.title)"
+              (change)="toggleCheckbox(filterGroup.title, checkbox.label)">{{ capitalizeFirstLetter(checkbox.label)
+              }}&nbsp;({{checkbox.count}})</mat-checkbox>
+          </div>
+          <div *ngIf="filterGroup.title ==='Price'">
+            <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes"
+              [checked]="shouldCheckboxBeChecked(checkbox.label, filterGroup.title)"
+              (change)="toggleCheckbox(filterGroup.title, checkbox.label)">{{ checkbox.label
+              }}&nbsp;({{checkbox.count}})</mat-checkbox>
           </div>
           <div *ngIf="filterGroup.title === 'Rating'">
             <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes" [checked]="checkboxStates.get(checkbox.label)"
-              (change)="toggleCheckbox($event, filterGroup.title, checkbox.label)">
+              (change)="toggleCheckbox(filterGroup.title, checkbox.label)">
               <mat-icon *ngFor="let _ of starsArray; let i = index" [ngClass]="{
                 'filled': i < (+checkbox.label),
-                'empty': i >= (+checkbox.label)}">star</mat-icon>
+                'empty': i >= (+checkbox.label)}">star</mat-icon> ({{checkbox.count}})
             </mat-checkbox>
           </div>
         </mat-card-content>
