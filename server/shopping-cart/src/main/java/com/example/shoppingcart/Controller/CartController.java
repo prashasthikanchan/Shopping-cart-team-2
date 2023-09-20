@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/cart")
+@CrossOrigin(origins = "http://localhost:5000")
 public class CartController {
 
   @Autowired

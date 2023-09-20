@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/home")
+@CrossOrigin(origins = "http://localhost:5000")
 public class HomeController {
 
   @Autowired
