@@ -36,6 +36,7 @@ export class CartComponent implements OnInit {
           .subscribe(
             (data: CartItem[]) => {
               this.cartItems = data;
+              localStorage.setItem('cart', JSON.stringify(this.cartItems));
               if (this.cartItems.length > 0) {
                 this.emptyCart = false;
               }
@@ -49,8 +50,7 @@ export class CartComponent implements OnInit {
         console.error('Error:', error);
       }
     }
-    else
-    if (this.cartItems.length === 0) {
+    else if (this.cartItems.length === 0) {
       this.emptyCart = true;
     }
   }
@@ -70,7 +70,7 @@ export class CartComponent implements OnInit {
         }
       }
     }
-
+    localStorage.setItem('cart', JSON.stringify(this.cartItems));
     this.calculateTotal();
   }
 
@@ -87,7 +87,8 @@ export class CartComponent implements OnInit {
       );
       if (index !== -1) {
         this.cartItems.splice(index, 1);
-        this.cartItems = this.cartItems
+        localStorage.setItem('cart', JSON.stringify(this.cartItems));
+        this.cartItems = JSON.parse(localStorage.getItem('cart') as string);
         this.emptyCart = this.cartItems.length>0?false:true;
         this.calculateTotal();
       }

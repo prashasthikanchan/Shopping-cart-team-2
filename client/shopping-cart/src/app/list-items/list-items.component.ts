@@ -45,10 +45,7 @@ export class ListItemsComponent implements OnInit {
   pincode: number | null = null;
   invalidPincode = false;
   randomSearch: boolean = false;
-
   @Output() filterUpdateFromSearch = new EventEmitter<any>();
-
-
   constructor(
     private clothingDataService: ClothingDataService,
     private router: ActivatedRoute,
@@ -74,18 +71,15 @@ export class ListItemsComponent implements OnInit {
         this.clothingDataService.getSearchClothingUpdate(parameters, filters).subscribe((response) => {
           this.filteredClothDataList = response[0];
           this.clothingDataService.setAggregations(response[1]);
-
         })
       }
       else if (parameters) {
         this.clothingDataService.getSearchClothing(parameters).subscribe((response) => {
           this.filteredClothDataList = response[0];
           this.clothingDataService.setAggregations(response[1]);
-
         })
       }
     });
-
   }
   onResize(event: any) {
     this.breakpoint =
@@ -99,14 +93,14 @@ export class ListItemsComponent implements OnInit {
   }
   showItem(id: number, sidenav: MatSidenav): void {
     this.selectedSize = null;
-    this.selectedProduct = this.clothDataList.find(
+    this.selectedProduct = this.filteredClothDataList.find(
       (item) => item.id === id
     ) as ClothItem;
     this.selectedQuantity = 1;
     this.showAddToCart = true;
-    this.showAddToCart = !this.checkIfAvailable(
+    // this.showAddToCart = !this.checkIfAvailable(
       this.selectedProduct as ClothItem
-    );
+    // );
     sidenav.open();
   }
   selectSize(size: string) {
@@ -118,7 +112,6 @@ export class ListItemsComponent implements OnInit {
   arrToLower(arr: string[]): string[] {
     return arr.map((item) => item.toLowerCase());
   }
-
   onSortOptionChange(event: any) {
     const sortBy = event.target.value;
     if (sortBy == 'AscendPrice') {
@@ -146,7 +139,6 @@ export class ListItemsComponent implements OnInit {
       .sort((a, b) => b.price - a.price);
     this.filteredClothDataList = sortedProducts;
   }
-
   sortAscendRating() {
     const sortedProducts = this.filteredClothDataList
       .slice()
@@ -159,7 +151,6 @@ export class ListItemsComponent implements OnInit {
       .sort((a, b) => b.rating - a.rating);
     this.filteredClothDataList = sortedProducts;
   }
-
   signIn() {
     if (this.selectedSize == '' || !this.selectedSize) {
       this.notSelected = true;
@@ -193,7 +184,7 @@ export class ListItemsComponent implements OnInit {
         this.cookieService.set('previousState', '');
       }
       const currentUser = this.cookieService.get('currentUser');
-      const cartItem = {
+          const cartItem = {
         item: this.selectedProduct,
         quantity: this.selectedQuantity,
         size: this.selectedSize,
@@ -205,7 +196,6 @@ export class ListItemsComponent implements OnInit {
       } catch (error) {
         console.error('Error:', error);
       }
-
       if (currentUser) {
         this.addToCart();
         this.router2.navigate(['/cart']);
@@ -217,11 +207,13 @@ export class ListItemsComponent implements OnInit {
 
   async addToCart() {
     const currentUser = this.cookieService.get('currentUser');
-    const cartItem = {
+        const cartItem = {
       item: this.selectedProduct,
       quantity: this.selectedQuantity,
       size: this.selectedSize,
+
     };
+console.log("228",cartItem);
     try {
       const response = this.cartService
         .addToCart(cartItem as CartItem, currentUser)
@@ -229,7 +221,6 @@ export class ListItemsComponent implements OnInit {
     } catch (error) {
       console.error('Error:', error);
     }
-
     this.openSnackBar();
   }
   openSnackBar() {
@@ -264,7 +255,6 @@ export class ListItemsComponent implements OnInit {
   decrement() {
     this.selectedQuantity--;
   }
-
   increment() {
     this.selectedQuantity++;
   }
