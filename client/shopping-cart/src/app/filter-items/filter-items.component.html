@@ -52,8 +52,8 @@
             <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes" [checked]="checkboxStates.get(checkbox.label)"
               (change)="toggleCheckbox(filterGroup.title, checkbox.label)">
               <mat-icon *ngFor="let _ of starsArray; let i = index" [ngClass]="{
-                'filled': i < (+checkbox.label),
-                'empty': i >= (+checkbox.label)}">star</mat-icon> ({{checkbox.count}})
+                'filled': i <= (+checkbox.label[0]),
+                'empty': i > (+checkbox.label[0])}">star</mat-icon> ({{checkbox.count}})
             </mat-checkbox>
           </div>
         </mat-card-content>
