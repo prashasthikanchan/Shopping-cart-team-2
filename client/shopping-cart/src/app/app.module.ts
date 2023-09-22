@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +16,7 @@ import { IndexPageComponent } from './index-page/index-page.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { BreakpointObserverOverviewExampleComponent } from './breakpoint-observer-overview-example/breakpoint-observer-overview-example.component';
 
@@ -28,9 +29,10 @@ import { BreakpointObserverOverviewExampleComponent } from './breakpoint-observe
     FilterItemsComponent,
     IndexPageComponent,
     SignInComponent,
-    BreakpointObserverOverviewExampleComponent
+    BreakpointObserverOverviewExampleComponent,
 
-  ],
+  ],schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -42,6 +44,7 @@ import { BreakpointObserverOverviewExampleComponent } from './breakpoint-observe
     FormsModule,
     MatSnackBarModule,
     ScrollingModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
