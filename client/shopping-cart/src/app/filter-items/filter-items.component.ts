@@ -119,7 +119,7 @@ export class FilterItemsComponent implements OnInit {
           const label = parts[0].split(': ')[1];
           const count = parseInt(parts[1].split(': ')[1], 10);
           return { label, count };
-        })
+        }).reverse()
       });
     }
   }
@@ -133,6 +133,20 @@ export class FilterItemsComponent implements OnInit {
     }
 
     return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+  }
+
+  formatPriceLabel(label: string): string {
+    const parts = label.split('-');
+    const lowerBound = parseFloat(parts[0]);
+    const upperBound = parseFloat(parts[1]);
+  
+    if (lowerBound === 0 && upperBound === 1000) {
+      return 'Under 1000';
+    } else if (lowerBound === 5000 && upperBound === 10000) {
+      return 'Over 50001';
+    } else {
+      return `${Math.round(lowerBound)}-${Math.round(upperBound)}`;
+    }
   }
 
   toggleCheckbox(fieldName: string, label: string): void {
