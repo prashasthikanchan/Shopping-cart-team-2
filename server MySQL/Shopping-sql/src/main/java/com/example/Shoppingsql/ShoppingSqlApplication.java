@@ -1,13 +1,13 @@
-package com.shoppingCart.ShoppingCart;
+package com.example.Shoppingsql;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ShoppingCartApplication {
+public class ShoppingSqlApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ShoppingCartApplication.class, args);
+		SpringApplication.run(ShoppingSqlApplication.class, args);
 	}
-
+	
 }
