@@ -19,6 +19,10 @@ import { FilterSearchUpdateService } from '../filter-search-update.service';
 import { CartItem } from '../models/cartItem.model';
 import { CookieService } from 'ngx-cookie-service';
 import { CartService } from '../service/cart.service';
+import { HttpClientModule } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxSpinnerService } from "ngx-spinner";
+
 @Component({
   selector: 'app-list-items',
   templateUrl: './list-items.component.html',
@@ -34,7 +38,7 @@ export class ListItemsComponent implements OnInit {
   filteredClothDataList: ClothItem[] = [];
   filteredList: ClothItem[] = [];
   searchParameters: any;
-  searchresult: string = '';
+  searchresult: string  | null = '';
   sizeForm: FormGroup;
   notSelected: boolean = false;
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
@@ -45,6 +49,7 @@ export class ListItemsComponent implements OnInit {
   pincode: number | null = null;
   invalidPincode = false;
   randomSearch: boolean = false;
+  loading: boolean = true;
   @Output() filterUpdateFromSearch = new EventEmitter<any>();
   constructor(
     private clothingDataService: ClothingDataService,
@@ -54,7 +59,8 @@ export class ListItemsComponent implements OnInit {
     private snackBar: MatSnackBar,
     private filterSearchUpdateService: FilterSearchUpdateService,
     private cookieService: CookieService,
-    private cartService: CartService
+    private cartService: CartService,
+    private spinner: NgxSpinnerService
   ) {
     this.selectedSize = '';
     this.sizeForm = this.formBuilder.group({
@@ -64,19 +70,27 @@ export class ListItemsComponent implements OnInit {
   ngOnInit(): void {
     this.breakpoint = (window.innerWidth <= 1254) ? ((window.innerWidth <= 650) ? 2 : 3) : 4;
     this.rowHeight = (window.innerWidth <= 1254) ? ((window.innerWidth <= 650) ? `${18}rem` : `${19}rem`) : `${21}rem`;
+    this.loading = true;
+    this.searchresult = this.router.snapshot.queryParamMap.get('q');
+    this.spinner.show();
     this.router.queryParams.subscribe(params => {
+      this.spinner.show();
       var parameters = params['q'];
       var filters = params['f'];
       if (parameters && filters) {
         this.clothingDataService.getSearchClothingUpdate(parameters, filters).subscribe((response) => {
           this.filteredClothDataList = response[0];
           this.clothingDataService.setAggregations(response[1]);
+          this.loading = false;
+          this.spinner.hide();
         })
       }
       else if (parameters) {
         this.clothingDataService.getSearchClothing(parameters).subscribe((response) => {
           this.filteredClothDataList = response[0];
           this.clothingDataService.setAggregations(response[1]);
+          this.loading = false;
+          this.spinner.hide();
         })
       }
     });
@@ -213,7 +227,7 @@ export class ListItemsComponent implements OnInit {
       size: this.selectedSize,
 
     };
-console.log("228",cartItem);
+
     try {
       const response = this.cartService
         .addToCart(cartItem as CartItem, currentUser)

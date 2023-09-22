@@ -45,7 +45,7 @@
           <div *ngIf="filterGroup.title ==='Price'">
             <mat-checkbox *ngFor="let checkbox of filterGroup.checkboxes"
               [checked]="shouldCheckboxBeChecked(checkbox.label, filterGroup.title)"
-              (change)="toggleCheckbox(filterGroup.title, checkbox.label)">{{ checkbox.label
+              (change)="toggleCheckbox(filterGroup.title, checkbox.label)">{{ formatPriceLabel(checkbox.label) 
               }}&nbsp;({{checkbox.count}})</mat-checkbox>
           </div>
           <div *ngIf="filterGroup.title === 'Rating'">

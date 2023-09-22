@@ -3,11 +3,11 @@
   <div class="listContainer">
     <div class="listHeader">
       <h3>Showing search results for "{{searchresult}} "</h3>
-      <mat-form-field class="pincode">
-        <mat-label>Pincode</mat-label>
+      <!-- <mat-form-field class="pincode">
+        <mat-label></mat-label>
         <input matInput type="number" (change)="takePincode($event)">
         <mat-error *ngIf="invalidPincode">Invalid Pincode</mat-error>
-      </mat-form-field>
+      </mat-form-field> -->
       <mat-form-field class="sortOption">
         <mat-label>Sort By</mat-label>
         <select matNativeControl (change)="onSortOptionChange($event)">
@@ -20,6 +20,7 @@
       </mat-form-field>
     </div>
     <mat-grid-list [cols]="breakpoint" [rowHeight]="rowHeight" (window:resize)="onResize($event)">
+        <ngx-spinner bdColor="rgba(255, 238, 245, 0.4)" type="ball-beat" color="#ffc0cb" size="large"></ngx-spinner>
       <mat-grid-tile *ngFor="let item of filteredClothDataList" (click)="showItem(item.id,sidenav)">
         <mat-card class="productCard">
           <img mat-card-image [src]="item.image" alt="{{ item.tag }}">
@@ -32,8 +33,8 @@
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
-      <img *ngIf="filteredClothDataList.length === 0" [src]="'https://bagbazaars.com/assets/img/no-product-found.png'"
-        alt="No Results!">
+      <img *ngIf="filteredClothDataList.length === 0 && !loading"
+        [src]="'https://bagbazaars.com/assets/img/no-product-found.png'" alt="No Results!">
     </mat-grid-list>
     <mat-sidenav class="sidebar" #sidenav mode="push">
       <button class="btn-right" mat-icon- button (click)="sidenav.close()">
