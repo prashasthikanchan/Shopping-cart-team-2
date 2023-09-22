@@ -205,4 +205,3 @@ interface FilterGroup {
 interface checkedBoxList {
   [key: string]: string[];
 }
-
