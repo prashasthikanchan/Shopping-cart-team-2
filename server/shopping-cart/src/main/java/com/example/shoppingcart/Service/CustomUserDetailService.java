@@ -1,6 +1,6 @@
 package com.example.shoppingcart.Service;
 
-import com.example.shoppingcart.Model.UserModel;
+import com.example.shoppingcart.Model.User;
 import com.example.shoppingcart.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +17,7 @@ public class CustomUserDetailService implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String username)
     throws UsernameNotFoundException {
-    UserModel user = userRepository
+    User user = userRepository
       .findByEmail(username)
       .orElseThrow(() -> new RuntimeException("User not found"));
     return user;

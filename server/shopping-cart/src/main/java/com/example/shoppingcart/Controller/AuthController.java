@@ -1,7 +1,7 @@
 package com.example.shoppingcart.Controller;
 
 import com.example.shoppingcart.Model.JwtResponse;
-import com.example.shoppingcart.Model.UserModel;
+import com.example.shoppingcart.Model.User;
 import com.example.shoppingcart.Repository.UserRepository;
 import com.example.shoppingcart.Service.UserService;
 import com.example.shoppingcart.sercurity.JwtHelper;
@@ -42,7 +42,7 @@ public class AuthController {
 
   @GetMapping("/{email}")
   public boolean getUserDetail(@PathVariable String email) {
-    UserModel user = userRepository.findByEmail(email).orElseThrow();
+    User user = userRepository.findByEmail(email).orElseThrow();
     if (user != null) {
       return true;
     } else {
@@ -55,7 +55,7 @@ public class AuthController {
     @PathVariable String email,
     @PathVariable String password
   ) {
-    UserModel user = userRepository.findByEmail(email).orElseThrow();
+    User user = userRepository.findByEmail(email).orElseThrow();
     boolean isPasswordCorrect = passwordEncoder.matches(
       password,
       user.getPassword()
@@ -74,12 +74,12 @@ public class AuthController {
   }
 
   @PostMapping("/createUser")
-  public ResponseEntity<JwtResponse> createUser(@RequestBody UserModel user) {
+  public ResponseEntity<JwtResponse> createUser(@RequestBody User user) {
     if (user.getCartItem() == null) {
       user.setCartItem(new ArrayList<>());
     }
 
-    UserModel userModel = userService.createUser(user);
+    User userModel = userService.createUser(user);
     UserDetails userDetails = userDetailsService.loadUserByUsername(
       userModel.getEmail()
     );
@@ -105,7 +105,7 @@ public class AuthController {
   private Logger logger = LoggerFactory.getLogger(AuthController.class);
 
   @PostMapping("/login")
-  public ResponseEntity<JwtResponse> login(@RequestBody UserModel request) {
+  public ResponseEntity<JwtResponse> login(@RequestBody User request) {
     this.doAuthenticate(request.getEmail(), request.getPassword());
 
     UserDetails userDetails = userDetailsService.loadUserByUsername(

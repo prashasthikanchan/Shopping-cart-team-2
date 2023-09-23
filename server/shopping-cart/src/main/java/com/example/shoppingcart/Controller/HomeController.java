@@ -1,6 +1,6 @@
 package com.example.shoppingcart.Controller;
 
-import com.example.shoppingcart.Model.UserModel;
+import com.example.shoppingcart.Model.User;
 import com.example.shoppingcart.Service.UserService;
 import java.security.Principal;
 import java.util.List;
@@ -24,7 +24,7 @@ public class HomeController {
   }
 
   @GetMapping("/users")
-  public List<UserModel> getUsers() {
+  public List<User> getUsers() {
     return userService.getUsers();
   }
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Document(collection = "users")
-public class UserModel implements UserDetails {
+public class User implements UserDetails {
 
   private String name;
 
@@ -61,7 +61,7 @@ public class UserModel implements UserDetails {
     this.cartItem.remove(cartItem);
   }
 
-  public UserModel(
+  public User(
     String name,
     String email,
     String password,
@@ -73,7 +73,7 @@ public class UserModel implements UserDetails {
     this.cartItem = cartItem;
   }
 
-  public UserModel() {}
+  public User() {}
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
