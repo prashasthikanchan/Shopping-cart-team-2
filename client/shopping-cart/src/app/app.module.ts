@@ -17,7 +17,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgxSpinnerModule } from 'ngx-spinner';
-
+import { CookieService } from 'ngx-cookie-service';
 import { BreakpointObserverOverviewExampleComponent } from './breakpoint-observer-overview-example/breakpoint-observer-overview-example.component';
 
 @NgModule({
@@ -46,7 +46,7 @@ import { BreakpointObserverOverviewExampleComponent } from './breakpoint-observe
     ScrollingModule,
     NgxSpinnerModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -15,7 +15,7 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { FilterSearchUpdateService } from '../filter-search-update.service';
+import { FilterSearchUpdateService } from '../service/filter-search-update.service';
 import { CartItem } from '../models/cartItem.model';
 import { CookieService } from 'ngx-cookie-service';
 import { CartService } from '../service/cart.service';
@@ -211,7 +211,6 @@ export class ListItemsComponent implements OnInit {
         console.error('Error:', error);
       }
       if (currentUser) {
-        this.addToCart();
         this.router2.navigate(['/cart']);
       } else {
         this.router2.navigate(['/signin']);

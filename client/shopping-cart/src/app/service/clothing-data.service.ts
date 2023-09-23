@@ -7,22 +7,22 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class ClothingDataService {
 
-  private clothingUrl = "http://localhost:8080";
+  private baseUrl = "http://localhost:8080";
   private aggregationsSubject = new BehaviorSubject<any>(null);
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<any> {
-    return this.http.get<any>(`${this.clothingUrl}`+"/clothingUrl");
+    return this.http.get<any>(`${this.baseUrl}`+"/clothingUrl");
   }
 
   getIndexPageItems(): Observable<any> {
     
-    return this.http.get<any>(`${this.clothingUrl}`+"/indexPageItems");
+    return this.http.get<any>(`${this.baseUrl}`+"/indexPageItems");
   }
 
   getSearchClothing(query: string): Observable<any> {
     const params = new HttpParams().set('q', query);
-    return this.http.get(`${this.clothingUrl}`+"/search", { params });
+    return this.http.get(`${this.baseUrl}`+"/search", { params });
   }
 
   getSearchClothingUpdate(query: string, filter:string): Observable<any> {
@@ -30,7 +30,7 @@ export class ClothingDataService {
     .set('q', query)
     .set('f', filter);
 
-    return this.http.get(`${this.clothingUrl}/updateSearch`, { params });
+    return this.http.get(`${this.baseUrl}/updateSearch`, { params });
   }
   
   aggregations$ = this.aggregationsSubject.asObservable();

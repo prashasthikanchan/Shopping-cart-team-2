@@ -2,7 +2,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ClothingDataService } from '../service/clothing-data.service';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { FilterSearchUpdateService } from '../filter-search-update.service';
+import { FilterSearchUpdateService } from '../service/filter-search-update.service';
 import { Router } from '@angular/router';
 
 
