@@ -1,7 +1,7 @@
-package com.example.shoppingcart.Service;
+package com.example.Shoppingsql.Service;
 
-import com.example.shoppingcart.Model.User;
-import com.example.shoppingcart.Repository.UserRepository;
+import com.example.Shoppingsql.Model.User;
+import com.example.Shoppingsql.Repository.UserRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

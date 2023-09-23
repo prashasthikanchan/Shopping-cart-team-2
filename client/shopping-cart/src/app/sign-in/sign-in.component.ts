@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
-import { LocalstorageService } from '../localstorage.service';
 import { AuthService } from '../service/auth.service';
 import { User } from '../models/user.model';
 import { CookieService } from 'ngx-cookie-service';

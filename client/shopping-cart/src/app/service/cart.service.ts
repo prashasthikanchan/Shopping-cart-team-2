@@ -9,19 +9,19 @@ import { ClothItem } from '../models/clothItem.model';
   providedIn: 'root',
 })
 export class CartService {
-  private clothingUrl = 'http://localhost:8080';
+  private baseUrl = 'http://localhost:8080';
   constructor(private http: HttpClient) {}
 
   addToCart(cartItem: CartItem, currentUser: string): Observable<boolean> {
     return this.http.put<boolean>(
-      `${this.clothingUrl}` + '/cart/addCartItem' + `/${currentUser}`,
+      `${this.baseUrl}` + '/cart/addCartItem' + `/${currentUser}`,
       cartItem
     );
   }
 
   getCartItems(currentUser: string): Observable<CartItem[]> {
     return this.http.get<CartItem[]>(
-      `${this.clothingUrl}` + '/cart/getCartItems' + `/${currentUser}`
+      `${this.baseUrl}` + '/cart/getCartItems' + `/${currentUser}`
     );
   }
 
@@ -31,7 +31,7 @@ export class CartService {
     currentUser: string
   ): Observable<boolean> {
     return this.http.put<boolean>(
-      `${this.clothingUrl}` +
+      `${this.baseUrl}` +
         '/cart/changeQuantity' +
         `/${currentUser}/${action}`,
       item
@@ -40,7 +40,7 @@ export class CartService {
 
   deleteCartItem(token: string, itemId: number): Observable<void> {
     return this.http.delete<void>(
-      `${this.clothingUrl}/cart/deleteCartItem/${token}/${itemId}`
+      `${this.baseUrl}/cart/deleteCartItem/${token}/${itemId}`
     );
   }
 }

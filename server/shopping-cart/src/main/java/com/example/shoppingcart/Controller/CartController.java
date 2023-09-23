@@ -2,7 +2,7 @@ package com.example.shoppingcart.Controller;
 
 import com.example.shoppingcart.Model.CartItem;
 import com.example.shoppingcart.Model.Cloth;
-import com.example.shoppingcart.Model.UserModel;
+import com.example.shoppingcart.Model.User;
 import com.example.shoppingcart.Repository.UserRepository;
 import com.example.shoppingcart.sercurity.JwtHelper;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class CartController {
   @GetMapping("/getCartItems/{token}")
   public List<CartItem> getCartItems(@PathVariable String token) {
     String userName = jwtHelper.getUsernameFromToken(token);
-    UserModel userModel = userRepository
+    User userModel = userRepository
       .findByEmail(userName)
       .orElseThrow(null);
     List<CartItem> userCartItems = userModel.getCartItem();
@@ -51,7 +51,7 @@ public class CartController {
   ) {
     try {
       String userNameString = jwtHelper.getUsernameFromToken(token);
-      UserModel userModel = userRepository
+      User userModel = userRepository
         .findByEmail(userNameString)
         .orElse(null);
 
@@ -99,7 +99,7 @@ public class CartController {
   ) {
     try {
       String email = jwtHelper.getUsernameFromToken(token);
-      UserModel userModel = userRepository
+      User userModel = userRepository
         .findByEmail(email)
         .orElseThrow(() -> new NoSuchElementException("User not found"));
       List<CartItem> userCartItems = userModel.getCartItem();
@@ -132,7 +132,7 @@ public class CartController {
   ) {
     try {
       String email = jwtHelper.getUsernameFromToken(token);
-      UserModel userModel = userRepository
+      User userModel = userRepository
         .findByEmail(email)
         .orElseThrow(() -> new NoSuchElementException("User not found"));
 

@@ -1,11 +1,10 @@
-package com.example.shoppingcart.Controller;
+package com.example.Shoppingsql.Controller;
 
-import com.example.shoppingcart.Model.JwtResponse;
-import com.example.shoppingcart.Model.User;
-import com.example.shoppingcart.Repository.UserRepository;
-import com.example.shoppingcart.Service.UserService;
-import com.example.shoppingcart.sercurity.JwtHelper;
-import java.util.ArrayList;
+import com.example.Shoppingsql.Model.JwtResponse;
+import com.example.Shoppingsql.Model.User;
+import com.example.Shoppingsql.Repository.UserRepository;
+import com.example.Shoppingsql.Service.UserService;
+import com.example.Shoppingsql.Security.JwtHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,12 +41,8 @@ public class AuthController {
 
   @GetMapping("/{email}")
   public boolean getUserDetail(@PathVariable String email) {
-    User user = userRepository.findByEmail(email).orElseThrow();
-    if (user != null) {
-      return true;
-    } else {
-      return false;
-    }
+    User user = userRepository.findByEmail(email).orElse(null);
+    return user != null;
   }
 
   @GetMapping("/{email}/{password}")
@@ -55,35 +50,34 @@ public class AuthController {
     @PathVariable String email,
     @PathVariable String password
   ) {
-    User user = userRepository.findByEmail(email).orElseThrow();
-    boolean isPasswordCorrect = passwordEncoder.matches(
-      password,
-      user.getPassword()
-    );
-    if (isPasswordCorrect) {
-      UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-      String token = this.helper.generateToken(userDetails);
-      JwtResponse response = JwtResponse
-        .builder()
-        .jwtToken(token)
-        .email(userDetails.getUsername())
-        .build();
-      return new ResponseEntity<>(response, HttpStatus.OK);
+    User user = userRepository.findByEmail(email).orElse(null);
+    if (user != null) {
+      boolean isPasswordCorrect = passwordEncoder.matches(
+        password,
+        user.getPassword()
+      );
+      if (isPasswordCorrect) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(
+          email
+        );
+        String token = this.helper.generateToken(userDetails);
+        JwtResponse response = JwtResponse
+          .builder()
+          .jwtToken(token)
+          .email(userDetails.getUsername())
+          .build();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+      }
     }
-    return null;
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
   }
 
   @PostMapping("/createUser")
   public ResponseEntity<JwtResponse> createUser(@RequestBody User user) {
-    if (user.getCartItem() == null) {
-      user.setCartItem(new ArrayList<>());
-    }
-
     User userModel = userService.createUser(user);
     UserDetails userDetails = userDetailsService.loadUserByUsername(
       userModel.getEmail()
     );
-
     String token = this.helper.generateToken(userDetails);
     JwtResponse response = JwtResponse
       .builder()
@@ -129,12 +123,13 @@ public class AuthController {
     try {
       manager.authenticate(authentication);
     } catch (BadCredentialsException e) {
-      throw new BadCredentialsException(" Invalid Username or Password  !!");
+      throw new BadCredentialsException("Invalid Username or Password!!");
     }
   }
 
   @ExceptionHandler(BadCredentialsException.class)
   public String exceptionHandler() {
-    return "Credentials Invalid !!";
+    return "Credentials Invalid!!";
   }
 }
+
