@@ -6,20 +6,18 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-
 @Component
 @Document(indexName = "clim")
 public class ClothSearch {
 	@Id
 	private int id;
-	
+
 	@Field(type = FieldType.Text)
 	private String tag;
-	
+
 	@Field(type = FieldType.Text)
 	private String combinedValues;
-	
-	
+
 	public String getCombinedValues() {
 		return combinedValues;
 	}
@@ -29,24 +27,24 @@ public class ClothSearch {
 	}
 
 	@Field(type = FieldType.Keyword)
-    private String color;
-    
-    @Field(type = FieldType.Keyword)
-    private String brand;
-    
-    @Field(type = FieldType.Integer)
-    private int price;
-	
-    @Field(type = FieldType.Keyword)
+	private String color;
+
+	@Field(type = FieldType.Keyword)
+	private String brand;
+
+	@Field(type = FieldType.Integer)
+	private int price;
+
+	@Field(type = FieldType.Keyword)
 	private String gender;
-    
-    @Field(type = FieldType.Keyword)
+
+	@Field(type = FieldType.Keyword)
 	private String category;
-    
-    @Field(type = FieldType.Integer)
-    private int rating;
-    
-    public int getPincode() {
+
+	@Field(type = FieldType.Integer)
+	private int rating;
+
+	public int getPincode() {
 		return pincode;
 	}
 
@@ -55,8 +53,7 @@ public class ClothSearch {
 	}
 
 	@Field(type = FieldType.Integer)
-    private int pincode;
-    
+	private int pincode;
 
 	public int getId() {
 		return id;

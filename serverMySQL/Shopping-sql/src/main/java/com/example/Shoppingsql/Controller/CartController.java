@@ -39,155 +39,150 @@ public class CartController {
 
 	@Autowired
 	private CartItemRepository cartItemRepository;
-	
+
 	@GetMapping("/getCartItems/{token}")
 	public List<CartItem> getCartItemsByUserEmail(@PathVariable String token) {
-	    String email = jwtHelper.getUsernameFromToken(token);
+		String email = jwtHelper.getUsernameFromToken(token);
 
-	    Optional<User> userModelOptional = userRepository.findByEmail(email);
-	    if (userModelOptional.isPresent()) {
-	        User userModel = userModelOptional.get();
-	        Cart cart = userModel.getCart(); 
-	        if (cart != null) {
-	            List<CartItem> cartItems = cart.getCartItem(); 
-	            return cartItems;
-	        } else {
-	            return List.of();
-	        }
-	    } else {
-	        return List.of();
-	    }
+		Optional<User> userModelOptional = userRepository.findByEmail(email);
+		if (userModelOptional.isPresent()) {
+			User userModel = userModelOptional.get();
+			Cart cart = userModel.getCart();
+			if (cart != null) {
+				List<CartItem> cartItems = cart.getCartItem();
+				return cartItems;
+			} else {
+				return List.of();
+			}
+		} else {
+			return List.of();
+		}
 	}
-	
+
 	@PutMapping("/addCartItem/{token}")
 	public ResponseEntity<Boolean> addItemToCart(@PathVariable String token, @RequestBody CartItem cartItem) {
-	    try {
-	        String userNameString = jwtHelper.getUsernameFromToken(token);
-	        User userModel = userRepository.findByEmail(userNameString).orElse(null);
+		try {
+			String userNameString = jwtHelper.getUsernameFromToken(token);
+			User userModel = userRepository.findByEmail(userNameString).orElse(null);
 
-	        if (userModel == null) {
-	            return ResponseEntity.notFound().build();
-	        }
+			if (userModel == null) {
+				return ResponseEntity.notFound().build();
+			}
 
-	        Cart userCart = userModel.getCart();
-	        if (userCart == null) {
-	            userCart = new Cart();
-	            userCart.setUser(userModel);
-	        }
+			Cart userCart = userModel.getCart();
+			if (userCart == null) {
+				userCart = new Cart();
+				userCart.setUser(userModel);
+			}
 
-	        List<CartItem> cartItems = userCart.getCartItem();
-	        if (cartItems == null) {
-	            cartItems = new ArrayList<>();
-	        }
+			List<CartItem> cartItems = userCart.getCartItem();
+			if (cartItems == null) {
+				cartItems = new ArrayList<>();
+			}
 
-	        boolean itemAlreadyExists = false;
+			boolean itemAlreadyExists = false;
 
-	        for (CartItem existingCartItem : cartItems) {
-	            if (existingCartItem.getItem().getId() == cartItem.getItem().getId()) {
-	                existingCartItem.setQuantity(existingCartItem.getQuantity() + cartItem.getQuantity());
-	                itemAlreadyExists = true;
-	                break;
-	            }
-	        }
+			for (CartItem existingCartItem : cartItems) {
+				if (existingCartItem.getItem().getId() == cartItem.getItem().getId()) {
+					existingCartItem.setQuantity(existingCartItem.getQuantity() + cartItem.getQuantity());
+					itemAlreadyExists = true;
+					break;
+				}
+			}
 
-	        if (!itemAlreadyExists) {
-	            cartItem.setCart(userCart);
-	            cartItems.add(cartItem);
-	        }
+			if (!itemAlreadyExists) {
+				cartItem.setCart(userCart);
+				cartItems.add(cartItem);
+			}
 
-	        userCart.setCartItem(cartItems);
-	        userModel.setCart(userCart);
+			userCart.setCartItem(cartItems);
+			userModel.setCart(userCart);
 
-	        userRepository.save(userModel);
-	        return ResponseEntity.ok(true);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
-	    }
+			userRepository.save(userModel);
+			return ResponseEntity.ok(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
+		}
 	}
 
 	@Transactional
 	@PutMapping("/changeQuantity/{token}/{actionToPerform}")
-	public ResponseEntity<Boolean> changeQuantity(
-	        @PathVariable String token,
-	        @RequestBody CartItem item,
-	        @PathVariable String actionToPerform
-	) {
-	    try {
-	        String email = jwtHelper.getUsernameFromToken(token);
-	        User userModel = userRepository.findByEmail(email)
-	                .orElseThrow(() -> new NoSuchElementException("User not found"));
-	        Cart userCart = userModel.getCart();
-	        List<CartItem> userCartItems = userCart.getCartItem();
-	        CartItem targetCartItem = null;
+	public ResponseEntity<Boolean> changeQuantity(@PathVariable String token, @RequestBody CartItem item,
+			@PathVariable String actionToPerform) {
+		try {
+			String email = jwtHelper.getUsernameFromToken(token);
+			User userModel = userRepository.findByEmail(email)
+					.orElseThrow(() -> new NoSuchElementException("User not found"));
+			Cart userCart = userModel.getCart();
+			List<CartItem> userCartItems = userCart.getCartItem();
+			CartItem targetCartItem = null;
 
-	        for (CartItem userItem : userCartItems) {
-	            if (userItem.getItem().getId() == item.getItem().getId()) {
-	                targetCartItem = userItem;
-	                break;
-	            }
-	        }
+			for (CartItem userItem : userCartItems) {
+				if (userItem.getItem().getId() == item.getItem().getId()) {
+					targetCartItem = userItem;
+					break;
+				}
+			}
 
-	        if (targetCartItem != null) {
-	            int currentQuantity = targetCartItem.getQuantity();
-	            if ("increase".equals(actionToPerform)) {
-	                targetCartItem.setQuantity(currentQuantity + 1);
-	            } else if ("decrease".equals(actionToPerform)) {
-	                if (currentQuantity > 0) {
-	                    targetCartItem.setQuantity(currentQuantity - 1);
-	                }
-	            }
+			if (targetCartItem != null) {
+				int currentQuantity = targetCartItem.getQuantity();
+				if ("increase".equals(actionToPerform)) {
+					targetCartItem.setQuantity(currentQuantity + 1);
+				} else if ("decrease".equals(actionToPerform)) {
+					if (currentQuantity > 0) {
+						targetCartItem.setQuantity(currentQuantity - 1);
+					}
+				}
 
-	           
-	            userRepository.save(userModel);
-	            return ResponseEntity.ok(true);
-	        } else {
-	            return ResponseEntity.notFound().build();
-	        }
-	    } catch (NoSuchElementException e) {
-	        return ResponseEntity.notFound().build();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-	    }
+				userRepository.save(userModel);
+				return ResponseEntity.ok(true);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		} catch (NoSuchElementException e) {
+			return ResponseEntity.notFound().build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+		}
 	}
 
 	@DeleteMapping("/deleteCartItem/{token}/{itemId}")
 	public void deleteItem(@PathVariable String token, @PathVariable int itemId) {
-	    try {
-	        String email = jwtHelper.getUsernameFromToken(token);
-	        User userModel = userRepository.findByEmail(email)
-	                .orElseThrow(() -> new NoSuchElementException("User not found"));
+		try {
+			String email = jwtHelper.getUsernameFromToken(token);
+			User userModel = userRepository.findByEmail(email)
+					.orElseThrow(() -> new NoSuchElementException("User not found"));
 
-	        Cart cart = userModel.getCart(); // Get the user's cart
+			Cart cart = userModel.getCart(); // Get the user's cart
 
-	        if (cart != null) {
-	            List<CartItem> cartItems = cart.getCartItem(); // Get cart items from the user's cart
-	            CartItem itemToDelete = null;
+			if (cart != null) {
+				List<CartItem> cartItems = cart.getCartItem(); // Get cart items from the user's cart
+				CartItem itemToDelete = null;
 
-	            // Find the cart item with the specified itemId
-	            for (CartItem cartItem : cartItems) {
-	                if (cartItem.getItem().getId() == itemId) {
-	                    itemToDelete = cartItem;
-	                    break;
-	                }
-	            }
+				// Find the cart item with the specified itemId
+				for (CartItem cartItem : cartItems) {
+					if (cartItem.getItem().getId() == itemId) {
+						itemToDelete = cartItem;
+						break;
+					}
+				}
 
-	            if (itemToDelete != null) {
-	                cartItems.remove(itemToDelete); // Remove the item from the cart
-	                cartItemRepository.delete(itemToDelete); // Delete the item from the database
-	                userRepository.save(userModel); // Update the user's cart
-	                System.out.println("Item with ID " + itemId + " has been deleted from the user's cart.");
-	            } else {
-	                System.out.println("Item with ID " + itemId + " not found in the user's cart.");
-	            }
-	        } else {
-	            System.out.println("User's cart is empty.");
-	        }
-	    } catch (Exception e) {
-	        System.out.println(e);
-	    }
+				if (itemToDelete != null) {
+					cartItems.remove(itemToDelete); // Remove the item from the cart
+					cartItemRepository.delete(itemToDelete); // Delete the item from the database
+					userRepository.save(userModel); // Update the user's cart
+					System.out.println("Item with ID " + itemId + " has been deleted from the user's cart.");
+				} else {
+					System.out.println("Item with ID " + itemId + " not found in the user's cart.");
+				}
+			} else {
+				System.out.println("User's cart is empty.");
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
-
 
 }

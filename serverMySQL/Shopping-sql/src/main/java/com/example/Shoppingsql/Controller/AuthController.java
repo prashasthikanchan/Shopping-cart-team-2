@@ -31,105 +31,77 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:5000")
 public class AuthController {
 
-  PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-  @Autowired
-  private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-  @Autowired
-  private UserService userService;
+	@Autowired
+	private UserService userService;
 
-  @GetMapping("/{email}")
-  public boolean getUserDetail(@PathVariable String email) {
-    User user = userRepository.findByEmail(email).orElse(null);
-    return user != null;
-  }
+	@GetMapping("/{email}")
+	public boolean getUserDetail(@PathVariable String email) {
+		User user = userRepository.findByEmail(email).orElse(null);
+		return user != null;
+	}
 
-  @GetMapping("/{email}/{password}")
-  public ResponseEntity<JwtResponse> validatePassword(
-    @PathVariable String email,
-    @PathVariable String password
-  ) {
-    User user = userRepository.findByEmail(email).orElse(null);
-    if (user != null) {
-      boolean isPasswordCorrect = passwordEncoder.matches(
-        password,
-        user.getPassword()
-      );
-      if (isPasswordCorrect) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(
-          email
-        );
-        String token = this.helper.generateToken(userDetails);
-        JwtResponse response = JwtResponse
-          .builder()
-          .jwtToken(token)
-          .email(userDetails.getUsername())
-          .build();
-        return new ResponseEntity<>(response, HttpStatus.OK);
-      }
-    }
-    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-  }
+	@GetMapping("/{email}/{password}")
+	public ResponseEntity<JwtResponse> validatePassword(@PathVariable String email, @PathVariable String password) {
+		User user = userRepository.findByEmail(email).orElse(null);
+		if (user != null) {
+			boolean isPasswordCorrect = passwordEncoder.matches(password, user.getPassword());
+			if (isPasswordCorrect) {
+				UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+				String token = this.helper.generateToken(userDetails);
+				JwtResponse response = JwtResponse.builder().jwtToken(token).email(userDetails.getUsername()).build();
+				return new ResponseEntity<>(response, HttpStatus.OK);
+			}
+		}
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+	}
 
-  @PostMapping("/createUser")
-  public ResponseEntity<JwtResponse> createUser(@RequestBody User user) {
-    User userModel = userService.createUser(user);
-    UserDetails userDetails = userDetailsService.loadUserByUsername(
-      userModel.getEmail()
-    );
-    String token = this.helper.generateToken(userDetails);
-    JwtResponse response = JwtResponse
-      .builder()
-      .jwtToken(token)
-      .email(userDetails.getUsername())
-      .build();
-    return new ResponseEntity<>(response, HttpStatus.OK);
-  }
+	@PostMapping("/createUser")
+	public ResponseEntity<JwtResponse> createUser(@RequestBody User user) {
+		User userModel = userService.createUser(user);
+		UserDetails userDetails = userDetailsService.loadUserByUsername(userModel.getEmail());
+		String token = this.helper.generateToken(userDetails);
+		JwtResponse response = JwtResponse.builder().jwtToken(token).email(userDetails.getUsername()).build();
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
-  @Autowired
-  private UserDetailsService userDetailsService;
+	@Autowired
+	private UserDetailsService userDetailsService;
 
-  @Autowired
-  private AuthenticationManager manager;
+	@Autowired
+	private AuthenticationManager manager;
 
-  @Autowired
-  private JwtHelper helper;
+	@Autowired
+	private JwtHelper helper;
 
-  private Logger logger = LoggerFactory.getLogger(AuthController.class);
+	private Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-  @PostMapping("/login")
-  public ResponseEntity<JwtResponse> login(@RequestBody User request) {
-    this.doAuthenticate(request.getEmail(), request.getPassword());
+	@PostMapping("/login")
+	public ResponseEntity<JwtResponse> login(@RequestBody User request) {
+		this.doAuthenticate(request.getEmail(), request.getPassword());
 
-    UserDetails userDetails = userDetailsService.loadUserByUsername(
-      request.getEmail()
-    );
-    String token = this.helper.generateToken(userDetails);
+		UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
+		String token = this.helper.generateToken(userDetails);
 
-    JwtResponse response = JwtResponse
-      .builder()
-      .jwtToken(token)
-      .email(userDetails.getUsername())
-      .build();
-    return new ResponseEntity<>(response, HttpStatus.OK);
-  }
+		JwtResponse response = JwtResponse.builder().jwtToken(token).email(userDetails.getUsername()).build();
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
-  private void doAuthenticate(String email, String password) {
-    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-      email,
-      password
-    );
-    try {
-      manager.authenticate(authentication);
-    } catch (BadCredentialsException e) {
-      throw new BadCredentialsException("Invalid Username or Password!!");
-    }
-  }
+	private void doAuthenticate(String email, String password) {
+		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, password);
+		try {
+			manager.authenticate(authentication);
+		} catch (BadCredentialsException e) {
+			throw new BadCredentialsException("Invalid Username or Password!!");
+		}
+	}
 
-  @ExceptionHandler(BadCredentialsException.class)
-  public String exceptionHandler() {
-    return "Credentials Invalid!!";
-  }
+	@ExceptionHandler(BadCredentialsException.class)
+	public String exceptionHandler() {
+		return "Credentials Invalid!!";
+	}
 }
-
