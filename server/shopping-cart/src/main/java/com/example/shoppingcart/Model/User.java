@@ -2,6 +2,8 @@ package com.example.shoppingcart.Model;
 
 import java.util.Collection;
 import java.util.List;
+
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,13 +11,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import jakarta.annotation.Generated;
+
 @Component
 @Document(collection = "users")
 public class User implements UserDetails {
 
-	private String name;
-
 	@Id
+	private ObjectId id;
+	private String name;
 	private String email;
 
 	private String password;

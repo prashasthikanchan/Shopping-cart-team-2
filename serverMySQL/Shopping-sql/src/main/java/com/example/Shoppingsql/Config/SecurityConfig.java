@@ -16,45 +16,35 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig {
 
-  @Autowired
-  private JwtAuthenticationEntryPoint point;
+	@Autowired
+	private JwtAuthenticationEntryPoint point;
 
-  @Autowired
-  private JwtAuthenticationFilter filter;
+	@Autowired
+	private JwtAuthenticationFilter filter;
 
-  @Autowired
-  private UserDetailsService userDetailsService;
+	@Autowired
+	private UserDetailsService userDetailsService;
 
-  @Autowired
-  private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-  @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity http)
-    throws Exception {
-    http
-      .csrf(csrf -> csrf.disable())
-      .cors(cors -> cors.disable())
-      .authorizeHttpRequests(auth ->
-        auth
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable()).authorizeHttpRequests(auth -> auth
 //          .requestMatchers("/cart")
 //          .authenticated()
-          .requestMatchers("/**")
-          .permitAll()
-      )
-      .exceptionHandling(ex -> ex.authenticationEntryPoint(point))
-      .sessionManagement(session ->
-        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-      );
+				.requestMatchers("/**").permitAll()).exceptionHandling(ex -> ex.authenticationEntryPoint(point))
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-    http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-    return http.build();
-  }
+		http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+		return http.build();
+	}
 
-  @Bean
-  public DaoAuthenticationProvider doDaoAuthenticationProvider() {
-    DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-    daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-    daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-    return daoAuthenticationProvider;
-  }
+	@Bean
+	public DaoAuthenticationProvider doDaoAuthenticationProvider() {
+		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+		daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+		return daoAuthenticationProvider;
+	}
 }

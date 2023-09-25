@@ -48,18 +48,18 @@ public class Cloth {
 
 	@Column
 	private int pincode;
-	
+
 	@OneToMany(mappedBy = "item")
 	@JsonIgnore
-    private List<CartItem> cartItems;
+	private List<CartItem> cartItems;
 
-    public List<CartItem> getCartItems() {
-        return cartItems;
-    }
+	public List<CartItem> getCartItems() {
+		return cartItems;
+	}
 
-    public void setCartItems(List<CartItem> cartItems) {
-        this.cartItems = cartItems;
-    }
+	public void setCartItems(List<CartItem> cartItems) {
+		this.cartItems = cartItems;
+	}
 
 	public Cloth() {
 		super();

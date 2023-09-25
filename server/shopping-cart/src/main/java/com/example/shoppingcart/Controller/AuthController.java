@@ -52,6 +52,7 @@ public class AuthController {
 	public boolean getUserDetail(@PathVariable String email) {
 		User user = userRepository.findByEmail(email).orElseThrow();
 		if (user != null) {
+
 			return true;
 		} else {
 			return false;

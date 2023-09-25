@@ -17,24 +17,24 @@ import jakarta.persistence.Table;
 @Table(name = "index_page_item")
 public class IndexPageItem {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JsonIgnore
-    @JoinColumn(name = "index_page_item_id")
-    private List<Brand> brands;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JsonIgnore
+	@JoinColumn(name = "index_page_item_id")
+	private List<Brand> brands;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JsonIgnore
-    @JoinColumn(name = "index_page_item_id")
-    private List<Category> categories;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JsonIgnore
+	@JoinColumn(name = "index_page_item_id")
+	private List<Category> categories;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JsonIgnore
-    @JoinColumn(name = "index_page_item_id")
-    private List<Gender> gender;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JsonIgnore
+	@JoinColumn(name = "index_page_item_id")
+	private List<Gender> gender;
 
 	public Long getId() {
 		return id;

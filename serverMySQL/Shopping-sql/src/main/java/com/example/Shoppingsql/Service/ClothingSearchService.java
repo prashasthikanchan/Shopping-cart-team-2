@@ -39,13 +39,13 @@ public class ClothingSearchService {
 	private final RestHighLevelClient elasticsearchClient;
 
 	private String SearchQueryFinal;
-	
+
 	private BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-	TermsAggregationBuilder colorsAgg,brandsAgg,categoriesAgg,gendersAgg;
+	TermsAggregationBuilder colorsAgg, brandsAgg, categoriesAgg, gendersAgg;
 //	TermsAggregationBuilder brandsAgg = AggregationBuilders.terms("brands").field("brand");
 //	TermsAggregationBuilder categoriesAgg = AggregationBuilders.terms("categories").field("category");
 //	TermsAggregationBuilder gendersAgg = AggregationBuilders.terms("genders").field("gender");
-	RangeAggregationBuilder pricesAgg, ratingsAgg ;
+	RangeAggregationBuilder pricesAgg, ratingsAgg;
 
 	Set<String> uniqueColors = new HashSet<>();
 	Set<String> uniqueBrands = new HashSet<>();
@@ -133,10 +133,10 @@ public class ClothingSearchService {
 			boolQuery.must(QueryBuilders.termsQuery("gender", genders));
 		}
 		if (tags != null && tags.size() > 0) {
-		    for (String tag : tags) {
-		        FuzzyQueryBuilder fuzzyQuery = QueryBuilders.fuzzyQuery("tag", tag).fuzziness(Fuzziness.TWO);
-		        boolQuery.should(fuzzyQuery);
-		    }
+			for (String tag : tags) {
+				FuzzyQueryBuilder fuzzyQuery = QueryBuilders.fuzzyQuery("tag", tag).fuzziness(Fuzziness.TWO);
+				boolQuery.should(fuzzyQuery);
+			}
 		}
 		if (categories != null && categories.size() > 0) {
 			boolQuery.must(QueryBuilders.termsQuery("category", categories));
@@ -147,10 +147,10 @@ public class ClothingSearchService {
 		brandsAgg = AggregationBuilders.terms("brands").field("brand");
 		categoriesAgg = AggregationBuilders.terms("categories").field("category");
 		gendersAgg = AggregationBuilders.terms("genders").field("gender");
-		pricesAgg = AggregationBuilders.range("prices").field("price").addRange(0.0,1000.0)
-				.addRange(1000.0, 2000.0).addRange(2000.0, 3000.0).addRange(3000.0, 4000.0).addRange(5000.0,10000.0);
-		ratingsAgg = AggregationBuilders.range("ratings").field("rating").addRange(0, 1)
-				.addRange(1, 2).addRange(2, 3).addRange(3, 4).addRange(4,5);
+		pricesAgg = AggregationBuilders.range("prices").field("price").addRange(0.0, 1000.0).addRange(1000.0, 2000.0)
+				.addRange(2000.0, 3000.0).addRange(3000.0, 4000.0).addRange(5000.0, 10000.0);
+		ratingsAgg = AggregationBuilders.range("ratings").field("rating").addRange(0, 1).addRange(1, 2).addRange(2, 3)
+				.addRange(3, 4).addRange(4, 5);
 
 		sourceBuilder.aggregation(colorsAgg);
 		sourceBuilder.aggregation(brandsAgg);
@@ -183,22 +183,22 @@ public class ClothingSearchService {
 			postFilter.filter(QueryBuilders.termsQuery("category", categories));
 		}
 		for (String priceBounds : prices) {
-	        String[] priceRange = priceBounds.split("-");
-	        if (priceRange.length == 2) {
-	            String minPrice = priceRange[0];
-	            String maxPrice = priceRange[1];
-	            postFilter.should(QueryBuilders.rangeQuery("price").gte(minPrice).lte(maxPrice));
-	        }
-	    }
+			String[] priceRange = priceBounds.split("-");
+			if (priceRange.length == 2) {
+				String minPrice = priceRange[0];
+				String maxPrice = priceRange[1];
+				postFilter.should(QueryBuilders.rangeQuery("price").gte(minPrice).lte(maxPrice));
+			}
+		}
 		for (String ratingBounds : ratings) {
-	        String[] ratingRange = ratingBounds.split("-");
-	        if (ratingRange.length == 2) {
-	            String minRating = ratingRange[0];
-	            String maxRating = ratingRange[1];
-	            postFilter.should(QueryBuilders.rangeQuery("rating").gte(minRating).lte(maxRating));
-	        }
-	    }
-		
+			String[] ratingRange = ratingBounds.split("-");
+			if (ratingRange.length == 2) {
+				String minRating = ratingRange[0];
+				String maxRating = ratingRange[1];
+				postFilter.should(QueryBuilders.rangeQuery("rating").gte(minRating).lte(maxRating));
+			}
+		}
+
 		sourceBuilder.aggregation(colorsAgg);
 		sourceBuilder.aggregation(brandsAgg);
 		sourceBuilder.aggregation(categoriesAgg);
@@ -210,7 +210,7 @@ public class ClothingSearchService {
 		return sourceBuilder.toString();
 	}
 
-    	public List<Object> performAggregation(String searchQueryAndAggregation, RestHighLevelClient elasticsearchClient) {
+	public List<Object> performAggregation(String searchQueryAndAggregation, RestHighLevelClient elasticsearchClient) {
 		Map<String, List<String>> aggregations = new HashMap<>();
 		List<Object> finalSearch = new ArrayList<>();
 		try {
