@@ -2,16 +2,16 @@ package com.example.shoppingcart.Model;
 
 public class CartItemDTO {
 
-	private Cloth item;
+	private clothResult item;
 
 	private int quantity;
 	private String size;
 
-	public Cloth getItem() {
+	public clothResult getItem() {
 		return item;
 	}
 
-	public void setItem(Cloth item) {
+	public void setItem(clothResult item) {
 		this.item = item;
 	}
 
