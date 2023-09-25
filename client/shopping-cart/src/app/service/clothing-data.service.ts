@@ -20,19 +20,32 @@ export class ClothingDataService {
     return this.http.get<any>(`${this.baseUrl}`+"/indexPageItems");
   }
 
+  getBrands(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}` + "/allBrands");
+  }
+
+  getCategory(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}` + "/allCategory");
+  }
+
+  getGender(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}` + "/allGender");
+  }
+
+
   getSearchClothing(query: string): Observable<any> {
     const params = new HttpParams().set('q', query);
     return this.http.get(`${this.baseUrl}`+"/search", { params });
   }
 
-  getSearchClothingUpdate(query: string, filter:string): Observable<any> {
+  getSearchClothingUpdate(query: string, filter: string): Observable<any> {
     let params = new HttpParams()
-    .set('q', query)
-    .set('f', filter);
+      .set('q', query)
+      .set('f', filter);
 
     return this.http.get(`${this.baseUrl}/updateSearch`, { params });
   }
-  
+
   aggregations$ = this.aggregationsSubject.asObservable();
 
   setAggregations(data: any) {
