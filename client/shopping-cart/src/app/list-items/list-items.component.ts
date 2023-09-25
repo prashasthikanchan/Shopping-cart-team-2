@@ -112,9 +112,7 @@ export class ListItemsComponent implements OnInit {
     ) as ClothItem;
     this.selectedQuantity = 1;
     this.showAddToCart = true;
-    // this.showAddToCart = !this.checkIfAvailable(
       this.selectedProduct as ClothItem
-    // );
     sidenav.open();
   }
   selectSize(size: string) {

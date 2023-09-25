@@ -6,5 +6,4 @@ import com.example.shoppingcart.Model.ClothSearch;
 
 public interface ClothSearchRepository extends ElasticsearchRepository<ClothSearch, Integer> {
 
-
 }

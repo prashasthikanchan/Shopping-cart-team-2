@@ -1,46 +1,63 @@
 package com.example.shoppingcart.Model;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
 @Component
+@Document(collection = "cartItems")
 public class CartItem {
 
-  private Cloth item;
-  private int quantity;
-  private String size;
+	@Id
+	private ObjectId id;
+	@DBRef
+	private Cloth item;
 
-  public CartItem(Cloth item, int quantity, String size) {
-    super();
-    this.item = item;
-    this.quantity = quantity;
-    this.size = size;
-  }
+	private int quantity;
+	private String size;
 
-  public CartItem() {
-    super();
-  }
+	public CartItem(Cloth item, int quantity, String size) {
+		super();
+		this.item = item;
+		this.quantity = quantity;
+		this.size = size;
+	}
 
-  public Cloth getItem() {
-    return item;
-  }
+	public CartItem() {
+		super();
+	}
 
-  public void setItem(Cloth item) {
-    this.item = item;
-  }
+	public ObjectId getId() {
+		return id;
+	}
 
-  public int getQuantity() {
-    return quantity;
-  }
+	public void setId(ObjectId id) {
+		this.id = id;
+	}
 
-  public void setQuantity(int quantity) {
-    this.quantity = quantity;
-  }
+	public Cloth getItem() {
+		return item;
+	}
 
-  public String getSize() {
-    return size;
-  }
+	public void setItem(Cloth item) {
+		this.item = item;
+	}
 
-  public void setSize(String size) {
-    this.size = size;
-  }
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
 }
