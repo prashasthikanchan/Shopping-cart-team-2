@@ -12,27 +12,40 @@ export class ClothingDataService {
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<any> {
-    return this.http.get<any>(`${this.clothingUrl}`+"/clothingUrl");
+    return this.http.get<any>(`${this.clothingUrl}` + "/clothingUrl");
   }
 
   getIndexPageItems(): Observable<any> {
-    
-    return this.http.get<any>(`${this.clothingUrl}`+"/indexPageItems");
+
+    return this.http.get<any>(`${this.clothingUrl}` + "/indexPageItems");
   }
+
+  getBrands(): Observable<any> {
+    return this.http.get<any>(`${this.clothingUrl}` + "/allBrands");
+  }
+
+  getCategory(): Observable<any> {
+    return this.http.get<any>(`${this.clothingUrl}` + "/allCategory");
+  }
+
+  getGender(): Observable<any> {
+    return this.http.get<any>(`${this.clothingUrl}` + "/allGender");
+  }
+
 
   getSearchClothing(query: string): Observable<any> {
     const params = new HttpParams().set('q', query);
-    return this.http.get(`${this.clothingUrl}`+"/search", { params });
+    return this.http.get(`${this.clothingUrl}` + "/search", { params });
   }
 
-  getSearchClothingUpdate(query: string, filter:string): Observable<any> {
+  getSearchClothingUpdate(query: string, filter: string): Observable<any> {
     let params = new HttpParams()
-    .set('q', query)
-    .set('f', filter);
+      .set('q', query)
+      .set('f', filter);
 
     return this.http.get(`${this.clothingUrl}/updateSearch`, { params });
   }
-  
+
   aggregations$ = this.aggregationsSubject.asObservable();
 
   setAggregations(data: any) {

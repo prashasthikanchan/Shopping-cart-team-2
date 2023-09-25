@@ -22,6 +22,7 @@ import { CartService } from '../service/cart.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxSpinnerService } from "ngx-spinner";
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-list-items',
@@ -116,6 +117,14 @@ export class ListItemsComponent implements OnInit {
       this.selectedProduct as ClothItem
     // );
     sidenav.open();
+  }
+
+  capitalizeFirstLetter(inputString: string): string {
+    if (inputString.length === 0) {
+      return inputString;
+    }
+
+    return inputString.charAt(0).toUpperCase() + inputString.slice(1);
   }
   selectSize(size: string) {
     this.selectedSize = size;
@@ -214,7 +223,7 @@ export class ListItemsComponent implements OnInit {
         this.addToCart();
         this.router2.navigate(['/cart']);
       } else {
-        this.router2.navigate(['/signin']);
+        this.router2.navigate(['/signin'],{state:{cartItem}});
       }
     });
   }

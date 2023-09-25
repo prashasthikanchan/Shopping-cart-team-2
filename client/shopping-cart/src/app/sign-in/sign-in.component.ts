@@ -16,7 +16,7 @@ export class SignInComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private cookieService: CookieService
-  ) {}
+  ) { }
   isRegisterMode: boolean = false;
   loginForm: any;
   registerValidation: string | null = null;

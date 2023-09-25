@@ -18,13 +18,17 @@ export class IndexPageComponent implements OnInit {
   genderOptions: [{ name: string, image: string }] = [{ name: '', image: '' }];
   constructor(private clothingDataService: ClothingDataService, private router: Router) { }
   ngOnInit(): void {
-    this.clothingDataService.getIndexPageItems().subscribe(data => {
-      this.indexPageItems = data[0];
-      this.brands = this.indexPageItems.brands;
-      this.allCategories = this.indexPageItems.categories;
-      this.genderOptions = this.indexPageItems.gender;
+    this.clothingDataService.getBrands().subscribe(data => {
+      this.brands = data;
+    });
+    this.clothingDataService.getCategory().subscribe(data => {
+      this.allCategories = data;
+    });
+    this.clothingDataService.getGender().subscribe(data => {
+      this.genderOptions = data;
     });
   }
+
   onClickBrand(name: string) {
     this.router.navigate(['/clothes/search'], { queryParams: { q: name.toLowerCase() } });
   }
