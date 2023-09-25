@@ -14,11 +14,11 @@ import java.util.List;
 @Entity
 @Table(name = "user")
 public class User implements UserDetails {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column
 	private String name;
 
@@ -27,11 +27,11 @@ public class User implements UserDetails {
 
 	@Column
 	private String password;
-	
+
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    private Cart cart;
-	
-	  public Cart getCart() {
+	private Cart cart;
+
+	public Cart getCart() {
 		return cart;
 	}
 
@@ -40,68 +40,65 @@ public class User implements UserDetails {
 	}
 
 	public String getName() {
-	    return name;
-	  }
+		return name;
+	}
 
-	  public void setName(String name) {
-	    this.name = name;
-	  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-	  public String getEmail() {
-	    return email;
-	  }
+	public String getEmail() {
+		return email;
+	}
 
-	  public void setEmail(String email) {
-	    this.email = email;
-	  }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-	  public String getPassword() {
-	    return password;
-	  }
+	public String getPassword() {
+		return password;
+	}
 
-	  public void setPassword(String password) {
-	    this.password = password;
-	  }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-	  public User(
-	    String name,
-	    String email,
-	    String password
-	  ) {
-	    this.name = name;
-	    this.email = email;
-	    this.password = password;
-	  }
+	public User(String name, String email, String password) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+	}
 
-	  public User() {}
+	public User() {
+	}
 
-	  @Override
-	  public Collection<? extends GrantedAuthority> getAuthorities() {
-	    return null;
-	  }
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
+	}
 
-	  @Override
-	  public String getUsername() {
-	    return this.email;
-	  }
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
 
-	  @Override
-	  public boolean isAccountNonExpired() {
-	    return true;
-	  }
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
 
-	  @Override
-	  public boolean isAccountNonLocked() {
-	    return true;
-	  }
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
 
-	  @Override
-	  public boolean isCredentialsNonExpired() {
-	    return true;
-	  }
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
 
-	  @Override
-	  public boolean isEnabled() {
-	    return true;
-	  }
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 }
