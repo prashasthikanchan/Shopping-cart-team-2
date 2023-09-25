@@ -10,15 +10,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class UserConfig {
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-  @Bean
-  public AuthenticationManager authenticationManager(
-    AuthenticationConfiguration builder
-  ) throws Exception {
-    return builder.getAuthenticationManager();
-  }
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration builder) throws Exception {
+		return builder.getAuthenticationManager();
+	}
 }

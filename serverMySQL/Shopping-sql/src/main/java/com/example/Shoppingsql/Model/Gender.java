@@ -23,10 +23,6 @@ public class Gender {
     private String name;
     @Column
     private String image;
-//    @OneToMany(mappedBy = "gender")
-//    @JsonIgnore
-//    private List<Cloth> cloth;
-    
 	public Long getId() {
 		return id;
 	}

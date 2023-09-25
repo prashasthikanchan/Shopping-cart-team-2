@@ -8,7 +8,6 @@ const routes: Routes = [
   { path: '', component: IndexPageComponent },
   { path: 'cart', component: CartComponent },
   { path: 'clothes', component: ListItemsComponent },
-  //{ path: 'clothes/search/:parameters', component: ListItemsComponent },
   { path: 'clothes/search', component: ListItemsComponent },
   { path: 'signin', component: SignInComponent }
 ];

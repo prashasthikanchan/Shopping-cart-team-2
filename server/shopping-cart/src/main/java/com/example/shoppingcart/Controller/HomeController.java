@@ -15,21 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:5000")
 public class HomeController {
 
-  @Autowired
-  private UserService userService;
+	@Autowired
+	private UserService userService;
 
-  @GetMapping(value = { "/", "/{path:[^\\.]*}" })
-  public String redirectToAngularRoute() {
-    return "index";
-  }
+	@GetMapping(value = { "/", "/{path:[^\\.]*}" })
+	public String redirectToAngularRoute() {
+		return "index";
+	}
 
-  @GetMapping("/users")
-  public List<User> getUsers() {
-    return userService.getUsers();
-  }
+	@GetMapping("/users")
+	public List<User> getUsers() {
+		return userService.getUsers();
+	}
 
-  @GetMapping("/currentUser")
-  public String getLoggedString(Principal principal) {
-    return principal.getName();
-  }
+	@GetMapping("/currentUser")
+	public String getLoggedString(Principal principal) {
+		return principal.getName();
+	}
 }

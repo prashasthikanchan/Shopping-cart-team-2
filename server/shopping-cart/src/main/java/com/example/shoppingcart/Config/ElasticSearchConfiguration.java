@@ -17,33 +17,32 @@ import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 @Configuration
 public class ElasticSearchConfiguration {
 
-    private final RestHighLevelClient elasticsearchClient;
+	private final RestHighLevelClient elasticsearchClient;
 
-    @Bean
-    public RestHighLevelClient getElasticsearchClient() {
-        return elasticsearchClient;
-    }
+	@Bean
+	public RestHighLevelClient getElasticsearchClient() {
+		return elasticsearchClient;
+	}
 
-    public ElasticSearchConfiguration() {
-        RestClientBuilder builder = RestClient.builder(
-                new HttpHost("localhost", 9200, "http"));
-        builder.setHttpClientConfigCallback(new HttpClientConfigCallback() {
-            @Override
-            public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
-                return httpClientBuilder;
-            }
-        });
-        builder.setRequestConfigCallback(new RequestConfigCallback() {
-            @Override
-            public RequestConfig.Builder customizeRequestConfig(RequestConfig.Builder requestConfigBuilder) {
-                return requestConfigBuilder;
-            }
-        });
+	public ElasticSearchConfiguration() {
+		RestClientBuilder builder = RestClient.builder(new HttpHost("localhost", 9200, "http"));
+		builder.setHttpClientConfigCallback(new HttpClientConfigCallback() {
+			@Override
+			public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
+				return httpClientBuilder;
+			}
+		});
+		builder.setRequestConfigCallback(new RequestConfigCallback() {
+			@Override
+			public RequestConfig.Builder customizeRequestConfig(RequestConfig.Builder requestConfigBuilder) {
+				return requestConfigBuilder;
+			}
+		});
 
-        elasticsearchClient = new RestHighLevelClient(builder);
-    }
+		elasticsearchClient = new RestHighLevelClient(builder);
+	}
 
-    public void close() throws IOException {
-        elasticsearchClient.close();
-    }
+	public void close() throws IOException {
+		elasticsearchClient.close();
+	}
 }

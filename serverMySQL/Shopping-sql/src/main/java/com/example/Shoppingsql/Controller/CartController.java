@@ -47,15 +47,15 @@ public class CartController {
 	    Optional<User> userModelOptional = userRepository.findByEmail(email);
 	    if (userModelOptional.isPresent()) {
 	        User userModel = userModelOptional.get();
-	        Cart cart = userModel.getCart(); // Get the user's cart
+	        Cart cart = userModel.getCart(); 
 	        if (cart != null) {
-	            List<CartItem> cartItems = cart.getCartItem(); // Get cart items from the user's cart
+	            List<CartItem> cartItems = cart.getCartItem(); 
 	            return cartItems;
 	        } else {
-	            return List.of(); // No cart found for the user
+	            return List.of();
 	        }
 	    } else {
-	        return List.of(); // User not found
+	        return List.of();
 	    }
 	}
 	
@@ -63,7 +63,6 @@ public class CartController {
 	public ResponseEntity<Boolean> addItemToCart(@PathVariable String token, @RequestBody CartItem cartItem) {
 	    try {
 	        String userNameString = jwtHelper.getUsernameFromToken(token);
-	        System.out.println("UserNameString: " + userNameString);
 	        User userModel = userRepository.findByEmail(userNameString).orElse(null);
 
 	        if (userModel == null) {
@@ -85,9 +84,7 @@ public class CartController {
 
 	        for (CartItem existingCartItem : cartItems) {
 	            if (existingCartItem.getItem().getId() == cartItem.getItem().getId()) {
-	                System.out.println("Found");
 	                existingCartItem.setQuantity(existingCartItem.getQuantity() + cartItem.getQuantity());
-	                System.out.println(existingCartItem.getQuantity());
 	                itemAlreadyExists = true;
 	                break;
 	            }
@@ -120,18 +117,12 @@ public class CartController {
 	        String email = jwtHelper.getUsernameFromToken(token);
 	        User userModel = userRepository.findByEmail(email)
 	                .orElseThrow(() -> new NoSuchElementException("User not found"));
-            System.out.println("EMail");
 	        Cart userCart = userModel.getCart();
 	        List<CartItem> userCartItems = userCart.getCartItem();
-            System.out.println(userCartItems.size());
 	        CartItem targetCartItem = null;
 
 	        for (CartItem userItem : userCartItems) {
-	        	System.out.println("Entered");
-	        	System.out.println(userItem.getId());
-	        	System.out.println(item.getId());
 	            if (userItem.getItem().getId() == item.getItem().getId()) {
-	            	System.out.println("Initialized");
 	                targetCartItem = userItem;
 	                break;
 	            }
@@ -140,16 +131,14 @@ public class CartController {
 	        if (targetCartItem != null) {
 	            int currentQuantity = targetCartItem.getQuantity();
 	            if ("increase".equals(actionToPerform)) {
-	            	System.out.println("Increased");
 	                targetCartItem.setQuantity(currentQuantity + 1);
 	            } else if ("decrease".equals(actionToPerform)) {
 	                if (currentQuantity > 0) {
-	                	System.out.println("Decreased");
 	                    targetCartItem.setQuantity(currentQuantity - 1);
 	                }
 	            }
 
-	            // Save the changes to the cart
+	           
 	            userRepository.save(userModel);
 	            return ResponseEntity.ok(true);
 	        } else {
@@ -163,40 +152,6 @@ public class CartController {
 	    }
 	}
 
-	
-//	@DeleteMapping("/deleteCartItem/{token}/{itemId}")
-//	public void deleteItem(@PathVariable String token, @PathVariable int itemId) {
-//		try {
-//			String email = jwtHelper.getUsernameFromToken(token);
-//			User userModel = userRepository.findByEmail(email)
-//					.orElseThrow(() -> new NoSuchElementException("User not found"));
-//
-//			List<CartItem> userCartItems = userModel.getCartItem();
-//			System.out.println("User's Cart Items: " + userCartItems);
-//
-//			CartItem itemToDelete = null;
-//			for (CartItem userItem : userCartItems) {
-//				if (userItem.getItem().getId() == itemId) {
-//					itemToDelete = userItem;
-//					break;
-//				}
-//			}
-//
-//			if (itemToDelete != null) {
-//				userCartItems.remove(itemToDelete);
-//				System.out.println("Item to Delete: " + itemToDelete);
-//				cartItemRepository.delete(itemToDelete);
-//				userModel.setCartItem(userCartItems);
-//				userRepository.save(userModel);
-//			} else {
-//				System.out.println("Item with ID " + itemId + " not found in the user's cart.");
-//			}
-//
-//		} catch (Exception e) {
-//			System.out.println(e);
-//		}
-//	}
-	
 	@DeleteMapping("/deleteCartItem/{token}/{itemId}")
 	public void deleteItem(@PathVariable String token, @PathVariable int itemId) {
 	    try {
