@@ -1,11 +1,16 @@
 package com.example.shoppingcart.Controller;
 
+import com.example.shoppingcart.Model.Cart;
+import com.example.shoppingcart.Model.CartItem;
 import com.example.shoppingcart.Model.JwtResponse;
 import com.example.shoppingcart.Model.User;
+import com.example.shoppingcart.Repository.CartRepository;
 import com.example.shoppingcart.Repository.UserRepository;
 import com.example.shoppingcart.Service.UserService;
 import com.example.shoppingcart.sercurity.JwtHelper;
 import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,109 +37,90 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:5000")
 public class AuthController {
 
-  PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-  @Autowired
-  private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-  @Autowired
-  private UserService userService;
+	@Autowired
+	private UserService userService;
 
-  @GetMapping("/{email}")
-  public boolean getUserDetail(@PathVariable String email) {
-    User user = userRepository.findByEmail(email).orElseThrow();
-    if (user != null) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+	@Autowired
+	private CartRepository cartRepository;
 
-  @GetMapping("/{email}/{password}")
-  public ResponseEntity<JwtResponse> validatePassword(
-    @PathVariable String email,
-    @PathVariable String password
-  ) {
-    User user = userRepository.findByEmail(email).orElseThrow();
-    boolean isPasswordCorrect = passwordEncoder.matches(
-      password,
-      user.getPassword()
-    );
-    if (isPasswordCorrect) {
-      UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-      String token = this.helper.generateToken(userDetails);
-      JwtResponse response = JwtResponse
-        .builder()
-        .jwtToken(token)
-        .email(userDetails.getUsername())
-        .build();
-      return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-    return null;
-  }
+	@GetMapping("/{email}")
+	public boolean getUserDetail(@PathVariable String email) {
+		User user = userRepository.findByEmail(email).orElseThrow();
+		if (user != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-  @PostMapping("/createUser")
-  public ResponseEntity<JwtResponse> createUser(@RequestBody User user) {
-    if (user.getCartItem() == null) {
-      user.setCartItem(new ArrayList<>());
-    }
+	@GetMapping("/{email}/{password}")
+	public ResponseEntity<JwtResponse> validatePassword(@PathVariable String email, @PathVariable String password) {
+		User user = userRepository.findByEmail(email).orElseThrow();
+		boolean isPasswordCorrect = passwordEncoder.matches(password, user.getPassword());
+		if (isPasswordCorrect) {
+			UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+			String token = this.helper.generateToken(userDetails);
+			JwtResponse response = JwtResponse.builder().jwtToken(token).email(userDetails.getUsername()).build();
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+		return null;
+	}
 
-    User userModel = userService.createUser(user);
-    UserDetails userDetails = userDetailsService.loadUserByUsername(
-      userModel.getEmail()
-    );
+	@PostMapping("/createUser")
+	public ResponseEntity<JwtResponse> createUser(@RequestBody User user) {
 
-    String token = this.helper.generateToken(userDetails);
-    JwtResponse response = JwtResponse
-      .builder()
-      .jwtToken(token)
-      .email(userDetails.getUsername())
-      .build();
-    return new ResponseEntity<>(response, HttpStatus.OK);
-  }
+		Cart cart = new Cart();
+		List<CartItem> cartItem = new ArrayList<>();
+		cart.setCartItem(cartItem);
+		cartRepository.save(cart);
+		user.setCart(cart);
 
-  @Autowired
-  private UserDetailsService userDetailsService;
+		User userModel = userService.createUser(user);
+		UserDetails userDetails = userDetailsService.loadUserByUsername(userModel.getEmail());
 
-  @Autowired
-  private AuthenticationManager manager;
+		String token = this.helper.generateToken(userDetails);
+		JwtResponse response = JwtResponse.builder().jwtToken(token).email(userDetails.getUsername()).build();
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
-  @Autowired
-  private JwtHelper helper;
+	@Autowired
+	private UserDetailsService userDetailsService;
 
-  private Logger logger = LoggerFactory.getLogger(AuthController.class);
+	@Autowired
+	private AuthenticationManager manager;
 
-  @PostMapping("/login")
-  public ResponseEntity<JwtResponse> login(@RequestBody User request) {
-    this.doAuthenticate(request.getEmail(), request.getPassword());
+	@Autowired
+	private JwtHelper helper;
 
-    UserDetails userDetails = userDetailsService.loadUserByUsername(
-      request.getEmail()
-    );
-    String token = this.helper.generateToken(userDetails);
+	private Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-    JwtResponse response = JwtResponse
-      .builder()
-      .jwtToken(token)
-      .email(userDetails.getUsername())
-      .build();
-    return new ResponseEntity<>(response, HttpStatus.OK);
-  }
+	@PostMapping("/login")
+	public ResponseEntity<JwtResponse> login(@RequestBody User request) {
+		this.doAuthenticate(request.getEmail(), request.getPassword());
 
-  private void doAuthenticate(String email, String password) {
-    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-      email,
-      password
-    );
-    try {
-      manager.authenticate(authentication);
-    } catch (BadCredentialsException e) {
-      throw new BadCredentialsException(" Invalid Username or Password  !!");
-    }
-  }
+		UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
+		String token = this.helper.generateToken(userDetails);
 
-  @ExceptionHandler(BadCredentialsException.class)
-  public String exceptionHandler() {
-    return "Credentials Invalid !!";
-  }
+		JwtResponse response = JwtResponse.builder().jwtToken(token).email(userDetails.getUsername()).build();
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	private void doAuthenticate(String email, String password) {
+		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, password);
+		try {
+			manager.authenticate(authentication);
+		} catch (BadCredentialsException e) {
+			throw new BadCredentialsException(" Invalid Username or Password  !!");
+		}
+	}
+
+	@ExceptionHandler(BadCredentialsException.class)
+	public String exceptionHandler() {
+		return "Credentials Invalid !!";
+	}
 }
