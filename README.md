@@ -48,7 +48,7 @@ To run in different port `ng serve --host 0.0.0.0 --port 5000`
 - Unzip it - > Open bin -> Run elasticsearch.bat
 
 # To run the application in server side and store data in mongodb
-- Open server-side -> src/main/java -> com. -> Server.java
+- Open server-side -> src/main/java -> com.example.shoppingcart -> ShoppingCartApplication.java
 - Right click-> Run As -> Java Application
 
 Note- Currently the database is present in our cluster. If you need to connect to your MongoDB server then change the credentials in the application.properties file.
@@ -64,7 +64,7 @@ Follow the following steps:
 - In ServerMySQL -> src/main/resources -> application.properties, replace the below lines with your mysql username and password
 `spring.datasource.username= <your-mysql-username>`
 `spring.datasource.password= <your-mysql-password>`
-- Now navigate to ServerMySQL -> src/main.java ->
+- Now navigate to ServerMySQL -> src/main/java -> com.example.Shoppingsql -> ShoppingSqlApplication.java
 - Right click in the file -> Run As -> Java Application
 
 Adding data to tables:
