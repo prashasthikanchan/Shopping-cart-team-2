@@ -1,7 +1,19 @@
 package com.example.Shoppingsql.Model;
 
-import org.springframework.data.annotation.Id;
+import java.util.List;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="cloth_result")
 public class clothResult {
 
 	@Id
@@ -16,6 +28,19 @@ public class clothResult {
 	private int rating;
 	private int price;
 	private int pincode;
+	
+	@OneToMany(mappedBy = "item")
+	@JsonIgnore
+	private List<CartItem> cartItems;
+	
+
+	public List<CartItem> getCartItems() {
+		return cartItems;
+	}
+
+	public void setCartItems(List<CartItem> cartItems) {
+		this.cartItems = cartItems;
+	}
 
 	public int getId() {
 		return id;
