@@ -6,8 +6,11 @@ import com.example.Shoppingsql.Model.Cloth;
 import com.example.Shoppingsql.Model.User;
 import com.example.Shoppingsql.Repository.CartItemRepository;
 import com.example.Shoppingsql.Repository.CartRepository;
+import com.example.Shoppingsql.Repository.ClothResultRepository;
 import com.example.Shoppingsql.Repository.UserRepository;
 import com.example.Shoppingsql.Security.JwtHelper;
+
+import net.bytebuddy.utility.nullability.AlwaysNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +43,12 @@ public class CartController {
 
 	@Autowired
 	private CartItemRepository cartItemRepository;
-	
-	@Autowired	
+
+	@Autowired
 	private CartRepository cartRepository;
+
+	@Autowired
+	private ClothResultRepository clothResultRepository;
 
 	@GetMapping("/getCartItems/{token}")
 	public List<CartItem> getCartItemsByUserEmail(@PathVariable String token) {
@@ -88,7 +94,9 @@ public class CartController {
 
 			for (CartItem existingCartItem : cartItems) {
 				if (existingCartItem.getItem().getId() == cartItem.getItem().getId()) {
+
 					existingCartItem.setQuantity(existingCartItem.getQuantity() + cartItem.getQuantity());
+					cartItemRepository.save(existingCartItem);
 					itemAlreadyExists = true;
 					break;
 				}
@@ -97,12 +105,13 @@ public class CartController {
 			if (!itemAlreadyExists) {
 				cartItem.setCart(userCart);
 				cartItems.add(cartItem);
+				cartRepository.save(userCart);
+				clothResultRepository.save(cartItem.getItem());
 			}
 
-			userCart.setCartItem(cartItems);
 			userModel.setCart(userCart);
-
 			userRepository.save(userModel);
+
 			return ResponseEntity.ok(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -121,25 +130,23 @@ public class CartController {
 			Cart userCart = userModel.getCart();
 			List<CartItem> userCartItems = userCart.getCartItem();
 			CartItem targetCartItem = null;
-
 			for (CartItem userItem : userCartItems) {
 				if (userItem.getItem().getId() == item.getItem().getId()) {
 					targetCartItem = userItem;
 					break;
 				}
 			}
-
 			if (targetCartItem != null) {
 				int currentQuantity = targetCartItem.getQuantity();
 				if ("increase".equals(actionToPerform)) {
 					targetCartItem.setQuantity(currentQuantity + 1);
+					cartItemRepository.save(targetCartItem);
 				} else if ("decrease".equals(actionToPerform)) {
 					if (currentQuantity > 0) {
 						targetCartItem.setQuantity(currentQuantity - 1);
+						cartItemRepository.save(targetCartItem);
 					}
 				}
-
-				userRepository.save(userModel);
 				return ResponseEntity.ok(true);
 			} else {
 				return ResponseEntity.notFound().build();
@@ -159,7 +166,7 @@ public class CartController {
 			User userModel = userRepository.findByEmail(email)
 					.orElseThrow(() -> new NoSuchElementException("User not found"));
 
-			Cart cart = userModel.getCart(); 
+			Cart cart = userModel.getCart();
 
 			if (cart != null) {
 				List<CartItem> cartItems = cart.getCartItem();
@@ -173,19 +180,14 @@ public class CartController {
 				}
 
 				if (itemToDelete != null) {
-					cartItems.remove(itemToDelete); 
-					cartItemRepository.delete(itemToDelete); 
-					userRepository.save(userModel); 
+					cartItems.remove(itemToDelete);
+					cartItemRepository.delete(itemToDelete);
+					userRepository.save(userModel);
 					System.out.println("Item with ID " + itemId + " has been deleted from the user's cart.");
-				} else {
-					System.out.println("Item with ID " + itemId + " not found in the user's cart.");
 				}
-			} else {
-				System.out.println("User's cart is empty.");
 			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
-
 }

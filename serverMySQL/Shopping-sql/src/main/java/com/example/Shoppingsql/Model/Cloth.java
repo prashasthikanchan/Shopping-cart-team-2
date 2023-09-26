@@ -29,7 +29,7 @@ public class Cloth {
 	@Column
 	private String image;
 
-	// @Column
+	// @Column/
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "gender")
 	private Gender gender;
@@ -53,18 +53,6 @@ public class Cloth {
 
 	@Column
 	private int pincode;
-
-	@OneToMany(mappedBy = "item")
-	@JsonIgnore
-	private List<CartItem> cartItems;
-
-	public List<CartItem> getCartItems() {
-		return cartItems;
-	}
-
-	public void setCartItems(List<CartItem> cartItems) {
-		this.cartItems = cartItems;
-	}
 
 	public Cloth() {
 		super();

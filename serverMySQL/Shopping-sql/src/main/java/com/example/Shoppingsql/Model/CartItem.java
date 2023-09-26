@@ -18,7 +18,7 @@ public class CartItem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@ManyToOne
-	private Cloth item;
+	private clothResult item;
 	@Column
 	private int quantity;
 	@Column
@@ -42,21 +42,12 @@ public class CartItem {
 	public void setCart(Cart cart) {
 		this.cart = cart;
 	}
-
-	public CartItem(Cloth item, int quantity, String size) {
-		this.item = item;
-		this.quantity = quantity;
-		this.size = size;
-	}
-
-	public CartItem() {
-	}
-
-	public Cloth getItem() {
+	
+	public clothResult getItem() {
 		return item;
 	}
 
-	public void setItem(Cloth item) {
+	public void setItem(clothResult item) {
 		this.item = item;
 	}
 
