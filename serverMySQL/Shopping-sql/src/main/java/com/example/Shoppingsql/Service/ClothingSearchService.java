@@ -180,22 +180,26 @@ public class ClothingSearchService {
 		if (categories != null && !categories.isEmpty()) {
 			postFilter.filter(QueryBuilders.termsQuery("category", categories));
 		}
-		for (String priceBounds : prices) {
-			String[] priceRange = priceBounds.split("-");
-			if (priceRange.length == 2) {
-				String minPrice = priceRange[0];
-				String maxPrice = priceRange[1];
-				postFilter.should(QueryBuilders.rangeQuery("price").gte(minPrice).lte(maxPrice));
-			}
-		}
-		for (String ratingBounds : ratings) {
-			String[] ratingRange = ratingBounds.split("-");
-			if (ratingRange.length == 2) {
-				String minRating = ratingRange[0];
-				String maxRating = ratingRange[1];
-				postFilter.should(QueryBuilders.rangeQuery("rating").gte(minRating).lte(maxRating));
-			}
-		}
+		
+		BoolQueryBuilder orFilter = QueryBuilders.boolQuery();
+	    for (String priceBounds : prices) {
+	        String[] priceRange = priceBounds.split("-");
+	        if (priceRange.length == 2) {
+	            String minPrice = priceRange[0];
+	            String maxPrice = priceRange[1];
+	            orFilter.should(QueryBuilders.rangeQuery("price").gte(minPrice).lte(maxPrice));
+	        }
+	    }
+	    for (String ratingBounds : ratings) {
+	        String[] ratingRange = ratingBounds.split("-");
+	        if (ratingRange.length == 2) {
+	            String minRating = ratingRange[0];
+	            String maxRating = ratingRange[1];
+	            orFilter.should(QueryBuilders.rangeQuery("rating").gte(minRating).lte(maxRating));
+	        }
+	    }
+	    
+	    postFilter.must(orFilter);
 
 		sourceBuilder.aggregation(colorsAgg);
 		sourceBuilder.aggregation(brandsAgg);

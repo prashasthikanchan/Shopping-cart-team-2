@@ -34,7 +34,7 @@
         </mat-card>
       </mat-grid-tile>
       <img *ngIf="filteredClothDataList.length === 0 && !loading"
-        [src]="'https://bagbazaars.com/assets/img/no-product-found.png'" alt="No Results!">
+        [src]="'https://bagbazaars.com/assets/img/no-product-found.png'" alt="No Results!" [width]="1200" [height]="400">
     </mat-grid-list>
     <mat-sidenav class="sidebar" #sidenav mode="push">
       <button class="btn-right" mat-icon- button (click)="sidenav.close()">
