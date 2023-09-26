@@ -44,9 +44,6 @@ public class ClothingSearchService {
 
 	private BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
 	TermsAggregationBuilder colorsAgg, brandsAgg, categoriesAgg, gendersAgg;
-//	TermsAggregationBuilder brandsAgg = AggregationBuilders.terms("brands").field("brand");
-//	TermsAggregationBuilder categoriesAgg = AggregationBuilders.terms("categories").field("category");
-//	TermsAggregationBuilder gendersAgg = AggregationBuilders.terms("genders").field("gender");
 	RangeAggregationBuilder pricesAgg, ratingsAgg;
 
 	Set<String> uniqueColors = new HashSet<>();
@@ -180,26 +177,26 @@ public class ClothingSearchService {
 		if (categories != null && !categories.isEmpty()) {
 			postFilter.filter(QueryBuilders.termsQuery("category", categories));
 		}
-		
+
 		BoolQueryBuilder orFilter = QueryBuilders.boolQuery();
-	    for (String priceBounds : prices) {
-	        String[] priceRange = priceBounds.split("-");
-	        if (priceRange.length == 2) {
-	            String minPrice = priceRange[0];
-	            String maxPrice = priceRange[1];
-	            orFilter.should(QueryBuilders.rangeQuery("price").gte(minPrice).lte(maxPrice));
-	        }
-	    }
-	    for (String ratingBounds : ratings) {
-	        String[] ratingRange = ratingBounds.split("-");
-	        if (ratingRange.length == 2) {
-	            String minRating = ratingRange[0];
-	            String maxRating = ratingRange[1];
-	            orFilter.should(QueryBuilders.rangeQuery("rating").gte(minRating).lte(maxRating));
-	        }
-	    }
-	    
-	    postFilter.must(orFilter);
+		for (String priceBounds : prices) {
+			String[] priceRange = priceBounds.split("-");
+			if (priceRange.length == 2) {
+				String minPrice = priceRange[0];
+				String maxPrice = priceRange[1];
+				orFilter.should(QueryBuilders.rangeQuery("price").gte(minPrice).lte(maxPrice));
+			}
+		}
+		for (String ratingBounds : ratings) {
+			String[] ratingRange = ratingBounds.split("-");
+			if (ratingRange.length == 2) {
+				String minRating = ratingRange[0];
+				String maxRating = ratingRange[1];
+				orFilter.should(QueryBuilders.rangeQuery("rating").gte(minRating).lte(maxRating));
+			}
+		}
+
+		postFilter.must(orFilter);
 
 		sourceBuilder.aggregation(colorsAgg);
 		sourceBuilder.aggregation(brandsAgg);
@@ -226,25 +223,24 @@ public class ClothingSearchService {
 			JsonArray hitsArray = hitsObject.getJsonArray("hits");
 			List<clothResult> clothResults = new ArrayList<>();
 
-
 			for (JsonObject hit : hitsArray.getValuesAs(JsonObject.class)) {
-				  int clothId = Integer.parseInt(hit.getString("_id"));
-				  Cloth cloth = clothRepository.findById(clothId).orElse(null);
-				  if (cloth != null) {
-					  clothResult result = new clothResult();
-					  result.setId(cloth.getId());
-					  result.setImage(cloth.getImage());
-					  result.setColor(cloth.getColor().toLowerCase());
-					  result.setBrand(cloth.getBrand().getName().toLowerCase());
-					  result.setCategory(cloth.getCategory().getName().toLowerCase());
-					  result.setGender(cloth.getGender().getName().toLowerCase());
-					  result.setRating(cloth.getRating());
-					  result.setPrice(cloth.getPrice());
-					  result.setTag(cloth.getTag().toLowerCase());
-					  result.setPincode(cloth.getPincode());
-				    clothResults.add(result);
-				  }
+				int clothId = Integer.parseInt(hit.getString("_id"));
+				Cloth cloth = clothRepository.findById(clothId).orElse(null);
+				if (cloth != null) {
+					clothResult result = new clothResult();
+					result.setId(cloth.getId());
+					result.setImage(cloth.getImage());
+					result.setColor(cloth.getColor().toLowerCase());
+					result.setBrand(cloth.getBrand().getName().toLowerCase());
+					result.setCategory(cloth.getCategory().getName().toLowerCase());
+					result.setGender(cloth.getGender().getName().toLowerCase());
+					result.setRating(cloth.getRating());
+					result.setPrice(cloth.getPrice());
+					result.setTag(cloth.getTag().toLowerCase());
+					result.setPincode(cloth.getPincode());
+					clothResults.add(result);
 				}
+			}
 			finalSearch.add(clothResults);
 			List<String> colors = parseAggregationBucketsAll(searchAggResult, "colors");
 			List<String> brands = parseAggregationBucketsAll(searchAggResult, "brands");
