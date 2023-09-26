@@ -11,6 +11,8 @@ import com.example.Shoppingsql.Model.Cloth;
 import com.example.Shoppingsql.Model.ClothSearch;
 import com.example.Shoppingsql.Repository.ClothRepository;
 import com.example.Shoppingsql.Repository.ClothSearchRepository;
+import com.example.Shoppingsql.Model.clothResult;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -95,21 +97,17 @@ public class ClothingSearchService {
 			ClothSearch clothSearch = new ClothSearch();
 			clothSearch.setId(cloth.getId());
 			clothSearch.setColor(cloth.getColor().toLowerCase());
-			clothSearch.setBrand(cloth.getBrand().toLowerCase());
-			clothSearch.setCategory(cloth.getCategory().toLowerCase());
+			clothSearch.setBrand(cloth.getBrand().getName().toLowerCase());
+			clothSearch.setCategory(cloth.getCategory().getName().toLowerCase());
 			clothSearch.setRating(cloth.getRating());
 			clothSearch.setPrice(cloth.getPrice());
-			clothSearch.setGender(cloth.getGender().toLowerCase());
+			clothSearch.setGender(cloth.getGender().getName().toLowerCase());
 			clothSearch.setTag(cloth.getTag().toLowerCase());
 			clothSearch.setPincode(cloth.getPincode());
-			String combinedValue = cloth.getColor().toLowerCase() + " " + cloth.getBrand().toLowerCase() + " "
-					+ cloth.getCategory().toLowerCase() + " " + cloth.getGender().toLowerCase();
-			clothSearch.setCombinedValues(combinedValue);
 			clothSearchRepository.save(clothSearch);
-
 			uniqueColors.add(cloth.getColor().toLowerCase());
-			uniqueBrands.add(cloth.getBrand().toLowerCase());
-			uniqueCategories.add(cloth.getCategory().toLowerCase());
+			uniqueBrands.add(cloth.getBrand().getName().toLowerCase());
+			uniqueCategories.add(cloth.getCategory().getName().toLowerCase());
 
 		}
 	}
@@ -222,14 +220,27 @@ public class ClothingSearchService {
 			JsonObject searchAggResult = Json.createReader(searchEntity.getContent()).readObject();
 			JsonObject hitsObject = searchAggResult.getJsonObject("hits");
 			JsonArray hitsArray = hitsObject.getJsonArray("hits");
-			List<Cloth> clothResults = new ArrayList<>();
+			List<clothResult> clothResults = new ArrayList<>();
+
 
 			for (JsonObject hit : hitsArray.getValuesAs(JsonObject.class)) {
-				String id = hit.getString("_id");
-				int clothId = Integer.parseInt(id);
-				Optional<Cloth> optionalCloth = clothRepository.findById(clothId);
-				optionalCloth.ifPresent(clothResults::add);
-			}
+				  int clothId = Integer.parseInt(hit.getString("_id"));
+				  Cloth cloth = clothRepository.findById(clothId).orElse(null);
+				  if (cloth != null) {
+					  clothResult result = new clothResult();
+					  result.setId(cloth.getId());
+					  result.setImage(cloth.getImage());
+					  result.setColor(cloth.getColor().toLowerCase());
+					  result.setBrand(cloth.getBrand().getName().toLowerCase());
+					  result.setCategory(cloth.getCategory().getName().toLowerCase());
+					  result.setGender(cloth.getGender().getName().toLowerCase());
+					  result.setRating(cloth.getRating());
+					  result.setPrice(cloth.getPrice());
+					  result.setTag(cloth.getTag().toLowerCase());
+					  result.setPincode(cloth.getPincode());
+				    clothResults.add(result);
+				  }
+				}
 			finalSearch.add(clothResults);
 			List<String> colors = parseAggregationBucketsAll(searchAggResult, "colors");
 			List<String> brands = parseAggregationBucketsAll(searchAggResult, "brands");

@@ -6,16 +6,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "cloth")
+@Table(name = "clothing")
 public class Cloth {
 
 	@Id
@@ -28,8 +29,10 @@ public class Cloth {
 	@Column
 	private String image;
 
-	@Column
-	private String gender;
+	// @Column
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "gender")
+	private Gender gender;
 
 	@Column
 	private String color;
@@ -40,11 +43,13 @@ public class Cloth {
 	@Column
 	private int price;
 
-	@Column
-	private String brand;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "brand")
+	private Brands brand;
 
-	@Column
-	private String category;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "category")
+	private Category category;
 
 	@Column
 	private int pincode;
@@ -63,20 +68,6 @@ public class Cloth {
 
 	public Cloth() {
 		super();
-	}
-
-	public Cloth(String tag, String image, String gender, String color, int rating, int price, String brand,
-			String category, int pincode) {
-		super();
-		this.tag = tag;
-		this.image = image;
-		this.gender = gender;
-		this.color = color;
-		this.rating = rating;
-		this.price = price;
-		this.brand = brand;
-		this.category = category;
-		this.pincode = pincode;
 	}
 
 	public int getId() {
@@ -103,14 +94,6 @@ public class Cloth {
 		this.image = image;
 	}
 
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
 	public String getColor() {
 		return color;
 	}
@@ -135,24 +118,32 @@ public class Cloth {
 		this.price = price;
 	}
 
-	public String getBrand() {
+	public Brands getBrand() {
 		return brand;
 	}
 
-	public void setBrand(String brand) {
+	public void setBrand(Brands brand) {
 		this.brand = brand;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
 	}
 
 	public int getPincode() {
 		return pincode;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public void setPincode(int pincode) {

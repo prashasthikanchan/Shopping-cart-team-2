@@ -5,6 +5,7 @@ import com.example.Shoppingsql.Model.CartItem;
 import com.example.Shoppingsql.Model.Cloth;
 import com.example.Shoppingsql.Model.User;
 import com.example.Shoppingsql.Repository.CartItemRepository;
+import com.example.Shoppingsql.Repository.CartRepository;
 import com.example.Shoppingsql.Repository.UserRepository;
 import com.example.Shoppingsql.Security.JwtHelper;
 
@@ -39,6 +40,9 @@ public class CartController {
 
 	@Autowired
 	private CartItemRepository cartItemRepository;
+	
+	@Autowired	
+	private CartRepository cartRepository;
 
 	@GetMapping("/getCartItems/{token}")
 	public List<CartItem> getCartItemsByUserEmail(@PathVariable String token) {
