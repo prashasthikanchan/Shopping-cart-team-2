@@ -43,7 +43,8 @@ To run in different port `ng serve --host 0.0.0.0 --port 5000`
 
 # To run Elastic Search:
 
-- Download the elastic-search-7.15.2 from the `Data` folder
+- Download the elastic-search-7.15.2.zip from the below link
+- [https://drive.google.com/file/d/1pe017JiBTcVWCtUztk-ggPmfm-qVCYIC/view?usp=drive_link](url)
 - Unzip it - > Open bin -> Run elasticsearch.bat
 
 # To run the application in server side and store data in mongodb
@@ -67,9 +68,9 @@ Follow the following steps:
 - Right click in the file -> Run As -> Java Application
 
 Adding data to tables:
-- Right click on each table -> Table Data Import Wizard -> Browse Json file from `JSON Data` Folder -> Check Use existing table -> Next
+- Right click on each table -> Table Data Import Wizard -> Browse Json file from `Data` Folder -> Check Use existing table -> Next
 
 # Development Server
-Port for Client-side: `http://localhost:5000`
-Port for Server-side: `http://localhost:8080`
-Port for Elastic-search: `http://localhost:9200`
+- Port for Client-side: `http://localhost:5000`
+- Port for Server-side: `http://localhost:8080`
+- Port for Elastic-search: `http://localhost:9200`
