@@ -67,9 +67,9 @@ Follow the following steps:
 - Right click in the file -> Run As -> Java Application
 
 Adding data to tables:
-- Right click on each table -> Table Data Import Wizard -> Browse Json file from `JSON Data` Folder -> Check Use existing table -> Next
+- Right click on each table -> Table Data Import Wizard -> Browse Json file from `Data` Folder -> Check Use existing table -> Next
 
 # Development Server
-Port for Client-side: `http://localhost:5000`
-Port for Server-side: `http://localhost:8080`
-Port for Elastic-search: `http://localhost:9200`
+- Port for Client-side: `http://localhost:5000`
+- Port for Server-side: `http://localhost:8080`
+- Port for Elastic-search: `http://localhost:9200`
