@@ -19,10 +19,7 @@ import { FilterSearchUpdateService } from '../service/filter-search-update.servi
 import { CartItem } from '../models/cartItem.model';
 import { CookieService } from 'ngx-cookie-service';
 import { CartService } from '../service/cart.service';
-import { HttpClientModule } from '@angular/common/http';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgxSpinnerService } from "ngx-spinner";
-import { state } from '@angular/animations';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-list-items',
@@ -39,7 +36,7 @@ export class ListItemsComponent implements OnInit {
   filteredClothDataList: ClothItem[] = [];
   filteredList: ClothItem[] = [];
   searchParameters: any;
-  searchresult: string  | null = '';
+  searchresult: string | null = '';
   sizeForm: FormGroup;
   notSelected: boolean = false;
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
@@ -69,30 +66,39 @@ export class ListItemsComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.breakpoint = (window.innerWidth <= 1254) ? ((window.innerWidth <= 650) ? 2 : 3) : 4;
-    this.rowHeight = (window.innerWidth <= 1254) ? ((window.innerWidth <= 650) ? `${18}rem` : `${19}rem`) : `${21}rem`;
+    this.breakpoint =
+      window.innerWidth <= 1254 ? (window.innerWidth <= 650 ? 2 : 3) : 4;
+    this.rowHeight =
+      window.innerWidth <= 1254
+        ? window.innerWidth <= 650
+          ? `${18}rem`
+          : `${19}rem`
+        : `${21}rem`;
     this.loading = true;
     this.searchresult = this.router.snapshot.queryParamMap.get('q');
     this.spinner.show();
-    this.router.queryParams.subscribe(params => {
+    this.router.queryParams.subscribe((params) => {
       this.spinner.show();
       var parameters = params['q'];
       var filters = params['f'];
       if (parameters && filters) {
-        this.clothingDataService.getSearchClothingUpdate(parameters, filters).subscribe((response) => {
-          this.filteredClothDataList = response[0];
-          this.clothingDataService.setAggregations(response[1]);
-          this.loading = false;
-          this.spinner.hide();
-        })
-      }
-      else if (parameters) {
-        this.clothingDataService.getSearchClothing(parameters).subscribe((response) => {
-          this.filteredClothDataList = response[0];
-          this.clothingDataService.setAggregations(response[1]);
-          this.loading = false;
-          this.spinner.hide();
-        })
+        this.clothingDataService
+          .getSearchClothingUpdate(parameters, filters)
+          .subscribe((response) => {
+            this.filteredClothDataList = response[0];
+            this.clothingDataService.setAggregations(response[1]);
+            this.loading = false;
+            this.spinner.hide();
+          });
+      } else if (parameters) {
+        this.clothingDataService
+          .getSearchClothing(parameters)
+          .subscribe((response) => {
+            this.filteredClothDataList = response[0];
+            this.clothingDataService.setAggregations(response[1]);
+            this.loading = false;
+            this.spinner.hide();
+          });
       }
     });
   }
@@ -113,7 +119,7 @@ export class ListItemsComponent implements OnInit {
     ) as ClothItem;
     this.selectedQuantity = 1;
     this.showAddToCart = true;
-      this.selectedProduct as ClothItem
+    this.selectedProduct as ClothItem;
     sidenav.open();
   }
 
@@ -185,10 +191,18 @@ export class ListItemsComponent implements OnInit {
         this.cookieService.set('previousState', '');
       }
     });
+    const cartItem = {
+      item: this.selectedProduct,
+      quantity: this.selectedQuantity,
+      size: this.selectedSize,
+    };
     if (this.cookieService.get('currentUser')) {
       this.addToCart();
     } else {
-      this.router2.navigate(['/signin']);
+      const cartItemString = JSON.stringify(cartItem);
+        this.router2.navigate(['/signin'], {
+          queryParams: { cartItem: cartItemString },
+        });
     }
   }
 
@@ -205,8 +219,9 @@ export class ListItemsComponent implements OnInit {
         this.cookieService.set('previousState', '');
       }
       const currentUser = this.cookieService.get('currentUser');
-          const cartItem = {
+      const cartItem = {
         item: this.selectedProduct,
+
         quantity: this.selectedQuantity,
         size: this.selectedSize,
       };
@@ -220,18 +235,20 @@ export class ListItemsComponent implements OnInit {
       if (currentUser) {
         this.router2.navigate(['/cart']);
       } else {
-        this.router2.navigate(['/signin'],{state:{cartItem}});
+        const cartItemString = JSON.stringify(cartItem);
+        this.router2.navigate(['/signin'], {
+          queryParams: { cartItem: cartItemString },
+        });
       }
     });
   }
 
   async addToCart() {
     const currentUser = this.cookieService.get('currentUser');
-        const cartItem = {
+    const cartItem = {
       item: this.selectedProduct,
       quantity: this.selectedQuantity,
       size: this.selectedSize,
-
     };
 
     try {
