@@ -1,10 +1,17 @@
 package com.example.Shoppingsql.Controller;
 
+import com.example.Shoppingsql.Model.Cart;
+import com.example.Shoppingsql.Model.CartItem;
 import com.example.Shoppingsql.Model.JwtResponse;
 import com.example.Shoppingsql.Model.User;
+import com.example.Shoppingsql.Repository.CartRepository;
 import com.example.Shoppingsql.Repository.UserRepository;
 import com.example.Shoppingsql.Service.UserService;
 import com.example.Shoppingsql.Security.JwtHelper;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +45,9 @@ public class AuthController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CartRepository cartRepository;
 
 	@GetMapping("/{email}")
 	public boolean getUserDetail(@PathVariable String email) {
@@ -59,10 +69,17 @@ public class AuthController {
 		}
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 	}
-
+	
 	@PostMapping("/createUser")
 	public ResponseEntity<JwtResponse> createUser(@RequestBody User user) {
 		User userModel = userService.createUser(user);
+		Cart cart = new Cart();
+		List<CartItem> cartItems = new ArrayList<>();
+		cart.setCartItem(cartItems);
+		cart.setUser(user);
+		cartRepository.save(cart);
+		user.setCart(cart);
+		
 		UserDetails userDetails = userDetailsService.loadUserByUsername(userModel.getEmail());
 		String token = this.helper.generateToken(userDetails);
 		JwtResponse response = JwtResponse.builder().jwtToken(token).email(userDetails.getUsername()).build();

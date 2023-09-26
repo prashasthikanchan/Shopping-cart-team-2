@@ -145,11 +145,6 @@ export class SignInComponent implements OnInit {
         console.error('Error:', error);
       }
       if (!isUser) {
-        this.route.queryParams.subscribe((params) => {
-          const cartItemString = params['cartItem'];
-          const cartItem = JSON.parse(cartItemString);
-        });
-
         const userData = {
           email: this.loginForm.get('email').value,
           name: this.loginForm.get('name').value,
@@ -168,6 +163,7 @@ export class SignInComponent implements OnInit {
              const cartItem = JSON.parse(cartItemString);
             const response =  this.cartService.addToCart(cartItem, this.cookieService.get('currentUser')).subscribe();
           });
+          
         if (this.cookieService.get('previousState')) {
           this.router.navigate([
             '/clothes/search',

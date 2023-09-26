@@ -96,6 +96,7 @@ public class CartController {
 				if (existingCartItem.getItem().getId() == cartItem.getItem().getId()) {
 
 					existingCartItem.setQuantity(existingCartItem.getQuantity() + cartItem.getQuantity());
+					
 					cartItemRepository.save(existingCartItem);
 					itemAlreadyExists = true;
 					break;
@@ -104,9 +105,11 @@ public class CartController {
 
 			if (!itemAlreadyExists) {
 				cartItem.setCart(userCart);
+				
+				clothResultRepository.save(cartItem.getItem());
+				cartItemRepository.save(cartItem);
 				cartItems.add(cartItem);
 				cartRepository.save(userCart);
-				clothResultRepository.save(cartItem.getItem());
 			}
 
 			userModel.setCart(userCart);
