@@ -12,13 +12,11 @@ public class CartItem {
 
 	@Id
 	private ObjectId id;
-	@DBRef
-	private Cloth item;
-
+	private clothResult item;
 	private int quantity;
 	private String size;
 
-	public CartItem(Cloth item, int quantity, String size) {
+	public CartItem(clothResult item, int quantity, String size) {
 		super();
 		this.item = item;
 		this.quantity = quantity;
@@ -37,11 +35,11 @@ public class CartItem {
 		this.id = id;
 	}
 
-	public Cloth getItem() {
+	public clothResult getItem() {
 		return item;
 	}
 
-	public void setItem(Cloth item) {
+	public void setItem(clothResult item) {
 		this.item = item;
 	}
 

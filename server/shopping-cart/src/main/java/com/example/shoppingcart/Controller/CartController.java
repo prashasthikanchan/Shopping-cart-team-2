@@ -5,6 +5,7 @@ import com.example.shoppingcart.Model.CartItem;
 import com.example.shoppingcart.Model.CartItemDTO;
 import com.example.shoppingcart.Model.Cloth;
 import com.example.shoppingcart.Model.User;
+import com.example.shoppingcart.Model.clothResult;
 import com.example.shoppingcart.Repository.CartItemRepository;
 import com.example.shoppingcart.Repository.CartRepository;
 import com.example.shoppingcart.Repository.UserRepository;
@@ -56,6 +57,7 @@ public class CartController {
 							CartItemDTO cartItemDTO = new CartItemDTO();
 							cartItemDTO.setItem(cartItem.getItem());
 							cartItemDTO.setQuantity(cartItem.getQuantity());
+							cartItemDTO.setSize(cartItem.getSize());
 							items.add(cartItemDTO);
 						}
 					}
@@ -115,7 +117,7 @@ public class CartController {
 			Cart cart = userModel.getCart();
 			List<CartItem> userCartItems = cart.getCartItem();
 			for (CartItem userItem : userCartItems) {
-				Cloth userCloth = userItem.getItem();
+				clothResult userCloth = userItem.getItem();
 				if (userCloth.getId() == item.getItem().getId()) {
 					if ("increase".equals(actionToPerform)) {
 
@@ -150,7 +152,7 @@ public class CartController {
 
 			if (userCartItems != null) {
 				userCartItems.removeIf(userItem -> {
-					Cloth userCloth = userItem.getItem();
+					clothResult userCloth = userItem.getItem();
 					return userCloth.getId() == itemId;
 				});
 

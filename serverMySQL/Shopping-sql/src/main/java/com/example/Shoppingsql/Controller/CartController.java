@@ -155,13 +155,12 @@ public class CartController {
 			User userModel = userRepository.findByEmail(email)
 					.orElseThrow(() -> new NoSuchElementException("User not found"));
 
-			Cart cart = userModel.getCart(); // Get the user's cart
+			Cart cart = userModel.getCart(); 
 
 			if (cart != null) {
-				List<CartItem> cartItems = cart.getCartItem(); // Get cart items from the user's cart
+				List<CartItem> cartItems = cart.getCartItem();
 				CartItem itemToDelete = null;
 
-				// Find the cart item with the specified itemId
 				for (CartItem cartItem : cartItems) {
 					if (cartItem.getItem().getId() == itemId) {
 						itemToDelete = cartItem;
@@ -170,9 +169,9 @@ public class CartController {
 				}
 
 				if (itemToDelete != null) {
-					cartItems.remove(itemToDelete); // Remove the item from the cart
-					cartItemRepository.delete(itemToDelete); // Delete the item from the database
-					userRepository.save(userModel); // Update the user's cart
+					cartItems.remove(itemToDelete); 
+					cartItemRepository.delete(itemToDelete); 
+					userRepository.save(userModel); 
 					System.out.println("Item with ID " + itemId + " has been deleted from the user's cart.");
 				} else {
 					System.out.println("Item with ID " + itemId + " not found in the user's cart.");

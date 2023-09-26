@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { User } from '../models/user.model';
 import { CookieService } from 'ngx-cookie-service';
+import { CartService } from '../service/cart.service';
+import { CartItem } from '../models/cartItem.model';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -14,7 +16,9 @@ export class SignInComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private route: ActivatedRoute,
+    private cartService: CartService
   ) { }
   isRegisterMode: boolean = false;
   loginForm: any;
@@ -24,7 +28,7 @@ export class SignInComponent implements OnInit {
   emailId: string = '';
   isPasswordCorrect: boolean = false;
   isUser: boolean = false;
-
+  cartItem : CartItem[]=[]
   userPresent: boolean = this.cookieService.get('currentUser') ? true : false;
 
   ngOnInit() {
@@ -96,7 +100,14 @@ export class SignInComponent implements OnInit {
         } catch (error) {
           console.error('Error:', error);
         }
+        
         if (this.cookieService.get('currentUser')) {
+          this.route.queryParams.subscribe((params) => {
+            const cartItemString = params['cartItem'];
+             const cartItem = JSON.parse(cartItemString);
+            const response =  this.cartService.addToCart(cartItem, this.cookieService.get('currentUser')).subscribe();
+          });
+          
           if (this.cookieService.get('previousState')) {
             this.router.navigate([
               '/clothes/search',
@@ -134,6 +145,11 @@ export class SignInComponent implements OnInit {
         console.error('Error:', error);
       }
       if (!isUser) {
+        this.route.queryParams.subscribe((params) => {
+          const cartItemString = params['cartItem'];
+          const cartItem = JSON.parse(cartItemString);
+        });
+
         const userData = {
           email: this.loginForm.get('email').value,
           name: this.loginForm.get('name').value,
@@ -146,6 +162,11 @@ export class SignInComponent implements OnInit {
             if (response && response.jwtToken && response.email) {
               this.cookieService.set('currentUser', response.jwtToken, 7);
             }
+          });
+          this.route.queryParams.subscribe((params) => {
+            const cartItemString = params['cartItem'];
+             const cartItem = JSON.parse(cartItemString);
+            const response =  this.cartService.addToCart(cartItem, this.cookieService.get('currentUser')).subscribe();
           });
         if (this.cookieService.get('previousState')) {
           this.router.navigate([

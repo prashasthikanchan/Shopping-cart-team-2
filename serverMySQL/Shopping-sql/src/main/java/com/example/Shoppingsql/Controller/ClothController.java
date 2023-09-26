@@ -16,6 +16,13 @@ import com.example.Shoppingsql.Repository.ClothRepository;
 import com.example.Shoppingsql.Repository.IndexPageRepository;
 //import com.example.Shoppingsql.Repository.IndexPageRepository;
 import com.example.Shoppingsql.Service.ClothingSearchService;
+import com.example.Shoppingsql.Repository.BrandRepository;
+import com.example.Shoppingsql.Repository.CategoryRepository;
+import com.example.Shoppingsql.Repository.GenderRepository;
+import com.example.Shoppingsql.Model.Brand;
+import com.example.Shoppingsql.Model.Category;
+import com.example.Shoppingsql.Model.Gender;
+
 import jakarta.annotation.PostConstruct;
 
 @RestController
@@ -33,11 +40,21 @@ public class ClothController {
 
 	@Autowired
 	private RestHighLevelClient elasticsearchClient;
+	
 
-//	@PostConstruct
-//    public void initializeData() {
-//        clothingSearchService.Indexdata();
-//    }
+	@Autowired
+	private BrandRepository brandRepository;
+
+	@Autowired
+	private CategoryRepository categoryRepository;
+
+	@Autowired
+	private GenderRepository genderRepository;
+
+	@PostConstruct
+    public void initializeData() {
+        clothingSearchService.Indexdata();
+    }
 
 	private String SearchQueryFinal;
 	List<String> colors = new ArrayList<>();
@@ -59,10 +76,21 @@ public class ClothController {
 		return clothRepository.findAll();
 	}
 
-	@GetMapping("/indexPageItems")
-	public List<IndexPageItem> getAllIndexPageItems() {
-		return indexPageRepository.findAll();
+	@GetMapping("/allBrands")
+	public List<Brand> getAllBrands() {
+		return brandRepository.findAll();
 	}
+
+	@GetMapping("/allCategory")
+	public List<Category> getAllCategories() {
+		return categoryRepository.findAll();
+	}
+
+	@GetMapping("/allGender")
+	public List<Gender> getAllGenders() {
+		return genderRepository.findAll();
+	}
+	
 
 	@GetMapping("/search")
 	public List<Object> searchq(@RequestParam("q") String query) {

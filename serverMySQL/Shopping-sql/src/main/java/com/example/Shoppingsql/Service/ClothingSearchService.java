@@ -84,35 +84,35 @@ public class ClothingSearchService {
 		return uniqueColors;
 	}
 
-//	public void Indexdata() {
-//
-//		List<Cloth> cloths = clothRepository.findAll();
-//		uniqueColors = new HashSet<>();
-//		uniqueBrands = new HashSet<>();
-//		uniqueCategories = new HashSet<>();
-//
-//		for (Cloth cloth : cloths) {
-//			ClothSearch clothSearch = new ClothSearch();
-//			clothSearch.setId(cloth.getId());
-//			clothSearch.setColor(cloth.getColor().toLowerCase());
-//			clothSearch.setBrand(cloth.getBrand().toLowerCase());
-//			clothSearch.setCategory(cloth.getCategory().toLowerCase());
-//			clothSearch.setRating(cloth.getRating());
-//			clothSearch.setPrice(cloth.getPrice());
-//			clothSearch.setGender(cloth.getGender().toLowerCase());
-//			clothSearch.setTag(cloth.getTag().toLowerCase());
-//			clothSearch.setPincode(cloth.getPincode());
-//			String combinedValue = cloth.getColor().toLowerCase() + " " + cloth.getBrand().toLowerCase() + " "
-//					+ cloth.getCategory().toLowerCase() + " " + cloth.getGender().toLowerCase();
-//			clothSearch.setCombinedValues(combinedValue);
-//			clothSearchRepository.save(clothSearch);
-//
-//			uniqueColors.add(cloth.getColor().toLowerCase());
-//			uniqueBrands.add(cloth.getBrand().toLowerCase());
-//			uniqueCategories.add(cloth.getCategory().toLowerCase());
-//
-//		}
-//	}
+	public void Indexdata() {
+
+		List<Cloth> cloths = clothRepository.findAll();
+		uniqueColors = new HashSet<>();
+		uniqueBrands = new HashSet<>();
+		uniqueCategories = new HashSet<>();
+
+		for (Cloth cloth : cloths) {
+			ClothSearch clothSearch = new ClothSearch();
+			clothSearch.setId(cloth.getId());
+			clothSearch.setColor(cloth.getColor().toLowerCase());
+			clothSearch.setBrand(cloth.getBrand().toLowerCase());
+			clothSearch.setCategory(cloth.getCategory().toLowerCase());
+			clothSearch.setRating(cloth.getRating());
+			clothSearch.setPrice(cloth.getPrice());
+			clothSearch.setGender(cloth.getGender().toLowerCase());
+			clothSearch.setTag(cloth.getTag().toLowerCase());
+			clothSearch.setPincode(cloth.getPincode());
+			String combinedValue = cloth.getColor().toLowerCase() + " " + cloth.getBrand().toLowerCase() + " "
+					+ cloth.getCategory().toLowerCase() + " " + cloth.getGender().toLowerCase();
+			clothSearch.setCombinedValues(combinedValue);
+			clothSearchRepository.save(clothSearch);
+
+			uniqueColors.add(cloth.getColor().toLowerCase());
+			uniqueBrands.add(cloth.getBrand().toLowerCase());
+			uniqueCategories.add(cloth.getCategory().toLowerCase());
+
+		}
+	}
 
 	public ClothingSearchService(RestHighLevelClient elasticsearchClient) {
 		this.elasticsearchClient = elasticsearchClient;
