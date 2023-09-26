@@ -43,7 +43,8 @@ To run in different port `ng serve --host 0.0.0.0 --port 5000`
 
 # To run Elastic Search:
 
-- Download the elastic-search-7.15.2 from the `Data` folder
+- Download the elastic-search-7.15.2.zip from the below link
+- [https://drive.google.com/file/d/1pe017JiBTcVWCtUztk-ggPmfm-qVCYIC/view?usp=drive_link](url)
 - Unzip it - > Open bin -> Run elasticsearch.bat
 
 # To run the application in server side and store data in mongodb
