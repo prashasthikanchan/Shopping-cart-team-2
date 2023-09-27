@@ -47,9 +47,16 @@ To run in different port `ng serve --host 0.0.0.0 --port 5000`
 - [https://drive.google.com/file/d/1pe017JiBTcVWCtUztk-ggPmfm-qVCYIC/view?usp=drive_link](url)
 - Unzip it - > Open bin -> Run elasticsearch.bat
 
-# To run the application in server side and store data in mongodb
+# To run the application in server side 
 - Open server-side -> src/main/java -> com.example.shoppingcart -> ShoppingCartApplication.java
 - Right click-> Run As -> Java Application
+- To run server along with mongoDb database in application.properties set
+* `spring.profiles.active=mongodb`
+* `app.base-package=com.example.shoppingcart.MongoDb`
+
+- To run server along with mysql database in application.properties set
+* `spring.profiles.active=mysql`
+* `app.base-package=com.example.shoppingcart.Mysql`
 
 Note- Currently the database is present in our cluster. If you need to connect to your MongoDB server then change the credentials in the application.properties file.
 
@@ -58,7 +65,7 @@ Follow the following steps:
 * Insert the json files of brands, category, gender, clothing attached in the extra file to the collection with the same name.
 * Create collections with name as user, carts, cartItems.
 
-# To run the application in server side and store data in MySQL
+# To store data in MySQL
 - Open MySQL command line client
 - Create a schema with name `shopping-cart`
 - In ServerMySQL -> src/main/resources -> application.properties, replace the below lines with your mysql username and password
